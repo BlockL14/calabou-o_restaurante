@@ -1,87 +1,804 @@
 /* ==========================================================================
-   CALABOUÇO — Home
+   CALABOUÇO — Home (landing page)
+   Composição das seções com os componentes do sistema "Brasa" (base.css).
    ========================================================================== */
 
-/* Banner principal: texto no topo, foto ocupando o bloco (padrão Apple) */
+/* ---------- Hero ----------
+   Best Pizza: pizza vazando pela direita + arco tracejado com 4 benefícios.
+   RedSun: "sol" vermelho atrás do produto, feixes de luz, luz que segue o cursor.
+   Japan Tours: palavra gigante translúcida ao fundo. */
 .hero {
-  min-height: calc(100svh - var(--nav-h) - 44px);
-  max-height: 980px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: min(100svh, 1000px);
+  padding-top: calc(var(--nav-h) + clamp(24px, 6vh, 72px));
+  padding-bottom: clamp(48px, 8vh, 96px);
+  background: radial-gradient(60% 70% at 80% 50%, rgba(200, 38, 29, 0.14), transparent 70%), var(--bg);
 }
-.hero .tile__copy {
-  padding-top: clamp(56px, 9vh, 104px);
+/* Luz que acompanha o cursor (RedSun "cursor-light"); posição vem do home.js */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx, 72%) var(--my, 38%), rgba(252, 204, 46, 0.06), transparent 62%);
 }
-.hero .t-hero {
-  margin-top: 4px;
+.hero__fx {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
 }
-.hero .t-subhead {
+/* Feixes de luz verticais (RedSun "light left/middle/right") em tom de vela */
+.hero__beam {
+  position: absolute;
+  top: -12%;
+  transform-origin: top center;
+  background: linear-gradient(180deg, rgba(255, 214, 160, 0.3), rgba(255, 170, 100, 0.08) 55%, transparent 85%);
+  filter: blur(26px);
+  mix-blend-mode: screen;
+  animation: flicker 7s ease-in-out infinite;
+}
+.hero__beam--1 {
+  left: 56%;
+  width: 110px;
+  height: 78%;
+  opacity: 0.37;
+  transform: rotate(18deg);
+}
+.hero__beam--2 {
+  left: 67%;
+  width: 180px;
+  height: 88%;
+  opacity: 0.5;
+  transform: rotate(9deg);
+  animation-delay: -2.4s;
+}
+.hero__beam--3 {
+  left: 82%;
+  width: 110px;
+  height: 70%;
+  opacity: 0.45;
+  transform: rotate(-3deg);
+  animation-delay: -4.6s;
+}
+@keyframes flicker {
+  0%,
+  100% {
+    filter: blur(26px) brightness(1);
+  }
+  45% {
+    filter: blur(28px) brightness(0.82);
+  }
+  60% {
+    filter: blur(25px) brightness(1.08);
+  }
+}
+.hero__word {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--nav-h) - 0.5vw);
+  z-index: -1;
+  transform: translateX(-50%);
+  font-family: var(--font-cond);
+  font-size: clamp(110px, 20vw, 330px);
+  font-weight: 600;
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: linear-gradient(180deg, rgba(255, 236, 214, 0.1), rgba(255, 236, 214, 0) 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+}
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+.hero__title {
+  margin-top: 26px;
+  font-size: clamp(40px, 4.9vw, 76px);
+}
+.hero__note {
+  margin-top: 22px;
+  font-family: var(--font-cond);
+  font-size: clamp(15px, 1.3vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+.hero__lead {
   margin-top: 14px;
-  color: rgba(245, 241, 236, 0.86);
+  max-width: 44ch;
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: var(--text-2);
 }
 .hero .btn-row {
-  margin-top: 30px;
+  margin-top: 34px;
+}
+.status-dot + [data-open-status] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Bloco da pizza assinatura: separação sutil do banner */
-.tile--signature {
-  border-top: 1px solid var(--line);
+/* Visual: --d é o diâmetro da pizza; o centro fica a 12% de --d da borda direita da coluna */
+.hero__visual {
+  --d: clamp(420px, 44vw, 700px);
+  --r: calc(var(--d) / 2 + 44px);
+  --cx: calc(100% - var(--d) * 0.12);
+  position: relative;
+  height: calc(var(--d) * 1.02);
 }
-.tile--signature .tile__bg::after {
-  background: linear-gradient(180deg, rgba(10, 8, 7, 0.92) 0%, rgba(10, 8, 7, 0.7) 42%, rgba(10, 8, 7, 0) 68%),
-    linear-gradient(0deg, rgba(10, 8, 7, 0.6) 0%, transparent 28%);
+.hero__pizza,
+.hero__sun,
+.hero__ring {
+  position: absolute;
+  top: 50%;
+  border-radius: 50%;
 }
-.tile--signature .t-small {
+.hero__pizza {
+  left: calc(var(--cx) - var(--d) / 2);
+  width: var(--d);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.95), 0 0 0 12px rgba(12, 10, 9, 0.45);
+}
+.hero__pizza img {
+  animation: spin 160s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* "Sol" vermelho do RedSun, aqui como brasa do forno */
+.hero__sun {
+  left: calc(var(--cx) - var(--d) * 0.85);
+  width: calc(var(--d) * 1.7);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  z-index: -1;
+  background: radial-gradient(
+    circle,
+    rgba(238, 99, 38, 0.5) 0%,
+    rgba(200, 38, 29, 0.32) 30%,
+    rgba(120, 20, 12, 0.14) 48%,
+    transparent 66%
+  );
+  filter: blur(18px);
+}
+/* Arco tracejado (Best Pizza); só a metade esquerda aparece */
+.hero__ring {
+  left: calc(var(--cx) - var(--r));
+  width: calc(var(--r) * 2);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border: 1.5px dashed var(--dash);
+  -webkit-mask-image: linear-gradient(90deg, #000 28%, transparent 50%);
+  mask-image: linear-gradient(90deg, #000 28%, transparent 50%);
+}
+.hero__perks li {
+  position: absolute;
+  left: calc(var(--cx) + var(--r) * cos(var(--a)));
+  top: calc(50% - var(--r) * sin(var(--a)));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transform: translate(calc(-100% + 12px), -50%);
+}
+.hero__perk-text {
+  font-family: var(--font-cond);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
   color: var(--text);
 }
-.tile--signature .link-row button.link {
-  font-size: inherit;
+.hero__node {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--yellow);
+  background: var(--bg);
+  box-shadow: 0 0 18px -2px var(--glow-ember);
+}
+.hero__node::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--yellow);
 }
 
-/* Grade de categorias */
-.tile-grid .tile {
-  transition: transform 0.6s var(--ease);
+/* Sem funções trigonométricas no CSS, os benefícios viram uma lista simples */
+@supports not (left: calc(1px * cos(0deg))) {
+  .hero__perks {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .hero__perks li {
+    position: static;
+    transform: none;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
 }
-.tile-grid .tile .tile__bg img {
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .hero__visual {
+    --d: clamp(400px, 46vw, 520px);
+  }
+  .hero__perk-text {
+    font-size: 13px;
+    white-space: normal;
+    max-width: 16ch;
+    text-align: right;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding-top: calc(var(--nav-h) + 40px);
+  }
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .hero__word {
+    font-size: 27vw;
+    top: calc(var(--nav-h) + 4px);
+  }
+  .hero__visual {
+    --d: min(80vw, 440px);
+    --cx: 50%;
+    height: auto;
+    display: grid;
+    justify-items: center;
+    padding-top: 56px;
+  }
+  .hero__pizza {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+  .hero__sun,
+  .hero__ring {
+    top: calc(56px + var(--d) / 2);
+  }
+  .hero__ring {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0.7;
+  }
+  .hero__perks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 12px;
+    width: 100%;
+    margin-top: 64px;
+  }
+  .hero__perks li {
+    position: static;
+    transform: none;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .hero__perk-text {
+    font-size: 14px;
+    white-space: normal;
+  }
+  .hero__beam--1 {
+    left: 18%;
+  }
+  .hero__beam--2 {
+    left: 46%;
+  }
+  .hero__beam--3 {
+    left: 74%;
+  }
+}
+@media (max-width: 480px) {
+  .hero .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Cardápio (Best Pizza) ---------- */
+.menu-show .tabs {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 3.6vw, 44px) clamp(24px, 5vw, 72px);
+}
+.menu-card--in {
+  animation: menu-in 0.6s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.menu-show__foot {
+  margin-top: clamp(40px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+@media (max-width: 760px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Destaques (Best Pizza: "Promotions of the week") ---------- */
+.promos__title {
+  margin-bottom: clamp(32px, 4vw, 52px);
+  text-align: center;
+  font-size: clamp(28px, 3.6vw, 44px);
+}
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+.promo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(300px, 26vw, 360px);
+  border-radius: var(--radius-lg);
+  background: var(--tile);
+  /* moldura grossa dos cartões de promoção da Best Pizza */
+  outline: 8px solid var(--tile-2);
+  outline-offset: -8px;
+}
+.promo__media {
+  position: absolute;
+  inset: 0 0 0 36%;
+  z-index: -1;
+}
+.promo__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--tile) 0%, rgba(28, 25, 23, 0.55) 30%, rgba(28, 25, 23, 0) 62%);
+}
+.promo__media img {
   transition: transform 1.2s var(--ease);
 }
-.tile-grid .tile:hover .tile__bg img {
-  transform: scale(1.04);
+.promo:hover .promo__media img {
+  transform: scale(1.05);
 }
-.tile-grid .tile__bg::after {
-  background: linear-gradient(180deg, rgba(10, 8, 7, 0.88) 0%, rgba(10, 8, 7, 0.6) 42%, rgba(10, 8, 7, 0) 66%),
-    linear-gradient(0deg, rgba(10, 8, 7, 0.55) 0%, transparent 30%);
+.promo__body {
+  position: relative;
+  max-width: 64%;
+  padding: clamp(28px, 3vw, 40px);
 }
-.tile-grid .tile__copy {
-  padding-top: clamp(36px, 4.6vw, 52px);
+.promo__kicker {
+  font-family: var(--font-cond);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
 }
-.tile-grid .t-subhead {
-  font-size: clamp(17px, 1.6vw, 21px);
-  color: rgba(245, 241, 236, 0.86);
+.promo__price {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.4vw, 58px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ember);
+  font-variant-numeric: tabular-nums;
 }
-.tile-grid .link-row {
+.promo__name {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.promo__desc {
+  margin-top: 10px;
+  max-width: 34ch;
+  font-size: 14px;
+  color: var(--text-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.promo__actions {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+}
+.promo__actions .link {
+  font-size: 15px;
+}
+@media (max-width: 900px) {
+  .promo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .promo {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+  .promo__media {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 16 / 10;
+  }
+  .promo__media::after {
+    background: linear-gradient(0deg, var(--tile) 0%, rgba(28, 25, 23, 0) 55%);
+  }
+  .promo__body {
+    max-width: none;
+    margin-top: -48px;
+    padding: 0 24px 28px;
+  }
+}
+
+/* ---------- Depoimentos (Best Pizza: carrossel, cartão central em destaque) ---------- */
+.reviews {
+  overflow: hidden;
+}
+.reviews .section-head {
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+.rv {
+  --shift: 92%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+.rv__stage {
+  display: grid;
+  justify-items: center;
+  padding-top: 36px;
+  touch-action: pan-y;
+}
+.rv-card {
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 400px);
+  padding: 48px 30px 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-2);
+  background: var(--tile);
+  transition: transform 0.65s var(--ease-out), opacity 0.65s var(--ease-out), visibility 0.65s,
+    border-color 0.65s, box-shadow 0.65s;
+}
+.rv-card.is-current {
+  z-index: 2;
+  border-color: rgba(252, 204, 46, 0.28);
+  box-shadow: var(--shadow-card), 0 0 70px -30px var(--glow-ember);
+}
+.rv-card.is-prev,
+.rv-card.is-next {
+  z-index: 1;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.rv-card.is-prev {
+  transform: translateX(calc(var(--shift) * -1)) scale(0.82);
+}
+.rv-card.is-next {
+  transform: translateX(var(--shift)) scale(0.82);
+}
+.rv-card.is-off {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.7);
+}
+.rv-card__avatar.avatar {
+  position: absolute;
+  top: -34px;
+  left: 28px;
+  width: 64px;
+  height: 64px;
+  font-size: 20px;
+  border: 4px solid var(--bg-2);
+}
+.rv-card .stars .icon {
+  width: 15px;
+  height: 15px;
+}
+.rv-card__text {
   margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.rv-card figcaption {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rv-card__name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ember);
+}
+.rv-card__occasion {
+  font-size: 13px;
+  color: var(--text-3);
+}
+.reviews__more {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 16px;
+}
+@media (max-width: 1100px) {
+  .rv {
+    --shift: 64%;
+  }
+}
+@media (max-width: 760px) {
+  .rv {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 8px;
+  }
+  .rv__stage {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .rv__prev {
+    grid-row: 2;
+    justify-self: end;
+  }
+  .rv__next {
+    grid-row: 2;
+    justify-self: start;
+  }
+  .rv-card.is-prev,
+  .rv-card.is-next {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .rv-card {
+    padding: 46px 22px 24px;
+  }
 }
 
-/* Manifesto */
-.statement .container {
-  max-width: calc(1040px + var(--gutter) * 2);
+/* ---------- Uma noite aqui (Japan Tours: linha do tempo com fotos) ---------- */
+.night__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 96px);
+  margin-top: clamp(40px, 5vw, 72px);
 }
-.statement {
-  padding-block: clamp(96px, 14vw, 200px);
+.night__intro {
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-h) + 32px);
+  display: grid;
+  gap: 18px;
+  max-width: 42ch;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.55;
+  color: var(--text);
+}
+.night__intro .btn {
+  justify-self: start;
+  margin-top: 10px;
+}
+.timeline {
+  position: relative;
+  display: grid;
+  gap: clamp(48px, 6vw, 80px);
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 50%;
+  width: 1px;
+  background: var(--line-strong);
+}
+.timeline__step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr);
+  gap: 0 clamp(16px, 2vw, 28px);
+  align-items: start;
+}
+.timeline__text {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+}
+.timeline__dot {
+  grid-column: 2;
+  grid-row: 1;
+  width: 16px;
+  height: 16px;
+  margin-top: 6px;
+  justify-self: center;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 0 5px var(--bg), 0 0 20px rgba(252, 204, 46, 0.5);
+}
+.timeline__photos {
+  grid-column: 3;
+  grid-row: 1;
+  position: relative;
+  min-height: clamp(180px, 17vw, 230px);
+}
+.timeline__step:nth-child(even) .timeline__text {
+  grid-column: 3;
+  text-align: left;
+}
+.timeline__step:nth-child(even) .timeline__photos {
+  grid-column: 1;
+}
+.timeline__when {
+  font-family: var(--font-cond);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.timeline__text h3 {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.timeline__text p:last-child {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--text-2);
+}
+.timeline__photos .media {
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.95);
+}
+.timeline__photos .media:first-child {
+  top: 0;
+  left: 0;
+  width: 66%;
+  aspect-ratio: 4 / 3;
+}
+.timeline__photos .media:last-child {
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  outline: 4px solid var(--bg);
+}
+.timeline__step:nth-child(even) .timeline__photos .media:first-child {
+  left: auto;
+  right: 0;
+}
+.timeline__step:nth-child(even) .timeline__photos .media:last-child {
+  right: auto;
+  left: 0;
+}
+@media (max-width: 900px) {
+  .night__grid {
+    grid-template-columns: 1fr;
+  }
+  .night__intro {
+    position: static;
+  }
+  .timeline::before {
+    left: 9px;
+  }
+  .timeline__step,
+  .timeline__step:nth-child(even) {
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 16px;
+  }
+  .timeline__dot {
+    grid-column: 1;
+  }
+  .timeline__text,
+  .timeline__step:nth-child(even) .timeline__text {
+    grid-column: 2;
+    text-align: left;
+  }
+  .timeline__photos,
+  .timeline__step:nth-child(even) .timeline__photos {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: clamp(200px, 52vw, 280px);
+  }
 }
 
-/* Instagram */
+/* ---------- O que te espera (Japan Tours: "What's included") ---------- */
+.perk-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+@media (max-width: 1000px) {
+  .perk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .perk-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Instagram (Best Pizza: bloco "Watch a video") ---------- */
 .insta {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(32px, 6vw, 80px);
   align-items: center;
 }
-.insta__copy .t-headline {
-  font-size: clamp(26px, 3.3vw, 46px);
-  overflow-wrap: anywhere;
+.insta__copy .t-lead {
+  margin-top: 18px;
 }
-.insta__copy .t-headline a:hover {
-  color: var(--amber);
+.insta__copy .btn-row {
+  margin-top: 28px;
+}
+.insta__copy .btn {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 15px;
+}
+.insta__frame {
+  padding: 10px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-2);
+  background: var(--tile);
+  box-shadow: var(--shadow-card);
 }
 .insta-grid {
   display: grid;
@@ -109,8 +826,8 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(10, 8, 7, 0.55);
-  color: #fff;
+  background: rgba(12, 10, 9, 0.55);
+  color: var(--yellow);
   opacity: 0;
   transition: opacity 0.35s var(--ease);
 }
@@ -128,26 +845,60 @@
   }
 }
 
-/* Chamada final */
-.tile--cta {
-  min-height: clamp(560px, 62vw, 760px);
-  justify-content: center;
+/* ---------- Chamada final (Japan: vidro sobre foto · RedSun: caixa de CTA) ---------- */
+.cta-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(96px, 13vw, 180px);
 }
-.tile--cta .tile__copy {
-  padding-block: 64px;
+.cta-glass__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
-.tile--cta .tile__bg::after {
-  background: radial-gradient(80% 70% at 50% 50%, rgba(10, 8, 7, 0.55), rgba(10, 8, 7, 0.88)),
-    linear-gradient(0deg, rgba(10, 8, 7, 0.6), transparent 40%);
+.cta-glass__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(12, 10, 9, 0.82) 0%, rgba(12, 10, 9, 0.25) 70%),
+    linear-gradient(180deg, var(--bg) 0%, transparent 28%, transparent 72%, var(--bg) 100%);
 }
-.tile--cta .btn-row {
+.cta-card {
+  max-width: 540px;
+  padding: clamp(28px, 4vw, 44px);
+}
+.cta-card__status {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.cta-card__hours {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--glass-line);
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.cta-card__hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cta-card__hours li.is-today {
+  color: var(--yellow);
+}
+.cta-card .btn-row {
   margin-top: 28px;
 }
 @media (max-width: 480px) {
-  .tile--cta .btn-row {
+  .cta-card .btn-row {
     flex-direction: column;
     align-items: stretch;
-    width: min(100%, 320px);
-    margin-inline: auto;
   }
 }

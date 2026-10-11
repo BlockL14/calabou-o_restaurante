@@ -98,6 +98,8 @@
     trash: '<path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
     copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
     sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.4 2.4M15.3 15.3l2.4 2.4M6.3 17.7l2.4-2.4M15.3 8.7l2.4-2.4"/>',
+    pause: '<path d="M9 5v14M15 5v14"/>',
+    play: '<path d="M7.5 4.8v14.4L19 12Z"/>',
     gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
   };
 
@@ -379,6 +381,13 @@
      Navegação, animações de entrada e efeitos de rolagem
      ------------------------------------------------------------------------ */
   function initNav() {
+    // Pílula da navegação fica mais opaca depois que a página rola
+    const gnav = $(".gnav");
+    if (gnav) {
+      const onScroll = () => gnav.classList.toggle("is-scrolled", window.scrollY > 8);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
     const toggle = $(".gnav__toggle");
     const links = $(".gnav__links");
     if (!toggle || !links) return;
@@ -388,7 +397,7 @@
       links.classList.toggle("is-open", open);
       document.body.classList.toggle("nav-open", open);
       // Com o menu aberto, o conteúdo de trás fica inerte (sem foco nem clique)
-      $$("main, footer, .ribbon, .fab, .bag-bar").forEach((el) => (el.inert = open));
+      $$("main, footer, .fab, .bag-bar").forEach((el) => (el.inert = open));
       if (open) {
         setTimeout(() => {
           const a = $("a", links);
@@ -647,13 +656,6 @@
           ${addButton(item)}
         </div>
       </article>`;
-  }
-
-  function renderFeatured() {
-    $$("[data-featured]").forEach((track) => {
-      const items = MENU.filter((m) => m.featured).slice(0, Number(track.dataset.limit) || 12);
-      track.innerHTML = items.map(productCard).join("");
-    });
   }
 
   function renderReviews() {
@@ -1089,7 +1091,6 @@
      ------------------------------------------------------------------------ */
   function init() {
     hydrateIcons();
-    renderFeatured();
     renderReviews();
     renderInstagram();
     initInteractions();
