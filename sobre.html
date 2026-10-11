@@ -71,7 +71,7 @@
     <!-- ============ MANIFESTO (texto que acende na rolagem) ============ -->
     <section class="section about-manifesto" id="manifesto" aria-label="Manifesto">
       <div class="container">
-        <p class="scrub-text" data-scrub>O Calabouço nasceu de uma ideia simples: transformar o jantar em um refúgio. <span class="accent">Pedra, fogo e vinho</span> — e tempo para aproveitar cada um deles.</p>
+        <p class="scrub-text" data-scrub>O Calabouço nasceu de uma ideia simples: transformar o jantar em um refúgio. <span class="accent">Pedra, fogo e vinho</span>&nbsp;— e tempo para aproveitar cada um deles.</p>
       </div>
     </section>
 
@@ -179,32 +179,32 @@
             <p class="eyebrow reveal">O ambiente</p>
             <h2 class="t-headline reveal" style="--delay:.06s" id="ambient-title">Um lugar para ficar.</h2>
           </div>
-          <a class="link reveal ambient__link" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Mais fotos no Instagram <span data-icon="chevron-right"></span></a>
+          <a class="link reveal about-head-link" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Mais fotos no Instagram <span data-icon="chevron-right"></span></a>
         </div>
       </div>
-      <div class="scroller" data-scroller>
+      <div class="scroller reveal" style="--delay:.1s" data-scroller>
         <div class="scroller__track" role="region" aria-label="Fotos do ambiente" tabindex="0">
-          <figure class="ambient-card reveal">
+          <figure class="ambient-card">
             <div class="media"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=70" alt="Salão do restaurante à noite" loading="lazy" decoding="async"></div>
             <figcaption><strong>O salão.</strong> Luz baixa e paredes de pedra.</figcaption>
           </figure>
-          <figure class="ambient-card reveal" style="--delay:.06s">
+          <figure class="ambient-card">
             <div class="media fb-wine"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=70" alt="Taças de vinho tinto em um brinde" loading="lazy" decoding="async"></div>
             <figcaption><strong>O brinde.</strong> A taça, sempre por perto.</figcaption>
           </figure>
-          <figure class="ambient-card reveal" style="--delay:.12s">
+          <figure class="ambient-card">
             <div class="media fb-pizza"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=70" alt="Pizza artesanal com manjericão fresco" loading="lazy" decoding="async"></div>
             <figcaption><strong>O forno.</strong> Direto para a sua mesa.</figcaption>
           </figure>
-          <figure class="ambient-card reveal" style="--delay:.18s">
+          <figure class="ambient-card">
             <div class="media fb-glass"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=70" alt="Drink autoral servido em taça" loading="lazy" decoding="async"></div>
             <figcaption><strong>Os drinks.</strong> Autorais, para abrir a noite.</figcaption>
           </figure>
-          <figure class="ambient-card reveal" style="--delay:.24s">
+          <figure class="ambient-card">
             <div class="media fb-plate"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1200&q=70" alt="Corte de carne grelhado" loading="lazy" decoding="async"></div>
             <figcaption><strong>A cozinha.</strong> Carnes nobres, no ponto certo.</figcaption>
           </figure>
-          <figure class="ambient-card reveal" style="--delay:.3s">
+          <figure class="ambient-card">
             <div class="media"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70" alt="Mesas do salão prontas para o jantar" loading="lazy" decoding="async"></div>
             <figcaption><strong>As mesas.</strong> Para dois ou para a família toda.</figcaption>
           </figure>
@@ -225,16 +225,16 @@
             <p class="eyebrow reveal">Depoimentos</p>
             <h2 class="t-headline reveal" style="--delay:.06s" id="reviews-title">Histórias contadas à mesa.</h2>
           </div>
-          <a class="link reveal ambient__link" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Conte a sua no Instagram <span data-icon="chevron-right"></span></a>
+          <a class="link reveal about-head-link" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Conte a sua no Instagram <span data-icon="chevron-right"></span></a>
         </div>
-        <div class="review-grid" data-reviews></div>
+        <div class="review-grid" data-reviews role="region" aria-label="Depoimentos" tabindex="0"></div>
       </div>
     </section>
 
     <!-- ============ CHAMADA FINAL ============ -->
     <section class="tile about-cta" aria-labelledby="about-cta-title">
       <div class="tile__bg media media--hero">
-        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" decoding="async">
       </div>
       <div class="tile__copy">
         <p class="eyebrow reveal">Sua próxima noite</p>
@@ -253,12 +253,13 @@
     <div class="container container--wide footer__inner">
       <div class="footer__note">
         <p>Preços em reais, sujeitos a alteração sem aviso prévio. Imagens meramente ilustrativas.</p>
-        <p>Pedidos e reservas enviados pelo site são confirmados pela nossa equipe. Pizzas grandes com 8 pedaços — consulte opções meia a meia.</p>
+        <p>Pedidos e reservas enviados pelo site são confirmados pela nossa equipe.</p>
       </div>
       <div class="footer__cols">
         <div>
           <h3>Cardápio</h3>
           <ul>
+            <li><a href="cardapio.html?cat=entradas">Entradas</a></li>
             <li><a href="cardapio.html?cat=pizzas-da-casa">Pizzas da Casa</a></li>
             <li><a href="cardapio.html?cat=pizzas-tradicionais">Pizzas Tradicionais</a></li>
             <li><a href="cardapio.html?cat=massas">Massas</a></li>

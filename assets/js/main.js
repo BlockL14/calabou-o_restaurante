@@ -191,8 +191,10 @@
   };
   const fmtHour = (hhmm) => {
     const [h, m] = String(hhmm).split(":");
-    return `${h === "00" ? "00" : String(Number(h))}h${m && m !== "00" ? m : ""}`;
+    return `${String(Number(h))}h${m && m !== "00" ? m : ""}`;
   };
+  // Em frases ("até meia-noite") fica mais natural do que "até 0h"
+  const fmtUntil = (hhmm) => (toMin(hhmm) === 0 ? "meia-noite" : fmtHour(hhmm));
   const hoursFor = (day) => (CFG.hours || []).find((h) => h.day === day) || { day, closed: true };
   const hoursText = (h) => (h.closed ? "Fechado" : `${fmtHour(h.open)} – ${fmtHour(h.close)}`);
 
@@ -208,12 +210,12 @@
     };
     const today = span(hoursFor(day));
     if (today && mins >= today[0] && mins < today[1]) {
-      return { open: true, label: `Aberto agora · até ${fmtHour(hoursFor(day).close)}` };
+      return { open: true, label: `Aberto agora · até ${fmtUntil(hoursFor(day).close)}` };
     }
     const prevDay = (day + 6) % 7;
     const prev = span(hoursFor(prevDay));
     if (prev && prev[1] > 1440 && mins < prev[1] - 1440) {
-      return { open: true, label: `Aberto agora · até ${fmtHour(hoursFor(prevDay).close)}` };
+      return { open: true, label: `Aberto agora · até ${fmtUntil(hoursFor(prevDay).close)}` };
     }
     if (today && mins < today[0]) return { open: false, label: `Fechado · abre hoje às ${fmtHour(hoursFor(day).open)}` };
     for (let i = 1; i <= 7; i++) {

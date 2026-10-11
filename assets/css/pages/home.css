@@ -20,11 +20,6 @@
 .hero .btn-row {
   margin-top: 30px;
 }
-.tile__bg img[data-parallax] {
-  transform: scale(1.08);
-  transform-origin: center 30%;
-  will-change: transform;
-}
 
 /* Bloco da pizza assinatura: separação sutil do banner */
 .tile--signature {

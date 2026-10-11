@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Contato e reservas — Calabouço Restaurante</title>
-  <meta name="description" content="Reserve sua mesa no Calabouço Restaurante. Endereço, telefone, horários de funcionamento e Instagram.">
-  <meta name="theme-color" content="#0b0807">
+  <title>Reservas e contato — Calabouço Restaurante</title>
+  <meta name="description" content="Reserve sua mesa no Calabouço em poucos toques: escolha o dia, o horário e quantas pessoas. Veja também endereço, horários de funcionamento e como chegar.">
+  <meta name="theme-color" content="#0a0807">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Calabouço Restaurante">
-  <meta property="og:title" content="Contato e reservas — Calabouço Restaurante">
-  <meta property="og:description" content="Reserve sua mesa no Calabouço Restaurante. Endereço, telefone, horários de funcionamento e Instagram.">
+  <meta property="og:title" content="Reservas e contato — Calabouço Restaurante">
+  <meta property="og:description" content="Reserve sua mesa no Calabouço em poucos toques: escolha o dia, o horário e quantas pessoas. Veja também endereço, horários de funcionamento e como chegar.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preload" href="assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/pages/contato.css">
 
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/data.js" defer></script>
@@ -29,205 +29,304 @@
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <header class="site-header" data-header>
-    <div class="container site-header__inner">
-      <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
-        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="flameH" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
-            </linearGradient>
-          </defs>
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
-            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
-            <path d="M4 45h40" stroke-width="2"/>
-          </g>
-          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameH)"/>
+  <header class="gnav">
+    <nav class="container container--wide gnav__inner" aria-label="Principal">
+      <a class="brand" href="index.html" aria-label="Calabouço Restaurante — início">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 29V14a10 10 0 0 1 20 0v15"/><path d="M3 29h26"/>
+          <path d="M16 13.5c2.2 2.4 3.6 4.1 3.6 6.4a3.6 3.6 0 0 1-7.2 0c0-1.5.7-2.6 1.6-3.5.1 1.1.6 1.8 1.4 2-.3-1.8 0-3.3.6-4.9z" fill="currentColor" stroke="none"/>
         </svg>
-        <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
+        <span class="brand__name">Calabouço</span>
       </a>
-      <nav class="site-nav" id="site-nav" aria-label="Principal">
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="cardapio.html">Cardápio</a></li>
-          <li><a href="sobre.html">Sobre nós</a></li>
-          <li><a href="contato.html" aria-current="page">Contato</a></li>
-        </ul>
-        <a class="btn btn--primary btn--sm" href="contato.html#reserva">Reservar mesa</a>
-      </nav>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu"><span></span><span></span></button>
-    </div>
+      <div class="gnav__links" id="gnav-links">
+        <a href="index.html">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="contato.html" aria-current="page">Reservas e contato</a>
+      </div>
+      <div class="gnav__actions">
+        <a class="btn btn--primary btn--sm gnav__reserve" href="contato.html#reserva">Reservar</a>
+        <button class="gnav__icon-btn" type="button" data-bag-open aria-label="Abrir sacola"><span data-icon="bag"></span><span class="gnav__badge" data-bag-count hidden>0</span></button>
+        <button class="gnav__icon-btn gnav__toggle" type="button" aria-expanded="false" aria-controls="gnav-links" aria-label="Abrir menu"><span class="bars"><span></span><span></span></span></button>
+      </div>
+    </nav>
   </header>
+  <main id="conteudo" class="page-top">
 
-  <main id="conteudo">
-
-    <section class="page-hero">
-      <div class="hero__bg media"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=70" alt="" fetchpriority="high" decoding="async"></div>
+    <!-- ============ CABEÇALHO (referência: Apple) ============ -->
+    <section class="rsv-hero" aria-labelledby="rsv-title">
       <div class="container">
-        <span class="kicker reveal">Contato &amp; Reservas</span>
-        <h1 class="display reveal" style="--delay:.08s">Vamos reservar <em>sua mesa?</em></h1>
-        <p class="lead reveal" style="--delay:.16s">Escolha o melhor canal ou envie sua solicitação de reserva pelo formulário. Respondemos o mais rápido possível.</p>
-        <nav class="breadcrumb reveal" style="--delay:.24s" aria-label="Você está em">
-          <a href="index.html">Início</a><span aria-hidden="true">/</span><span aria-current="page">Contato</span>
-        </nav>
+        <p class="eyebrow reveal">Reservas e contato</p>
+        <h1 class="t-headline reveal" style="--delay:.06s" id="rsv-title">Reserve sua mesa.</h1>
+        <p class="t-lead reveal" style="--delay:.12s">Escolha o dia, o horário e quantas pessoas. Nossa equipe confirma pelo <span data-config="channel-name">WhatsApp</span>.</p>
+        <div class="rsv-hero__meta reveal" style="--delay:.18s">
+          <span class="status-pill" data-open-status>Horários da casa</span>
+          <span class="rsv-hero__call">Prefere ligar? <a class="link" data-link="tel" href="tel:+554132546112"><span data-config="phone">(41) 3254-6112</span> <span data-icon="chevron-right"></span></a></span>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contact-layout">
-        <div>
-          <div class="contact-cards">
-            <a class="contact-card reveal" data-link="reserve" href="#reserva">
-              <span class="feature__icon"><span data-channel-icon></span></span>
-              <span><span class="contact-card__label">Reservas e pedidos</span><span class="contact-card__value" data-config="channel-name" style="display:block">WhatsApp</span></span>
-              <span data-icon="arrow-up-right"></span>
-            </a>
-            <a class="contact-card reveal" style="--delay:.06s" data-link="tel" href="#">
-              <span class="feature__icon"><span data-icon="phone"></span></span>
-              <span><span class="contact-card__label">Telefone</span><span class="contact-card__value" data-config="phone" style="display:block"></span></span>
-              <span data-icon="arrow-up-right"></span>
-            </a>
-            <a class="contact-card reveal" style="--delay:.12s" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">
-              <span class="feature__icon"><span data-icon="instagram"></span></span>
-              <span><span class="contact-card__label">Instagram</span><span class="contact-card__value" data-config="instagram-handle" style="display:block">@calaboucorestaurante</span></span>
-              <span data-icon="arrow-up-right"></span>
-            </a>
-            <a class="contact-card reveal" style="--delay:.18s" data-link="maps" href="#mapa">
-              <span class="feature__icon"><span data-icon="map-pin"></span></span>
-              <span><span class="contact-card__label">Endereço</span><span class="contact-card__value" data-config="address-line" style="display:block"></span><span class="muted" data-config="address-city" style="font-size:.86rem"></span></span>
-              <span data-icon="arrow-up-right"></span>
-            </a>
-          </div>
+    <!-- ============ RESERVA (OpenTable/Resy) + VISITE-NOS (Apple Store) ============ -->
+    <div class="rsv">
+      <div class="container rsv__grid">
 
-          <div class="panel hours-card reveal" id="horarios">
-            <div class="hours-head">
-              <h3>Horários</h3>
-              <span class="status-pill" data-open-status>Consultando…</span>
-            </div>
-            <table class="hours-table">
-              <caption class="sr-only">Horário de funcionamento</caption>
-              <tbody data-hours-table></tbody>
-            </table>
-          </div>
-        </div>
+        <section class="rsv-card" id="reserva" aria-labelledby="reserva-title">
+          <h2 class="sr-only" id="reserva-title">Monte sua reserva</h2>
 
-        <div class="panel reveal" id="reserva">
-          <span class="kicker">Reserva online</span>
-          <h2 class="panel__title" style="margin-top:12px">Reserve em menos de um minuto</h2>
-          <p class="muted" style="margin-top:10px">Preencha os dados e enviaremos sua solicitação pelo <span data-config="channel-name">WhatsApp</span>. A confirmação é feita pela nossa equipe.</p>
+          <form id="reserva-form" novalidate>
 
-          <form id="reserva-form" class="form-grid" novalidate>
-            <div class="field field--full">
-              <label for="r-nome">Nome completo</label>
-              <input id="r-nome" class="input" type="text" autocomplete="name" placeholder="Como devemos chamar você?" required aria-describedby="r-nome-erro">
-              <span class="field__error" id="r-nome-erro"></span>
+            <!-- 1. Pessoas -->
+            <div class="rsv-step is-done" data-step="1" role="group" aria-labelledby="rsv-s1">
+              <div class="rsv-step__head">
+                <span class="rsv-step__num" aria-hidden="true">1</span>
+                <div>
+                  <h3 class="rsv-step__title" id="rsv-s1">Quantas pessoas?</h3>
+                  <p class="rsv-step__sub">Até 12 pelo site. Para mais, combinamos um evento.</p>
+                </div>
+              </div>
+              <div class="party">
+                <div class="party__stepper" data-party>
+                  <button class="party__btn" type="button" data-people="-1" aria-label="Remover uma pessoa"><span data-icon="minus"></span></button>
+                  <div class="party__value" aria-live="polite" aria-atomic="true">
+                    <output class="party__num" data-people-value>2</output>
+                    <span class="party__unit" data-people-unit>pessoas</span>
+                  </div>
+                  <button class="party__btn" type="button" data-people="1" aria-label="Adicionar uma pessoa"><span data-icon="plus"></span></button>
+                </div>
+                <button class="chip party__more" type="button" data-people-more aria-pressed="false"><span data-icon="users"></span>Mais de 12 (evento)</button>
+              </div>
             </div>
-            <div class="field">
-              <label for="r-telefone">Telefone (opcional)</label>
-              <input id="r-telefone" class="input" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+
+            <!-- 2. Data -->
+            <div class="rsv-step" data-step="2" role="group" aria-labelledby="rsv-s2">
+              <div class="rsv-step__head">
+                <span class="rsv-step__num" aria-hidden="true">2</span>
+                <div>
+                  <h3 class="rsv-step__title" id="rsv-s2">Quando?</h3>
+                  <p class="rsv-step__sub">Próximas três semanas.</p>
+                </div>
+                <div class="rsv-step__tools">
+                  <button class="circle-btn" type="button" data-dates-prev aria-label="Datas anteriores"><span data-icon="chevron-left"></span></button>
+                  <button class="circle-btn" type="button" data-dates-next aria-label="Próximas datas"><span data-icon="chevron-right"></span></button>
+                </div>
+              </div>
+              <div class="dates-wrap" data-dates-wrap>
+                <div class="dates" data-dates role="radiogroup" aria-labelledby="rsv-s2" aria-describedby="r-data-erro"></div>
+              </div>
+              <p class="field__error rsv-error" id="r-data-erro" role="alert"></p>
             </div>
-            <div class="field">
-              <label for="r-pessoas">Pessoas</label>
-              <select id="r-pessoas" class="select"></select>
+
+            <!-- 3. Horário -->
+            <div class="rsv-step" data-step="3" role="group" aria-labelledby="rsv-s3">
+              <div class="rsv-step__head">
+                <span class="rsv-step__num" aria-hidden="true">3</span>
+                <div>
+                  <h3 class="rsv-step__title" id="rsv-s3">Horário</h3>
+                  <p class="rsv-step__sub" data-day-hours>Escolha uma data para ver os horários.</p>
+                </div>
+              </div>
+              <div class="times" data-times role="radiogroup" aria-labelledby="rsv-s3" aria-describedby="r-horario-erro"></div>
+              <p class="times-empty" data-times-empty role="alert" hidden><span data-icon="calendar"></span>Sem horários disponíveis neste dia. Escolha outra data.</p>
+              <p class="field__error rsv-error" id="r-horario-erro" role="alert"></p>
             </div>
-            <div class="field">
-              <label for="r-data">Data</label>
-              <input id="r-data" class="input" type="date" required aria-describedby="r-data-erro">
-              <span class="field__error" id="r-data-erro"></span>
+
+            <!-- 4. Dados -->
+            <div class="rsv-step" data-step="4" role="group" aria-labelledby="rsv-s4">
+              <div class="rsv-step__head">
+                <span class="rsv-step__num" aria-hidden="true">4</span>
+                <div>
+                  <h3 class="rsv-step__title" id="rsv-s4">Seus dados</h3>
+                  <p class="rsv-step__sub">Para identificarmos sua mesa na chegada.</p>
+                </div>
+              </div>
+
+              <div class="rsv-fields">
+                <div class="field">
+                  <label class="label" for="r-nome">Nome</label>
+                  <input id="r-nome" class="input" type="text" name="nome" autocomplete="name" placeholder="Como devemos chamar você?" required minlength="2" aria-describedby="r-nome-erro">
+                  <p class="field__error" id="r-nome-erro"></p>
+                </div>
+                <div class="field">
+                  <label class="label" for="r-telefone">Telefone <span class="label__opt">opcional</span></label>
+                  <input id="r-telefone" class="input" type="tel" name="telefone" inputmode="tel" autocomplete="tel" placeholder="(41) 99999-8888" maxlength="15">
+                </div>
+              </div>
+
+              <div class="field rsv-occasion">
+                <span class="label" id="r-ocasiao-label">Ocasião</span>
+                <div class="occasions" role="group" aria-labelledby="r-ocasiao-label">
+                  <button class="chip" type="button" data-occasion="Sem ocasião especial" aria-pressed="true">Sem ocasião especial</button>
+                  <button class="chip" type="button" data-occasion="Jantar a dois" aria-pressed="false"><span data-icon="heart"></span>Jantar a dois</button>
+                  <button class="chip" type="button" data-occasion="Aniversário" aria-pressed="false"><span data-icon="gift"></span>Aniversário</button>
+                  <button class="chip" type="button" data-occasion="Comemoração" aria-pressed="false"><span data-icon="sparkle"></span>Comemoração</button>
+                  <button class="chip" type="button" data-occasion="Jantar de negócios" aria-pressed="false"><span data-icon="wine"></span>Jantar de negócios</button>
+                  <button class="chip" type="button" data-occasion="Grupo/evento" aria-pressed="false"><span data-icon="users"></span>Grupo/evento</button>
+                </div>
+              </div>
+
+              <div class="field rsv-obs">
+                <label class="label" for="r-obs">Observações <span class="label__opt">opcional</span></label>
+                <textarea id="r-obs" class="textarea" name="observacoes" rows="3" placeholder="Preferência de mesa, restrições alimentares, bolo, decoração…"></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="r-horario">Horário</label>
-              <select id="r-horario" class="select" required aria-describedby="r-horario-erro"></select>
-              <span class="field__error" id="r-horario-erro"></span>
+
+            <!-- Resumo + envio -->
+            <div class="rsv-summary" data-summary-bar>
+              <div class="rsv-summary__text">
+                <span class="rsv-summary__label">Sua reserva</span>
+                <span class="rsv-summary__value" data-summary aria-live="polite">2 pessoas</span>
+              </div>
+              <button class="btn btn--primary btn--lg rsv-submit" type="submit"><span data-channel-icon></span>Solicitar reserva</button>
             </div>
-            <div class="field field--full">
-              <label for="r-ocasiao">Ocasião</label>
-              <select id="r-ocasiao" class="select">
-                <option value="">Sem ocasião especial</option>
-                <option>Jantar a dois</option>
-                <option>Aniversário</option>
-                <option>Comemoração</option>
-                <option>Encontro de amigos</option>
-                <option>Jantar de negócios</option>
-                <option>Evento / grupo grande</option>
-              </select>
-            </div>
-            <div class="field field--full">
-              <label for="r-obs">Observações</label>
-              <textarea id="r-obs" class="textarea" rows="3" placeholder="Preferência de mesa, restrições alimentares, bolo, decoração…"></textarea>
-            </div>
-            <div class="field field--full">
-              <button class="btn btn--primary btn--block" type="submit"><span data-channel-icon></span>Enviar solicitação de reserva</button>
-              <p class="form-note">Sua reserva só é garantida após a confirmação da nossa equipe.</p>
-            </div>
+            <span data-summary-dock aria-hidden="true"></span>
+            <p class="t-micro rsv-note" data-rsv-note>A reserva é garantida após a confirmação da nossa equipe.</p>
           </form>
+        </section>
+
+        <!-- Cartão "Visite-nos" (Apple Store) -->
+        <aside class="visit" aria-labelledby="visit-title">
+          <div class="visit__card">
+            <div class="visit__photo media fb-wine">
+              <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=70" alt="Salão do Calabouço à meia-luz" loading="lazy" decoding="async" width="900" height="506">
+            </div>
+            <div class="visit__body">
+              <h2 class="visit__title" id="visit-title">Visite-nos.</h2>
+              <span class="status-pill" data-open-status>Horários da casa</span>
+              <address class="visit__addr">
+                <span data-config="address-line">R. Mateus Leme, 1000 — Centro Cívico</span>
+                <span class="visit__city" data-config="address-city">Curitiba/PR</span>
+              </address>
+              <div class="visit__actions">
+                <a class="btn btn--light" data-link="maps" href="https://www.google.com/maps"><span data-icon="map-pin"></span>Como chegar</a>
+                <a class="btn btn--ghost" data-link="tel" href="tel:+554132546112"><span data-icon="phone"></span>Ligar</a>
+              </div>
+              <a class="link visit__ig" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/"><span data-icon="instagram"></span><span data-config="instagram-handle">@calaboucorestaurante</span></a>
+              <div class="visit__hours">
+                <h3 class="visit__label">Horários</h3>
+                <table class="hours-table">
+                  <caption class="sr-only">Horário de funcionamento</caption>
+                  <tbody data-hours-table></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="visit__map">
+              <span class="visit__map-fallback" aria-hidden="true"><span data-icon="map-pin"></span></span>
+              <iframe data-map title="Mapa — localização do Calabouço" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ============ CANAIS ============ -->
+    <section class="section section--tight section--alt channels-sec" aria-labelledby="channels-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="t-title reveal" id="channels-title">Fale com a gente.<br><span class="muted">Do jeito que preferir.</span></h2>
+        </div>
+        <div class="channels">
+          <a class="channel reveal" data-link="reserve" href="#reserva">
+            <span class="channel__icon"><span data-channel-icon></span></span>
+            <span class="channel__text">
+              <span class="channel__label">Reservas e pedidos</span>
+              <span class="channel__value" data-config="channel-name">WhatsApp</span>
+            </span>
+            <span class="channel__go" data-icon="arrow-up-right"></span>
+          </a>
+          <a class="channel reveal" style="--delay:.06s" data-link="tel" href="tel:+554132546112">
+            <span class="channel__icon"><span data-icon="phone"></span></span>
+            <span class="channel__text">
+              <span class="channel__label">Telefone</span>
+              <span class="channel__value" data-config="phone">(41) 3254-6112</span>
+            </span>
+            <span class="channel__go" data-icon="arrow-up-right"></span>
+          </a>
+          <a class="channel reveal" style="--delay:.12s" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">
+            <span class="channel__icon"><span data-icon="instagram"></span></span>
+            <span class="channel__text">
+              <span class="channel__label">Instagram</span>
+              <span class="channel__value" data-config="instagram-handle">@calaboucorestaurante</span>
+            </span>
+            <span class="channel__go" data-icon="arrow-up-right"></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="section section--tight" id="mapa" style="padding-top:0">
-      <div class="container">
-        <div class="map-wrap reveal">
-          <iframe data-map title="Mapa com a localização do Calabouço Restaurante" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="btn btn--gold btn--sm map-wrap__link" data-link="maps" href="#"><span data-icon="map-pin"></span>Abrir no Google Maps</a>
+    <!-- ============ PERGUNTAS FREQUENTES (Apple Support) ============ -->
+    <section class="section section--tight faq-sec" id="duvidas" aria-labelledby="faq-title">
+      <div class="container faq">
+        <div class="faq__head">
+          <h2 class="t-title reveal" id="faq-title">Perguntas frequentes.</h2>
+          <p class="t-small reveal" style="--delay:.06s">Não encontrou o que procurava? <a class="link" data-link="contact" href="contato.html">Fale com a gente <span data-icon="chevron-right"></span></a></p>
+        </div>
+        <div class="faq__list reveal" style="--delay:.08s">
+          <details class="faq__item">
+            <summary><span>Como funciona a reserva?</span><span class="faq__chev" data-icon="chevron-down"></span></summary>
+            <div class="faq__a"><p>Você escolhe data, horário e número de pessoas e envia a solicitação. Nossa equipe confirma a disponibilidade na mesma conversa.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary><span>Posso alterar ou cancelar?</span><span class="faq__chev" data-icon="chevron-down"></span></summary>
+            <div class="faq__a"><p>Sim. Responda na mesma conversa em que fez a solicitação, com o máximo de antecedência possível.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary><span>E para grupos grandes?</span><span class="faq__chev" data-icon="chevron-down"></span></summary>
+            <div class="faq__a"><p>Selecione “Mais de 12” e conte um pouco sobre o evento nas observações — combinamos os detalhes com você.</p></div>
+          </details>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-about">
-          <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
-            <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="flameF" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
-            </linearGradient>
-          </defs>
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
-            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
-            <path d="M4 45h40" stroke-width="2"/>
-          </g>
-          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameF)"/>
-        </svg>
-            <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
-          </a>
-          <p>Pizzas artesanais, massas, carnes e vinhos em um refúgio de pedra, fogo e luz de velas.</p>
-          <div class="socials">
-            <a class="social-btn" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" aria-label="Instagram do Calabouço"><span data-icon="instagram"></span></a>
-            <a class="social-btn" data-link="contact" data-whatsapp-only href="contato.html" aria-label="WhatsApp do Calabouço"><span data-channel-icon></span></a>
-            <a class="social-btn" data-link="maps" href="contato.html" aria-label="Como chegar"><span data-icon="map-pin"></span></a>
-          </div>
-        </div>
+  <footer class="footer">
+    <div class="container container--wide footer__inner">
+      <div class="footer__note">
+        <p>Preços em reais, sujeitos a alteração sem aviso prévio. Imagens meramente ilustrativas.</p>
+        <p>Pedidos e reservas enviados pelo site são confirmados pela nossa equipe.</p>
+      </div>
+      <div class="footer__cols">
         <div>
-          <h4>Navegação</h4>
+          <h3>Cardápio</h3>
           <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="cardapio.html">Cardápio</a></li>
-            <li><a href="sobre.html">Sobre nós</a></li>
-            <li><a href="contato.html">Contato e reservas</a></li>
+            <li><a href="cardapio.html?cat=entradas">Entradas</a></li>
+            <li><a href="cardapio.html?cat=pizzas-da-casa">Pizzas da Casa</a></li>
+            <li><a href="cardapio.html?cat=pizzas-tradicionais">Pizzas Tradicionais</a></li>
+            <li><a href="cardapio.html?cat=massas">Massas</a></li>
+            <li><a href="cardapio.html?cat=pratos-principais">Pratos Principais</a></li>
+            <li><a href="cardapio.html?cat=sobremesas">Sobremesas</a></li>
+            <li><a href="cardapio.html?cat=bebidas">Vinhos &amp; Drinks</a></li>
           </ul>
         </div>
         <div>
-          <h4>Horários</h4>
-          <ul class="footer-hours" data-hours-list></ul>
+          <h3>A casa</h3>
+          <ul>
+            <li><a href="sobre.html">Nossa história</a></li>
+            <li><a href="sobre.html#depoimentos">Depoimentos</a></li>
+            <li><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Instagram</a></li>
+          </ul>
+          <h3 style="margin-top:22px">Atendimento</h3>
+          <ul>
+            <li><a href="contato.html#reserva">Reservar mesa</a></li>
+            <li><a data-link="maps" href="contato.html">Como chegar</a></li>
+            <li><a data-link="tel" href="contato.html" data-config="phone">Telefone</a></li>
+          </ul>
         </div>
         <div>
-          <h4>Contato</h4>
-          <ul class="footer-contact">
-            <li><span data-icon="map-pin"></span><a data-link="maps" href="contato.html"><span data-config="address-line"></span><br><span data-config="address-city"></span></a></li>
-            <li><span data-icon="phone"></span><a data-link="tel" href="contato.html" data-config="phone"></a></li>
-            <li><span data-icon="instagram"></span><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
+          <h3>Endereço</h3>
+          <ul>
+            <li><span data-config="address-line">Endereço</span></li>
+            <li><span data-config="address-city"></span></li>
+            <li><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
           </ul>
+        </div>
+        <div>
+          <h3>Horários</h3>
+          <ul class="footer__hours" data-hours-list></ul>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="footer__bottom">
         <span>© <span data-config="year">2026</span> Calabouço Restaurante. Todos os direitos reservados.</span>
-        <span>Imagens meramente ilustrativas.</span>
+        <span>Restaurante &amp; Pizzaria · <a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></span>
       </div>
     </div>
   </footer>

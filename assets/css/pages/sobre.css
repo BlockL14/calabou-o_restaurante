@@ -29,6 +29,7 @@
 .about-hero .t-subhead {
   margin-top: 18px;
   color: rgba(245, 241, 236, 0.86);
+  text-wrap: balance;
 }
 
 /* Indicador discreto de rolagem */
@@ -73,7 +74,10 @@
   padding-block: clamp(104px, 14vw, 200px) clamp(72px, 9vw, 128px);
 }
 .about-manifesto .container {
-  max-width: calc(1040px + var(--gutter) * 2);
+  max-width: calc(var(--max) + var(--gutter) * 2);
+}
+.about-manifesto .scrub-text {
+  max-width: 1040px;
 }
 
 /* ---------- Nossa história (scrollytelling) ---------- */
@@ -118,6 +122,12 @@
   max-width: 34em;
 }
 
+@media (max-width: 899px) {
+  .chapter .t-title {
+    font-size: clamp(32px, 8.6vw, 44px);
+    letter-spacing: -0.03em;
+  }
+}
 @media (min-width: 600px) and (max-width: 899px) {
   .chapter__media {
     aspect-ratio: 16 / 10;
@@ -180,7 +190,7 @@
     translate: -50% 0;
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 4px;
     border-radius: 999px;
     background: rgba(10, 8, 7, 0.5);
     -webkit-backdrop-filter: saturate(160%) blur(14px);
@@ -189,7 +199,7 @@
   .story__dot {
     display: grid;
     place-items: center;
-    width: 26px;
+    width: 40px;
     height: 40px;
     border-radius: 999px;
     transition: width 0.5s var(--ease);
@@ -206,7 +216,7 @@
     background: rgba(245, 241, 236, 0.75);
   }
   .story__dot.is-active {
-    width: 44px;
+    width: 56px;
   }
   .story__dot.is-active::after {
     width: 28px;
@@ -216,9 +226,14 @@
     outline-offset: -2px;
   }
 
-  /* Coluna de texto: capítulos altos, o ativo "acende" */
+  /* Coluna de texto: capítulos altos, o ativo "acende".
+     O respiro vertical mantém a foto fixa do 1º ao último capítulo. */
+  .story {
+    padding-block: 0 clamp(24px, 3vw, 40px);
+  }
   .story__chapters {
     gap: 0;
+    padding-block: 12vh;
   }
   .chapter {
     min-height: 80vh;
@@ -263,11 +278,15 @@
   }
 }
 @media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  .story {
+    padding-block: clamp(8px, 2vw, 24px) clamp(88px, 11vw, 160px);
+  }
   .story__grid {
     grid-template-columns: 1fr;
   }
   .story__chapters {
     gap: clamp(88px, 9vw, 128px);
+    padding-block: 0;
   }
   .chapter {
     min-height: 0;
@@ -285,17 +304,36 @@
 }
 
 /* ---------- Pilares (bento) ---------- */
+/* Conteúdo ancorado no topo: títulos da mesma linha começam na mesma altura. */
 .about-bento .bento-card {
   min-height: 260px;
   padding: clamp(28px, 3vw, 40px) clamp(26px, 2.6vw, 36px);
 }
-.about-bento .bento-card--wide h3 {
+.about-bento .bento-card .icon {
+  margin-bottom: 0;
+}
+.about-bento .bento-card h3 {
+  margin-top: clamp(40px, 5vw, 64px);
+}
+.about-bento .bento-card--wide p {
+  max-width: 34em;
+}
+/* O cartão --accent mantém a escala do base (44px), como na home. */
+.about-bento .about-bento__glow h3 {
   font-size: clamp(24px, 2.4vw, 32px);
   letter-spacing: -0.022em;
 }
-.about-bento .bento-card--wide p {
+.about-bento .about-bento__glow p {
   font-size: 17px;
-  max-width: 34em;
+}
+@media (max-width: 600px) {
+  .about-bento .bento-card {
+    min-height: 0;
+    padding: 26px 24px 28px;
+  }
+  .about-bento .bento-card h3 {
+    margin-top: 20px;
+  }
 }
 .about-bento__glow {
   background: radial-gradient(90% 140% at 100% 100%, rgba(242, 181, 68, 0.14), transparent 55%),
@@ -303,22 +341,19 @@
 }
 
 /* ---------- Ambiente (galeria horizontal) ---------- */
-.ambient__link {
+/* Links dos cabeçalhos (Ambiente e Depoimentos): alvo de toque ≥ 40px sem mexer no layout */
+.about-head-link {
   font-size: clamp(17px, 1.6vw, 19px);
+  padding-block: 8px;
+  margin-block: -8px;
 }
 .ambient .scroller__track {
-  grid-auto-columns: min(84vw, 640px);
+  grid-auto-columns: min(84vw, 580px);
   gap: 20px;
 }
 .ambient-card .media {
   aspect-ratio: 16 / 10;
   border-radius: var(--radius);
-}
-.ambient-card .media img {
-  transition: transform 1.2s var(--ease);
-}
-.ambient-card:hover .media img {
-  transform: scale(1.03);
 }
 .ambient-card figcaption {
   margin-top: 16px;
@@ -331,6 +366,43 @@
   font-weight: 600;
 }
 
+/* ---------- Depoimentos ---------- */
+/* Contraste AA no texto da ocasião (13px sobre --tile) */
+#depoimentos .review__occasion {
+  color: var(--text-2);
+}
+/* Celular: carrossel horizontal (Airbnb/Apple), como a galeria do ambiente */
+@media (max-width: 640px) {
+  #depoimentos .review-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 86%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter) 12px;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  #depoimentos .review-grid::-webkit-scrollbar {
+    display: none;
+  }
+  /* Anel de foco por dentro: a região ocupa a largura toda da tela */
+  #depoimentos .review-grid:focus-visible {
+    outline-offset: -3px;
+    border-radius: var(--radius);
+  }
+  #depoimentos .review {
+    scroll-snap-align: start;
+  }
+  /* Cartões que começam fora da tela não "surgem" durante a rolagem lateral */
+  #depoimentos .review.reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ---------- Chamada final ---------- */
 .about-cta {
   min-height: clamp(560px, 60vw, 760px);
@@ -340,8 +412,8 @@
   padding-block: 72px;
 }
 .about-cta .tile__bg::after {
-  background: radial-gradient(80% 70% at 50% 50%, rgba(10, 8, 7, 0.5), rgba(10, 8, 7, 0.9)),
-    linear-gradient(0deg, rgba(10, 8, 7, 0.65), transparent 40%);
+  background: radial-gradient(80% 70% at 50% 45%, rgba(10, 8, 7, 0.4), rgba(10, 8, 7, 0.86)),
+    linear-gradient(0deg, rgba(10, 8, 7, 0.6), transparent 40%);
 }
 .about-cta .t-subhead {
   color: rgba(245, 241, 236, 0.86);

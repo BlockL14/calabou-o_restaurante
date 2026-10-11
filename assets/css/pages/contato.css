@@ -1,0 +1,972 @@
+/* ==========================================================================
+   CALABOUÇO — Reservas e contato
+   Reserva em passos (OpenTable/Resy), cartão "Visite-nos" (Apple Store),
+   canais de contato e perguntas frequentes (Apple Support).
+   ========================================================================== */
+
+/* ---------- Cabeçalho ---------- */
+.rsv-hero {
+  padding-block: clamp(28px, 3.2vw, 48px) clamp(20px, 2.4vw, 32px);
+}
+.rsv-hero .t-headline {
+  font-size: clamp(36px, 4.4vw, 56px);
+}
+.rsv-hero .t-lead {
+  margin-top: 16px;
+  text-wrap: balance;
+}
+.rsv-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: 24px;
+}
+.rsv-hero__call {
+  font-size: 15px;
+  color: var(--text-2);
+}
+.rsv-hero__call .link {
+  font-size: 15px;
+}
+.rsv-hero__call .link,
+.visit__ig,
+.faq__head .link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Pílula de status (aberto/fechado) */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  padding: 0 14px 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--tile-2);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.status-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--text-3);
+}
+.status-pill.is-open {
+  color: #9fe3b8;
+  background: rgba(95, 211, 141, 0.08);
+  border-color: rgba(95, 211, 141, 0.24);
+}
+.status-pill.is-open::before {
+  background: #5fd38d;
+  box-shadow: 0 0 0 3px rgba(95, 211, 141, 0.18);
+}
+.status-pill.is-closed::before {
+  background: var(--red-hover);
+  box-shadow: 0 0 0 3px rgba(222, 51, 40, 0.16);
+}
+
+/* ---------- Estrutura em duas colunas ---------- */
+.rsv {
+  padding-bottom: clamp(72px, 9vw, 128px);
+}
+.rsv__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.4vw, 32px);
+  align-items: start;
+}
+
+/* ---------- Cartão da reserva ---------- */
+.rsv-card {
+  --pad: clamp(20px, 3vw, 40px);
+  container: rsv / inline-size;
+  position: relative;
+  padding: 0 var(--pad) var(--pad);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--tile);
+}
+
+.rsv-step {
+  padding-block: clamp(26px, 2.8vw, 36px);
+  border-top: 1px solid var(--line);
+}
+.rsv-step:first-child {
+  border-top: 0;
+}
+.rsv-step__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.rsv-step__num {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+.rsv-step.is-done .rsv-step__num {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #1a1009;
+}
+.rsv-step__title {
+  font-size: clamp(21px, 1.9vw, 24px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.rsv-step__sub {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+.rsv-nowrap {
+  white-space: nowrap;
+}
+.rsv-step__tools {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+.rsv-error:empty {
+  display: none;
+}
+.rsv-error {
+  margin-top: 12px;
+}
+
+/* 1. Pessoas — stepper redondo */
+.party {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 24px;
+}
+.party__stepper {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.6vw, 28px);
+}
+.party__btn {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  transition: background-color 0.25s, border-color 0.25s, opacity 0.25s, transform 0.25s var(--ease);
+}
+@media (hover: hover) {
+  .party__btn:hover {
+    background: var(--tile-2);
+    border-color: var(--text-3);
+  }
+}
+.party__btn:active {
+  transform: scale(0.94);
+}
+.party__btn[disabled] {
+  opacity: 0.28;
+  cursor: default;
+  pointer-events: none;
+}
+.party__btn .icon {
+  width: 20px;
+  height: 20px;
+}
+.party__value {
+  display: grid;
+  justify-items: center;
+  min-width: 92px;
+}
+.party__num {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.party__num.is-bump {
+  animation: rsv-bump 0.35s var(--ease-out);
+}
+@keyframes rsv-bump {
+  40% {
+    transform: scale(1.1);
+  }
+}
+.party__unit {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.party__more {
+  min-height: 40px;
+}
+
+/* 2. Datas — chips roláveis */
+.dates-wrap {
+  margin-inline: calc(var(--pad) * -1);
+}
+.dates {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 6px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent 100%);
+}
+.dates::-webkit-scrollbar {
+  display: none;
+}
+.dates-wrap.can-prev .dates {
+  --fade-l: 36px;
+}
+.dates-wrap.can-next .dates {
+  --fade-r: 36px;
+}
+.date-chip {
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 3px;
+  width: 70px;
+  min-height: 90px;
+  border-radius: 16px;
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  scroll-snap-align: start;
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+@media (hover: hover) {
+  .date-chip:hover {
+    border-color: var(--text-3);
+  }
+}
+.date-chip:active {
+  transform: scale(0.97);
+}
+.date-chip__dow,
+.date-chip__mon {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--text-2);
+}
+.date-chip__dow {
+  font-weight: 600;
+}
+.date-chip__day {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.date-chip[aria-checked="true"] {
+  background: var(--text);
+  border-color: var(--text);
+  color: #120c09;
+}
+.date-chip[aria-checked="true"] .date-chip__dow,
+.date-chip[aria-checked="true"] .date-chip__mon {
+  color: rgba(18, 12, 9, 0.68);
+}
+.date-chip[disabled] {
+  cursor: not-allowed;
+  border-style: dashed;
+  border-color: var(--line);
+  color: var(--text-3);
+}
+.date-chip[disabled] .date-chip__dow,
+.date-chip[disabled] .date-chip__mon {
+  color: var(--text-3);
+}
+.date-chip[disabled] .date-chip__day {
+  opacity: 0.55;
+}
+/* Hoje, sem horários restantes: esmaecido (borda contínua, para não confundir com "fechado") */
+.date-chip.is-ended {
+  border-style: solid;
+  opacity: 0.6;
+}
+.date-chip.is-ended .date-chip__mon {
+  font-size: 11px;
+  letter-spacing: -0.01em;
+}
+
+/* 3. Horários — grade de chips */
+.times {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 8px;
+}
+.times[hidden] {
+  display: none;
+}
+.time-chip {
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--line-2);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+@media (hover: hover) {
+  .time-chip:hover {
+    border-color: var(--text-3);
+  }
+}
+.time-chip:active {
+  transform: scale(0.97);
+}
+.times[aria-invalid="true"] .time-chip {
+  border-color: rgba(255, 139, 120, 0.45);
+}
+.time-chip[aria-checked="true"] {
+  background: var(--text);
+  border-color: var(--text);
+  color: #120c09;
+}
+.times.is-in .time-chip {
+  animation: rsv-in 0.45s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 18ms);
+}
+@keyframes rsv-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.times-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--tile-2);
+  font-size: 15px;
+  color: var(--text-2);
+}
+.times-empty[hidden] {
+  display: none;
+}
+.times-empty .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--amber);
+}
+.times-empty.is-error {
+  box-shadow: inset 0 0 0 1px rgba(255, 139, 120, 0.5);
+  color: #ffb4a6;
+}
+.times-empty.is-error .icon {
+  color: #ff8b78;
+}
+
+/* 4. Dados */
+.rsv-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 16px;
+  align-items: start;
+}
+.rsv-fields .field {
+  align-content: start;
+}
+.rsv-fields .field__error:empty {
+  display: none;
+}
+.rsv-card .input,
+.rsv-card .textarea {
+  background: var(--bg-2);
+}
+.rsv-card .input[aria-invalid="true"] {
+  box-shadow: 0 0 0 4px rgba(222, 51, 40, 0.14);
+}
+.label__opt {
+  margin-left: 4px;
+  font-weight: 400;
+  color: var(--text-2);
+}
+.rsv-occasion,
+.rsv-obs {
+  margin-top: 18px;
+}
+.rsv-occasion .label {
+  margin-bottom: 4px;
+}
+.occasions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.occasions .chip {
+  min-height: 40px;
+}
+
+/* Resumo fixo (barra de checkout) */
+.rsv-summary {
+  position: sticky;
+  bottom: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 14px 14px 14px 22px;
+  border-radius: 22px;
+  border: 1px solid var(--line-2);
+  background: rgba(36, 27, 22, 0.94);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: 0 22px 48px -20px rgba(0, 0, 0, 0.95);
+  transition: transform 0.5s var(--ease-out), opacity 0.35s var(--ease);
+}
+/* Recolhida só no começo do fluxo (stepper à vista, sem horário e sem tentativa de envio).
+   Sem visibility:hidden — o Tab ainda chega ao botão e o :focus-within revela a barra. */
+.rsv-summary.is-tucked {
+  transform: translateY(calc(100% + 28px));
+  opacity: 0;
+  pointer-events: none;
+}
+.rsv-summary.is-tucked:focus-within {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+.rsv-summary__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.rsv-summary__label {
+  font-size: 13px;
+  color: var(--text-2);
+}
+.rsv-summary__value {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  font-variant-numeric: tabular-nums;
+}
+.rsv-summary__value .is-missing {
+  font-weight: 500;
+  color: var(--amber);
+}
+.rsv-summary__sep {
+  color: var(--text-3);
+  font-weight: 400;
+}
+.rsv-submit {
+  flex-shrink: 0;
+}
+.rsv-card .rsv-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-2);
+  text-align: center;
+  text-wrap: balance;
+}
+/* Celular: com a barra de reserva à vista, a barra "Ver sacola" se recolhe (o ícone da sacola no
+   menu continua com o contador). Classe aplicada pelo contato.js; fora do formulário ela volta. */
+@media (max-width: 833px) {
+  body.has-bag.rsv-bar-live .bag-bar {
+    transform: translateY(140%);
+    visibility: hidden;
+    transition: transform 0.45s var(--ease-out), visibility 0s linear 0.45s;
+  }
+}
+
+/* ---------- Cartão "Visite-nos" (Apple Store) ---------- */
+.visit__card {
+  isolation: isolate;
+  overflow: hidden;
+  /* clip-path também recorta a camada composta do iframe (overflow sozinho não basta) */
+  clip-path: inset(0 round var(--radius-lg));
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--tile);
+}
+.visit__photo {
+  --r: calc(var(--radius-lg) - 1px);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.visit__photo img {
+  transform: scale(1.01);
+}
+.visit__map {
+  --r: calc(var(--radius-lg) - 1px);
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 0 0 var(--r) var(--r);
+  border-top: 1px solid var(--line);
+  background: radial-gradient(60% 80% at 50% 50%, rgba(242, 181, 68, 0.1), transparent 70%),
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(255, 240, 225, 0.04) 27px 28px),
+    repeating-linear-gradient(90deg, transparent 0 27px, rgba(255, 240, 225, 0.04) 27px 28px), var(--bg-2);
+}
+.visit__map-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--amber);
+}
+.visit__map-fallback .icon {
+  width: 30px;
+  height: 30px;
+}
+.visit__map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  filter: grayscale(0.6) invert(0.9) hue-rotate(180deg) contrast(0.9);
+}
+.visit__body {
+  padding: 24px 28px 26px;
+}
+.visit__title {
+  font-size: clamp(26px, 2.4vw, 32px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+}
+.visit__body .status-pill {
+  margin-top: 12px;
+}
+.visit__addr {
+  display: grid;
+  gap: 2px;
+  margin-top: 18px;
+  font-style: normal;
+  font-size: 17px;
+  line-height: 1.4;
+}
+.visit__city {
+  color: var(--text-2);
+}
+.visit__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.visit__actions .btn {
+  padding-inline: 14px;
+}
+.visit__ig {
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.visit__ig .icon:first-child {
+  width: 18px;
+  height: 18px;
+}
+.visit__hours {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.visit__label {
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.hours-table td {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+.hours-table tr:last-child td {
+  border-bottom: 0;
+}
+.hours-table td:last-child {
+  text-align: right;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.hours-table .is-today td {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+/* ---------- Canais ---------- */
+.channels-sec .section-head {
+  margin-bottom: clamp(28px, 3.6vw, 44px);
+}
+.channels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 96px;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--tile);
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.45s var(--ease);
+}
+@media (hover: hover) {
+  .channel:hover {
+    background: var(--tile-2);
+    border-color: var(--line-2);
+    transform: translateY(-2px);
+  }
+  .channel:hover .channel__go {
+    color: var(--amber);
+    transform: translate(2px, -2px);
+  }
+}
+.channel__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(242, 181, 68, 0.12);
+  color: var(--amber);
+}
+.channel__icon .icon {
+  width: 22px;
+  height: 22px;
+}
+.channel__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.channel__label {
+  font-size: 13px;
+  color: var(--text-2);
+}
+.channel__value {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  overflow-wrap: anywhere;
+}
+.channel__go {
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  color: var(--text-3);
+  transition: color 0.3s, transform 0.3s var(--ease);
+}
+
+/* ---------- Perguntas frequentes (Apple Support) ---------- */
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+  gap: 28px clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.faq__head .t-small {
+  margin-top: 14px;
+}
+.faq__head .link {
+  font-size: 14px;
+}
+.faq__list {
+  border-top: 1px solid var(--line-2);
+}
+.faq__item {
+  border-bottom: 1px solid var(--line-2);
+}
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+  padding-block: 18px;
+  list-style: none;
+  cursor: pointer;
+  font-size: clamp(18px, 1.7vw, 22px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.016em;
+  transition: color 0.25s;
+}
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+@media (hover: hover) {
+  .faq__item summary:hover,
+  .faq__item summary:hover .faq__chev {
+    color: var(--amber);
+  }
+}
+.faq__item summary:focus-visible {
+  outline-offset: 4px;
+}
+.faq__chev {
+  width: 22px;
+  height: 22px;
+  color: var(--text-2);
+  transition: transform 0.4s var(--ease), color 0.25s;
+}
+.faq__item[open] .faq__chev {
+  transform: rotate(180deg);
+}
+.faq__a {
+  max-width: 62ch;
+  padding: 0 44px 26px 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.faq__item[open] .faq__a {
+  animation: rsv-in 0.45s var(--ease-out);
+}
+
+/* O atalho flutuante é redundante numa página que já é de contato (e cobria a tabela em 1024px) */
+.fab {
+  display: none;
+}
+
+/* ---------- Responsivo ---------- */
+/* Desktop: cabeçalho dividido como a página da Apple Store (título à esquerda, atalhos à direita),
+   para o configurador de reserva começar mais cedo na dobra. */
+@media (min-width: 1024px) {
+  .rsv-hero .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 48px;
+    align-items: end;
+  }
+  .rsv-hero .container > * {
+    grid-column: 1;
+  }
+  .rsv-hero .rsv-hero__meta {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    margin-top: 0;
+  }
+}
+
+/* Fixo na rolagem no desktop (classe e deslocamento aplicados pelo contato.js) */
+@media (min-width: 1024px) {
+  .visit.is-sticky {
+    position: sticky;
+    top: var(--visit-top, calc(var(--nav-h) + 24px));
+  }
+}
+
+@media (max-width: 1023px) {
+  .rsv__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Tablet: informações à esquerda; foto e mapa empilhados à direita */
+  .visit__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .visit__body {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .visit__photo {
+    grid-column: 2;
+    grid-row: 1;
+    border-radius: 0 var(--r) 0 0;
+    border-left: 1px solid var(--line);
+  }
+  .visit__map {
+    grid-column: 2;
+    grid-row: 2;
+    height: auto;
+    min-height: 200px;
+    border-radius: 0 0 var(--r) 0;
+    border-left: 1px solid var(--line);
+  }
+  .channels {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .faq {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 833px) {
+  .rsv-step__tools {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .visit__card {
+    display: block;
+  }
+  .visit__photo {
+    border-radius: var(--r) var(--r) 0 0;
+    border-left: 0;
+  }
+  .visit__map {
+    height: 180px;
+    min-height: 0;
+    border-radius: 0 0 var(--r) var(--r);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .rsv-card {
+    --pad: 20px;
+    border-radius: 24px;
+  }
+  .party {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+  }
+  .party__stepper {
+    justify-content: space-between;
+  }
+  .party__more {
+    justify-content: center;
+  }
+  .party__btn {
+    width: 52px;
+    height: 52px;
+  }
+  .party__num {
+    font-size: 50px;
+  }
+  .party__value {
+    min-width: 80px;
+  }
+  .date-chip {
+    width: 64px;
+    min-height: 84px;
+  }
+  .times {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .time-chip {
+    min-height: 44px;
+    font-size: 14px;
+  }
+  .rsv-summary {
+    bottom: 10px;
+    margin-inline: -8px;
+  }
+  .visit__body {
+    padding: 22px 20px 24px;
+  }
+  .channel {
+    min-height: 84px;
+    padding: 16px 18px;
+  }
+  .faq__a {
+    padding-right: 0;
+  }
+}
+
+/* Formulário estreito (celular e desktop de 1024px): Nome e Telefone em uma coluna */
+@container rsv (max-width: 600px) {
+  .rsv-fields {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 18px;
+  }
+}
+
+/* Cartão estreito (celular e desktop de 1024px): resumo em cima, botão largo embaixo */
+@container rsv (max-width: 560px) {
+  .rsv-summary {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .rsv-summary__label {
+    display: none;
+  }
+  .rsv-summary__text {
+    justify-items: center;
+    text-align: center;
+  }
+  .rsv-summary__value {
+    font-size: 15px;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .rsv-submit {
+    width: 100%;
+    min-height: 46px;
+  }
+}
+@container rsv (max-width: 380px) {
+  .rsv-summary__value {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .party__num.is-bump,
+  .times.is-in .time-chip,
+  .faq__item[open] .faq__a {
+    animation: none;
+  }
+}
+
+[data-summary-dock] {
+  display: block;
+  height: 1px;
+}
