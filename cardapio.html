@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cardápio — Calabouço Restaurante</title>
+  <meta name="description" content="Pizzas tradicionais e da casa, entradas, massas, pratos principais, sobremesas, vinhos e drinks. Filtre por categoria, preço e preferências e monte seu pedido.">
+  <meta name="theme-color" content="#0b0807">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Calabouço Restaurante">
+  <meta property="og:title" content="Cardápio — Calabouço Restaurante">
+  <meta property="og:description" content="Pizzas tradicionais e da casa, entradas, massas, pratos principais, sobremesas, vinhos e drinks. Filtre por categoria, preço e preferências e monte seu pedido.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=70">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/cardapio.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
+        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="flameH" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-linecap="round">
+            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
+            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
+            <path d="M4 45h40" stroke-width="2"/>
+          </g>
+          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameH)"/>
+        </svg>
+        <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="cardapio.html" aria-current="page">Cardápio</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm" href="contato.html#reserva">Reservar mesa</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <section class="page-hero">
+      <div class="hero__bg media"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1600&q=70" alt="" fetchpriority="high" decoding="async"></div>
+      <div class="container">
+        <span class="kicker reveal">Cardápio</span>
+        <h1 class="display reveal" style="--delay:.08s">Sabores para <em>noites longas</em></h1>
+        <p class="lead reveal" style="--delay:.16s">Das pizzas tradicionais às criações da casa, passando por massas, carnes, sobremesas e vinhos. Monte sua seleção e envie direto para a nossa equipe.</p>
+        <nav class="breadcrumb reveal" style="--delay:.24s" aria-label="Você está em">
+          <a href="index.html">Início</a><span aria-hidden="true">/</span><span aria-current="page">Cardápio</span>
+        </nav>
+      </div>
+    </section>
+
+    <div class="menu-toolbar">
+      <div class="container">
+        <div class="chips" data-cat-chips role="group" aria-label="Categorias do cardápio"></div>
+        <div class="filter-row">
+          <label class="search">
+            <span class="sr-only">Buscar no cardápio</span>
+            <span data-icon="search"></span>
+            <input id="menu-search" class="input" type="search" placeholder="Buscar no cardápio…" autocomplete="off" enterkeyhint="search">
+          </label>
+          <button class="chip chip--sm filters-toggle" type="button" data-filters-toggle aria-expanded="false" aria-controls="filter-extra"><span data-icon="sliders"></span>Filtros</button>
+          <div class="filter-extra" id="filter-extra">
+            <label class="sr-only" for="menu-price">Faixa de preço</label>
+            <select id="menu-price" class="select">
+              <option value="all">Todos os preços</option>
+              <option value="ate-50">Até R$ 50</option>
+              <option value="50-100">R$ 50 a R$ 100</option>
+              <option value="acima-100">Acima de R$ 100</option>
+            </select>
+            <label class="sr-only" for="menu-sort">Ordenar por</label>
+            <select id="menu-sort" class="select">
+              <option value="relevancia">Ordenar por categoria</option>
+              <option value="menor-preco">Menor preço</option>
+              <option value="maior-preco">Maior preço</option>
+              <option value="az">Nome (A–Z)</option>
+            </select>
+            <div class="filter-tags" role="group" aria-label="Preferências">
+              <button class="chip chip--sm" type="button" data-tag-filter="vegetariano" aria-pressed="false"><span data-icon="leaf"></span>Vegetariano</button>
+              <button class="chip chip--sm" type="button" data-tag-filter="picante" aria-pressed="false"><span data-icon="chili"></span>Picante</button>
+              <button class="chip chip--sm" type="button" data-tag-filter="assinatura" aria-pressed="false"><span data-icon="crown"></span>Assinatura</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="results-bar">
+          <span data-results-count aria-live="polite"></span>
+          <button type="button" data-clear-filters hidden>Limpar filtros</button>
+        </div>
+        <div data-menu-results>
+          <noscript><p class="muted">Ative o JavaScript para navegar pelo cardápio completo.</p></noscript>
+        </div>
+        <div class="legend">
+          <span><span data-icon="leaf" style="color:#9cc28a"></span>Vegetariano</span>
+          <span><span data-icon="chili" style="color:#f07a52"></span>Picante</span>
+          <span><span data-icon="crown" style="color:var(--gold)"></span>Assinatura da casa</span>
+          <span>Pizzas grandes com 8 pedaços · consulte meia a meia · preços em reais, sujeitos a alteração.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div>
+            <span class="kicker">Reservas</span>
+            <h2 class="h2">Sua mesa está <em>à sua espera.</em></h2>
+            <p class="lead">Garanta seu lugar para hoje ou para aquela data especial. Recebemos casais, famílias e grupos.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--gold" data-link="reserve" href="contato.html#reserva"><span data-channel-icon></span>Reservar agora</a>
+            <a class="btn btn--ghost" href="contato.html#horarios"><span data-icon="clock"></span>Ver horários</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
+            <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="flameF" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="currentColor" stroke-linecap="round">
+            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
+            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
+            <path d="M4 45h40" stroke-width="2"/>
+          </g>
+          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameF)"/>
+        </svg>
+            <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
+          </a>
+          <p>Pizzas artesanais, massas, carnes e vinhos em um refúgio de pedra, fogo e luz de velas.</p>
+          <div class="socials">
+            <a class="social-btn" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" aria-label="Instagram do Calabouço"><span data-icon="instagram"></span></a>
+            <a class="social-btn" data-link="contact" data-whatsapp-only href="contato.html" aria-label="WhatsApp do Calabouço"><span data-channel-icon></span></a>
+            <a class="social-btn" data-link="maps" href="contato.html" aria-label="Como chegar"><span data-icon="map-pin"></span></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cardapio.html">Cardápio</a></li>
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato e reservas</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Horários</h4>
+          <ul class="footer-hours" data-hours-list></ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <ul class="footer-contact">
+            <li><span data-icon="map-pin"></span><a data-link="maps" href="contato.html"><span data-config="address-line"></span><br><span data-config="address-city"></span></a></li>
+            <li><span data-icon="phone"></span><a data-link="tel" href="contato.html" data-config="phone"></a></li>
+            <li><span data-icon="instagram"></span><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-config="year">2026</span> Calabouço Restaurante. Todos os direitos reservados.</span>
+        <span>Imagens meramente ilustrativas.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
