@@ -664,9 +664,9 @@
     display: none;
   }
   .menu-side .opt[aria-pressed="true"] {
-    background: var(--text);
-    border-color: var(--text);
-    color: #120c09;
+    background: rgba(252, 204, 46, 0.12);
+    border-color: var(--yellow);
+    color: var(--yellow);
   }
   .menu-side__help {
     margin-top: 14px;
@@ -995,9 +995,9 @@
     border-color: var(--text-3);
   }
   .cat-btn[aria-pressed="true"] {
-    background: var(--text);
-    border-color: var(--text);
-    color: #120c09;
+    background: rgba(252, 204, 46, 0.12);
+    border-color: var(--yellow);
+    color: var(--yellow);
   }
   .cat-btn.is-empty:not([aria-pressed="true"]) {
     color: var(--text-3);
@@ -1060,7 +1060,7 @@
     padding: 0 6px;
     border-radius: 999px;
     background: var(--amber);
-    color: #1a1009;
+    color: var(--on-yellow);
     font-size: 12px;
     font-weight: 700;
     line-height: 1;
@@ -1297,9 +1297,9 @@
   border-color: var(--text-3);
 }
 .fsheet .opt[aria-pressed="true"] {
-  background: var(--text);
-  border-color: var(--text);
-  color: #120c09;
+  background: rgba(252, 204, 46, 0.12);
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 .fsheet .sortbox {
   display: grid;

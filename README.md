@@ -7,24 +7,23 @@ Site estático (HTML, CSS e JavaScript puros): não precisa de build, banco de d
 
 ## Referências de design
 
-A interface segue padrões consagrados de landing pages de marcas grandes:
+O visual segue o design system **"Brasa"**, extraído de três referências. Detalhes, tokens e regras de uso em
+[`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md).
 
-| Onde | Padrão de referência |
+| Referência | O que entrou no site |
 | --- | --- |
-| Estrutura geral, navegação, tipografia, blocos de destaque, rodapé | **Apple** (apple.com) |
-| Vitrine "Os mais pedidos" (galeria horizontal com setas) | **Apple / Nike** |
-| Cardápio: barra lateral de categorias no desktop | **Starbucks** (menu) |
-| Cardápio no celular, ficha do produto, sacola com barra inferior | **iFood / Domino's** |
-| Reserva: pessoas, datas e horários em botões | **OpenTable / Resy** |
-| Cartão "Visite-nos" com status, horários e mapa | **Apple Store** (página da loja) |
-| Depoimentos | **Airbnb** |
-| Sobre nós: texto que acende com a rolagem e mídia fixa | **Apple** + editorial de restaurantes de luxo |
+| **Best Pizza** (layout de pizzaria) | Paleta preta com CTA amarelo e destaques em laranja, títulos em slab, pizza vazando no banner com arco de benefícios, abas do cardápio, cartão com foto redonda, destaques com preço grande, carrossel de depoimentos |
+| **Japan Tours** (landing de viagem) | Navegação em pílula de vidro, palavra gigante ao fundo, títulos condensados com fio, linha do tempo com fotos, cartões de contorno, painel de vidro sobre foto |
+| **RedSun** (template Webflow) | Brilho vermelho atrás da pizza, feixes de luz, luz que segue o cursor, botão com glow, selo em pílula, faixa rolante, rodapé em colunas |
+
+Padrões de uso mantidos da versão anterior: sacola e ficha do produto (iFood/Domino's), reserva com pessoas, datas e
+horários em botões (OpenTable/Resy) e cartão "Visite-nos" (Apple Store).
 
 ## Páginas
 
 | Página | Arquivo | Conteúdo |
 | --- | --- | --- |
-| Início | `index.html` | Banner, pizza assinatura, categorias, mais pedidos, manifesto, diferenciais, depoimentos, Instagram e reserva |
+| Início | `index.html` | Banner, cardápio com abas, destaques da casa, depoimentos, "Uma noite aqui", diferenciais, Instagram e reserva |
 | Cardápio | `cardapio.html` | Categorias, busca, preferências, faixa de preço, ordenação, ficha do produto e sacola |
 | Sobre nós | `sobre.html` | História em capítulos, pilares, galeria do ambiente e depoimentos |
 | Reservas e contato | `contato.html` | Reserva (pessoas, data, horário), canais, horários, mapa e perguntas frequentes |
@@ -85,7 +84,7 @@ Cada prato é um objeto:
   desc: "Molho rústico, muçarela…",
   meta: "Grande · 8 pedaços",
   tags: ["assinatura", "picante"], // "vegetariano" | "picante" | "assinatura"
-  featured: true,                  // aparece na vitrine "Os mais pedidos" da home
+  featured: true,                  // aparece primeiro na sua aba do cardápio da home
   img: "assets/img/pizza-calabouco.jpg",
 }
 ```
@@ -95,6 +94,10 @@ Cada prato é um objeto:
 1. Salve as fotos em `assets/img/`, de preferência em `.jpg` ou `.webp`, com 1200–1600 px de largura e até ~300 KB cada.
 2. Nos pratos, troque o campo `img` em `data.js`.
 3. Nas fotos de ambiente (banner, blocos, história, galeria), troque o `src` das tags `<img>` nos arquivos `.html`.
+
+Nas fotos redondas (banner e cardápio da home), use fotos **vistas de cima**, com o prato inteiro centralizado.
+Os dois "Destaques da casa" da home são escolhidos em `index.html` pelos atributos `data-promo` (id do prato) e
+`data-kicker` (rótulo).
 
 Se uma foto não carregar, o site exibe um painel escuro com o ícone da categoria, sem deixar ícone quebrado.
 
@@ -124,18 +127,20 @@ https://SEU-DOMINIO/?utm_source=instagram&utm_medium=bio
 ```
 ├── index.html, cardapio.html, sobre.html, contato.html
 └── assets/
-    ├── css/base.css       # design system: cores, tipografia, navegação, componentes
+    ├── css/base.css       # design system "Brasa": tokens, tipografia, navegação, componentes
     ├── css/pages/*.css    # estilos específicos de cada página
     ├── js/config.js       # dados do negócio (editar aqui)
     ├── js/data.js         # cardápio, categorias e depoimentos
     ├── js/main.js         # comportamento comum (navegação, sacola, ficha do produto, horários, ícones)
+    ├── js/home.js         # home: abas do cardápio, destaques, carrossel de depoimentos, faixa rolante
     ├── js/cardapio.js     # filtros e categorias do cardápio
     ├── js/contato.js      # reserva
     ├── js/sobre.js        # efeitos da página Sobre nós
-    ├── fonts/             # Inter (licença SIL OFL)
+    ├── fonts/             # Inter, Arvo e Saira Condensed (licença SIL OFL)
     └── img/                # favicon.svg e apple-touch-icon.png
 ```
 
 **Identidade visual**:
-- Paleta: preto `#0a0807`, superfícies marrom-escuras `#171210`, vermelho `#c8261d` (ações) e âmbar `#f2b544` (links e destaques).
-- Tipografia: Inter, a alternativa aberta mais próxima da SF Pro da Apple, hospedada no próprio site.
+- Paleta: preto `#0c0a09`, cartões `#1c1917`, amarelo `#fccc2e` (ações), laranja `#ee6326` (destaques) e vermelho
+  `#c8261d` (brilho do forno).
+- Tipografia: Arvo (títulos), Saira Condensed (rótulos) e Inter (texto), todas hospedadas no próprio site.

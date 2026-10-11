@@ -1,8 +1,12 @@
 /* ==========================================================================
-   CALABOUÇO — Design system (base compartilhada)
-   Referências: Apple (estrutura, tipografia, tiles, navegação),
-   iFood/Domino's (sacola e ficha do produto), Airbnb (avaliações),
-   OpenTable (reserva). Paleta: preto, marrom, vermelho e âmbar.
+   CALABOUÇO — Design system "Brasa" (base compartilhada)
+   Extraído de três referências (detalhes em DESIGN-SYSTEM.md):
+   - Best Pizza: pretos neutros, cartões #1E1E1E, CTA amarelo em pílula,
+     laranja nos destaques, título slab, cartão com foto circular.
+   - Japan Tours: fotografia cinematográfica, vidro fosco, palavra gigante
+     ao fundo, títulos condensados com fio, cartões só com contorno.
+   - RedSun (Webflow): brilho vermelho ("sol"), feixes de luz, botão com
+     glow, selo em pílula, faixa rolante, rodapé em colunas.
    ========================================================================== */
 
 @font-face {
@@ -12,48 +16,90 @@
   font-display: swap;
   src: url("../fonts/inter-latin-var.woff2") format("woff2");
 }
+/* Títulos: slab larga, a alternativa aberta mais próxima do título da Best Pizza */
+@font-face {
+  font-family: "Arvo";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/arvo-700-latin.woff2") format("woff2");
+}
+/* Rótulos e palavra gigante: condensada, como os títulos do Japan Tours */
+@font-face {
+  font-family: "Saira Condensed";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/saira-condensed-600-latin.woff2") format("woff2");
+}
 
 :root {
-  /* Superfícies */
-  --bg: #0a0807;
-  --bg-2: #110d0b;
-  --tile: #171210;
-  --tile-2: #201814;
-  --tile-3: #2a201b;
-  --scrim: rgba(10, 8, 7, 0.72);
+  /* Superfícies (Best Pizza: #0C0C0C e #1E1E1E, aquecidos para a marca) */
+  --bg: #0c0a09;
+  --bg-2: #13100e;
+  --tile: #1c1917;
+  --tile-2: #26221f;
+  --tile-3: #322d29;
+  --scrim: rgba(12, 10, 9, 0.72);
 
-  /* Marca */
+  /* Ação: amarelo dos CTAs da Best Pizza (#FCCC2E) */
+  --yellow: #fccc2e;
+  --yellow-hover: #ffd955;
+  --on-yellow: #1a1206;
+  /* Destaque tipográfico: laranja da Best Pizza (#DE4E12), clareado
+     para passar de 4,5:1 em texto pequeno (6,1:1 sobre --bg) */
+  --ember: #ee6326;
+  /* Brilho do "sol" do RedSun, usado como forno/brasa */
   --red: #c8261d;
   --red-hover: #de3328;
   --red-deep: #6b120d;
+  --glow-ember: rgba(238, 99, 38, 0.55);
+  --glow-red: rgba(216, 50, 31, 0.5);
   --brown: #4a2c1d;
   --brown-2: #2b1a12;
-  --amber: #f2b544;
-  --amber-2: #ffd27a;
+  /* Compatibilidade: as páginas usam --amber para links e estados ativos */
+  --amber: var(--yellow);
+  --amber-2: #ffe08a;
 
-  /* Texto */
-  --text: #f5f1ec;
-  --text-2: #aaa29b;
-  --text-3: #8e8680;
+  /* Texto (cinza dos títulos do Japan Tours: #A2A2A2) */
+  --text: #f6f2ed;
+  --text-2: #aaa49f;
+  --text-3: #8c8682;
 
   /* Linhas */
-  --line: rgba(255, 240, 225, 0.09);
-  --line-2: rgba(255, 240, 225, 0.16);
+  --line: rgba(255, 244, 232, 0.09);
+  --line-2: rgba(255, 244, 232, 0.16);
+  --line-strong: rgba(255, 244, 232, 0.38); /* contorno dos cartões (Japan) */
+  --dash: rgba(252, 204, 46, 0.55); /* tracejado do arco e dos avatares (Best Pizza) */
+
+  /* Vidro fosco (Japan Tours) */
+  --glass: rgba(28, 24, 21, 0.5);
+  --glass-strong: rgba(20, 17, 15, 0.72);
+  --glass-line: rgba(255, 244, 232, 0.14);
+  --blur: 18px;
+
+  /* Brilhos (RedSun "button-glow") */
+  --shadow-glow: 0 0 0 1px rgba(255, 221, 120, 0.35) inset, 0 10px 30px -10px var(--glow-ember),
+    0 0 44px -14px var(--glow-red);
+  --shadow-card: 0 24px 60px -28px rgba(0, 0, 0, 0.9);
 
   /* Tipografia */
   --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
+  --font-display: "Arvo", "Rockwell", "Roboto Slab", Georgia, serif;
+  --font-cond: "Saira Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
 
   /* Layout */
-  --nav-h: 52px;
+  --nav-h: 76px;
   --max: 1200px;
   --wide: 1440px;
   --gutter: clamp(16px, 4vw, 32px);
   --radius-sm: 12px;
-  --radius: 20px;
-  --radius-lg: 28px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --pill: 999px;
 
-  /* Movimento (curva usada pela Apple) */
+  /* Movimento */
   --ease: cubic-bezier(0.28, 0.11, 0.32, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -190,6 +236,22 @@ blockquote {
 .section--alt {
   background: var(--bg-2);
 }
+/* Fundo texturizado com vinheta (madeira escura da Best Pizza) */
+.section--texture {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(238, 99, 38, 0.07), transparent 60%),
+    radial-gradient(90% 70% at 50% 100%, rgba(0, 0, 0, 0.6), transparent 70%), var(--bg-2);
+}
+.section--texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.9' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.42 0 0 0 0 0.36 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 .section-head {
   max-width: 820px;
   margin-bottom: clamp(32px, 5vw, 56px);
@@ -207,32 +269,97 @@ blockquote {
   gap: 16px 32px;
 }
 
-/* ---------- Tipografia (escala inspirada na Apple) ---------- */
-.eyebrow {
+/* ---------- Tipografia ----------
+   Arvo (slab) para títulos · Saira Condensed para rótulos · Inter no resto.
+   Caixa alta só em textos curtos: rótulos, botões e títulos de até ~4 palavras. */
+.eyebrow,
+.kicker {
   display: block;
-  font-size: clamp(15px, 1.4vw, 19px);
+  font-family: var(--font-cond);
+  font-size: clamp(14px, 1.2vw, 16px);
   font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+/* Rótulo entre fios (Japan Tours: "—— ABOUT THE TOUR ——") */
+.kicker--lined {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.kicker--lined::before,
+.kicker--lined::after {
+  content: "";
+  flex: 1;
+  max-width: 72px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+.section-head:not(.section-head--center) .kicker--lined::before {
+  display: none;
+}
+.t-display {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6.8vw, 96px);
+  font-weight: 700;
+  line-height: 1.02;
   letter-spacing: -0.01em;
-  color: var(--amber);
-  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 .t-hero {
-  font-size: clamp(48px, 9vw, 112px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.035em;
-}
-.t-headline {
-  font-size: clamp(36px, 5.6vw, 72px);
+  font-family: var(--font-display);
+  font-size: clamp(42px, 7.4vw, 96px);
   font-weight: 700;
   line-height: 1.04;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
+}
+.t-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.6vw, 60px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
 }
 .t-title {
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+/* Título de seção condensado com fio até a margem (Japan: "WHAT'S INCLUDED ——") */
+.t-section {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  font-family: var(--font-cond);
+  font-size: clamp(36px, 5.4vw, 72px);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.022em;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.t-section::after {
+  content: "";
+  flex: 1;
+  min-width: 40px;
+  height: 1px;
+  background: var(--line-strong);
+}
+.t-section--center::before {
+  content: "";
+  flex: 1;
+  min-width: 40px;
+  height: 1px;
+  background: var(--line-strong);
+}
+.upper {
+  text-transform: uppercase;
 }
 .t-card {
   font-size: clamp(21px, 2vw, 26px);
@@ -267,10 +394,14 @@ blockquote {
   color: var(--text-2);
 }
 .accent {
-  color: var(--amber);
+  color: var(--yellow);
+}
+/* Palavra de destaque no título (Best Pizza: "BEST <PIZZA>") */
+.ember {
+  color: var(--ember);
 }
 .gradient-text {
-  background: linear-gradient(100deg, var(--amber-2) 0%, var(--amber) 35%, #e0612c 70%, var(--red-hover) 100%);
+  background: linear-gradient(100deg, var(--amber-2) 0%, var(--yellow) 35%, var(--ember) 72%, var(--red-hover) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -290,44 +421,55 @@ p,
   text-wrap: pretty;
 }
 
-/* ---------- Botões e links (pílulas estilo Apple) ---------- */
+/* ---------- Botões (pílula amarela da Best Pizza + glow do RedSun) ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 22px;
-  border-radius: 980px;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 24px;
+  border-radius: var(--pill);
   border: 1px solid transparent;
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   white-space: nowrap;
   transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease),
-    transform 0.3s var(--ease);
+    box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
 }
 .btn .icon {
   width: 18px;
   height: 18px;
 }
+.btn .icon--arrow {
+  transition: transform 0.3s var(--ease);
+}
+.btn:hover .icon--arrow {
+  transform: translateX(3px);
+}
 .btn:active {
   transform: scale(0.98);
 }
 .btn--primary {
-  background: var(--red);
-  color: #fff;
+  background: var(--yellow);
+  color: var(--on-yellow);
+  box-shadow: var(--shadow-glow);
 }
 .btn--primary:hover {
-  background: var(--red-hover);
+  background: var(--yellow-hover);
+  box-shadow: 0 0 0 1px rgba(255, 233, 150, 0.5) inset, 0 14px 36px -10px var(--glow-ember),
+    0 0 60px -12px var(--glow-red);
 }
 .btn--secondary {
-  border-color: var(--amber);
-  color: var(--amber);
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 .btn--secondary:hover {
-  background: var(--amber);
-  color: #1a1009;
+  background: var(--yellow);
+  color: var(--on-yellow);
 }
 .btn--light {
   background: var(--text);
@@ -336,23 +478,26 @@ p,
 .btn--light:hover {
   background: #fff;
 }
+/* "button-simple" do RedSun: fundo escuro translúcido e contorno */
 .btn--ghost {
   border-color: var(--line-2);
+  background: rgba(255, 244, 232, 0.03);
   color: var(--text);
 }
 .btn--ghost:hover {
   border-color: var(--text-2);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 244, 232, 0.07);
 }
 .btn--sm {
-  min-height: 32px;
-  padding: 0 14px;
-  font-size: 14px;
+  min-height: 36px;
+  padding: 0 16px;
+  font-size: 12px;
+  gap: 6px;
 }
 .btn--lg {
-  min-height: 52px;
-  padding: 0 28px;
-  font-size: 18px;
+  min-height: 54px;
+  padding: 0 30px;
+  font-size: 15px;
 }
 .btn--block {
   width: 100%;
@@ -394,13 +539,6 @@ p,
 .link:hover .icon {
   transform: translateX(2px);
 }
-.link-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 32px;
-  justify-content: center;
-  font-size: clamp(17px, 1.6vw, 21px);
-}
 
 .icon {
   display: inline-flex;
@@ -413,90 +551,140 @@ p,
   height: 100%;
 }
 
-/* ---------- Faixa superior (ribbon, estilo Apple) ---------- */
-.ribbon {
-  position: relative;
-  z-index: 60;
-  margin-top: var(--nav-h);
-  padding: 12px var(--gutter);
-  text-align: center;
-  font-size: 14px;
+/* ---------- Selo em pílula (RedSun: "What's new | Update v0.1 →") ---------- */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 5px 14px 5px 5px;
+  border-radius: var(--pill);
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+a.badge-pill:hover {
+  border-color: var(--line-strong);
+  background: rgba(40, 34, 30, 0.6);
+}
+.badge-pill__tag {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: var(--pill);
+  background: var(--yellow);
+  color: var(--on-yellow);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.badge-pill .icon {
+  width: 15px;
+  height: 15px;
   color: var(--text-2);
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--line);
 }
-.ribbon a {
-  color: var(--amber);
-  text-decoration: underline;
-  text-decoration-color: rgba(242, 181, 68, 0.45);
-  text-underline-offset: 3px;
+.status-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--text-3);
 }
-.ribbon a:hover {
-  text-decoration: underline;
+/* O texto do status vem do main.js ([data-open-status] recebe .is-open/.is-closed) */
+.status-dot:has(+ .is-open) {
+  background: #5fd38d;
+  box-shadow: 0 0 0 4px rgba(95, 211, 141, 0.18);
+}
+.status-dot:has(+ .is-closed) {
+  background: var(--ember);
 }
 
-/* ---------- Navegação global (estilo Apple) ---------- */
+/* ---------- Navegação global: pílula de vidro flutuante (Japan Tours) ---------- */
 .gnav {
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
   height: var(--nav-h);
-  border-bottom: 1px solid var(--line);
-}
-/* O desfoque fica num pseudo-elemento: backdrop-filter no próprio .gnav
-   faria dele o bloco de contenção do menu fixo do celular. */
-.gnav::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: rgba(10, 8, 7, 0.86);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  padding-block: 12px;
+  pointer-events: none;
 }
 .gnav__inner {
+  position: relative;
+  isolation: isolate;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 24px;
+  pointer-events: auto;
+  padding-inline: 10px 8px;
+  border-radius: var(--pill);
+  max-width: var(--wide);
+  width: calc(100% - var(--gutter) * 2);
+}
+/* O vidro fica num pseudo-elemento: backdrop-filter no próprio contêiner
+   faria dele o bloco de contenção do menu fixo do celular. */
+.gnav__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  -webkit-backdrop-filter: saturate(160%) blur(var(--blur));
+  backdrop-filter: saturate(160%) blur(var(--blur));
+  transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.gnav.is-scrolled .gnav__inner::before {
+  background: var(--glass-strong);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
 }
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  padding: 6px 8px;
   color: var(--text);
 }
 .brand__mark {
-  width: 28px;
-  height: 28px;
-  color: var(--amber);
+  width: 30px;
+  height: 30px;
+  color: var(--ember);
 }
 .brand__name {
-  font-size: 15px;
+  font-family: var(--font-display);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .gnav__links {
   display: flex;
   align-items: center;
-  gap: clamp(20px, 3vw, 40px);
+  gap: clamp(18px, 2.6vw, 36px);
 }
 .gnav__links a {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: -0.005em;
-  color: rgba(245, 241, 236, 0.82);
+  position: relative;
+  padding-block: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 237, 0.78);
   transition: color 0.25s;
 }
-.gnav__links a:hover,
-.gnav__links a[aria-current="page"] {
+.gnav__links a:hover {
   color: #fff;
 }
 .gnav__links a[aria-current="page"] {
-  font-weight: 600;
+  color: var(--yellow);
 }
 .gnav__actions {
   justify-self: end;
@@ -508,19 +696,19 @@ p,
   position: relative;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  color: rgba(245, 241, 236, 0.85);
+  color: rgba(246, 242, 237, 0.86);
   transition: background-color 0.25s, color 0.25s;
 }
 .gnav__icon-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 .gnav__icon-btn .icon {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
 }
 .gnav__badge {
   position: absolute;
@@ -529,11 +717,11 @@ p,
   min-width: 17px;
   height: 17px;
   padding: 0 4px;
-  border-radius: 999px;
+  border-radius: var(--pill);
   display: grid;
   place-items: center;
-  background: var(--red);
-  color: #fff;
+  background: var(--yellow);
+  color: var(--on-yellow);
   font-size: 10.5px;
   font-weight: 700;
   line-height: 1;
@@ -547,13 +735,15 @@ p,
 
 @media (max-width: 833px) {
   :root {
-    --nav-h: 48px;
+    --nav-h: 64px;
   }
-  .gnav::before {
-    background: rgba(10, 8, 7, 0.94);
+  .gnav {
+    padding-block: 8px;
   }
   .gnav__inner {
     grid-template-columns: 1fr auto;
+    width: calc(100% - 20px);
+    padding-inline: 6px;
   }
   .gnav__links {
     position: fixed;
@@ -581,15 +771,17 @@ p,
     transform: none;
   }
   .gnav__links a {
-    padding: 12px 0;
+    padding: 14px 0;
+    font-family: var(--font-display);
     font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
     color: var(--text);
     border-bottom: 1px solid var(--line);
   }
   .gnav__links a[aria-current="page"] {
-    color: var(--amber);
+    color: var(--yellow);
   }
   .gnav__toggle {
     display: grid;
@@ -630,7 +822,7 @@ p,
   }
 }
 
-/* Espaço para a navegação fixa em páginas sem ribbon */
+/* Espaço para a navegação fixa */
 .page-top {
   padding-top: var(--nav-h);
 }
@@ -668,13 +860,13 @@ p,
   display: none;
 }
 :root {
-  --fb-flame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E");
-  --fb-pizza: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21 3.2 6.6A16 16 0 0 1 20.8 6.6Z'/%3E%3Cpath d='M4.6 8.9a13.5 13.5 0 0 1 14.8 0'/%3E%3Ccircle cx='10' cy='11' r='1'/%3E%3Ccircle cx='14' cy='13' r='1'/%3E%3Ccircle cx='12' cy='16' r='.8'/%3E%3C/svg%3E");
-  --fb-wine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 22h8M12 15v7M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z'/%3E%3Cpath d='M7.3 9h9.4'/%3E%3C/svg%3E");
-  --fb-pasta: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h18a9 9 0 0 1-18 0Z'/%3E%3Cpath d='M9 12V3M12 12V2M15 12V4'/%3E%3C/svg%3E");
-  --fb-dessert: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16M5 20v-6h14v6M7 14V10h10v4M12 10V7'/%3E%3Cpath d='M12 3c.8.9 1.2 1.6 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.6.4-1.3 1.2-2.2Z'/%3E%3C/svg%3E");
-  --fb-plate: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='7'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M2 3v6a2 2 0 0 0 2 2M3 3v18M22 3v18M22 3c-2 0-3 2-3 5s1 4 3 4'/%3E%3C/svg%3E");
-  --fb-glass: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2b544' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 3h16l-8 9Z'/%3E%3Cpath d='M12 12v9M8 21h8'/%3E%3Cpath d='M7 6.5h10'/%3E%3C/svg%3E");
+  --fb-flame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E");
+  --fb-pizza: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21 3.2 6.6A16 16 0 0 1 20.8 6.6Z'/%3E%3Cpath d='M4.6 8.9a13.5 13.5 0 0 1 14.8 0'/%3E%3Ccircle cx='10' cy='11' r='1'/%3E%3Ccircle cx='14' cy='13' r='1'/%3E%3Ccircle cx='12' cy='16' r='.8'/%3E%3C/svg%3E");
+  --fb-wine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 22h8M12 15v7M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z'/%3E%3Cpath d='M7.3 9h9.4'/%3E%3C/svg%3E");
+  --fb-pasta: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h18a9 9 0 0 1-18 0Z'/%3E%3Cpath d='M9 12V3M12 12V2M15 12V4'/%3E%3C/svg%3E");
+  --fb-dessert: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16M5 20v-6h14v6M7 14V10h10v4M12 10V7'/%3E%3Cpath d='M12 3c.8.9 1.2 1.6 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.6.4-1.3 1.2-2.2Z'/%3E%3C/svg%3E");
+  --fb-plate: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='7'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M2 3v6a2 2 0 0 0 2 2M3 3v18M22 3v18M22 3c-2 0-3 2-3 5s1 4 3 4'/%3E%3C/svg%3E");
+  --fb-glass: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fccc2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 3h16l-8 9Z'/%3E%3Cpath d='M12 12v9M8 21h8'/%3E%3Cpath d='M7 6.5h10'/%3E%3C/svg%3E");
 }
 .fb-pizza {
   --fallback-icon: var(--fb-pizza);
@@ -727,8 +919,7 @@ p,
 .tile__copy .t-subhead {
   margin-top: 8px;
 }
-.tile__copy .btn-row,
-.tile__copy .link-row {
+.tile__copy .btn-row {
   margin-top: 22px;
   justify-content: center;
 }
@@ -739,24 +930,6 @@ p,
   transform: scale(1.08);
   transform-origin: center 30%;
   will-change: transform;
-}
-.tile--half {
-  min-height: clamp(420px, 52vw, 640px);
-  border-radius: 0;
-}
-.tile-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  padding: 12px;
-}
-.tile-grid .tile {
-  border-radius: var(--radius);
-}
-@media (max-width: 833px) {
-  .tile-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ---------- Galeria horizontal (estilo Apple "Conheça") ---------- */
@@ -794,12 +967,14 @@ p,
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--tile-2);
-  color: var(--text);
-  transition: background-color 0.25s, opacity 0.25s;
+  border: 1px solid var(--line-2);
+  background: var(--tile);
+  color: var(--yellow);
+  transition: background-color 0.25s, border-color 0.25s, opacity 0.25s;
 }
 .circle-btn:hover {
-  background: var(--tile-3);
+  border-color: var(--yellow);
+  background: var(--tile-2);
 }
 .circle-btn[disabled] {
   opacity: 0.35;
@@ -816,14 +991,16 @@ p,
   display: flex;
   flex-direction: column;
   border-radius: var(--radius);
+  border: 1px solid var(--line);
   background: var(--tile);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s var(--ease);
 }
 .product-card:hover {
-  transform: scale(1.015);
-  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9);
+  transform: translateY(-4px);
+  border-color: rgba(252, 204, 46, 0.35);
+  box-shadow: var(--shadow-card), 0 0 40px -20px var(--glow-ember);
 }
 .product-card .media {
   aspect-ratio: 1 / 1;
@@ -841,10 +1018,11 @@ p,
   padding: 18px 20px 20px;
 }
 .product-card__eyebrow {
-  font-size: 12px;
+  font-family: var(--font-cond);
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--amber);
+  letter-spacing: 0.12em;
+  color: var(--ember);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -870,10 +1048,11 @@ p,
   outline-offset: 3px;
 }
 .product-card__name {
+  font-family: var(--font-display);
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
 }
 .product-card__desc {
   margin-top: 6px;
@@ -913,13 +1092,14 @@ p,
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--text);
-  color: #120c09;
+  background: var(--yellow);
+  color: var(--on-yellow);
   flex-shrink: 0;
+  box-shadow: 0 6px 18px -8px var(--glow-ember);
   transition: background-color 0.25s, transform 0.25s var(--ease);
 }
 .add-btn:hover {
-  background: var(--amber);
+  background: var(--yellow-hover);
 }
 .add-btn:active {
   transform: scale(0.92);
@@ -929,7 +1109,7 @@ p,
   height: 18px;
 }
 .add-btn.is-added {
-  background: var(--amber);
+  background: #5fd38d;
 }
 
 /* Selos */
@@ -1047,9 +1227,9 @@ p,
 .chip[aria-pressed="true"],
 .chip[aria-checked="true"],
 .chip.is-active {
-  background: var(--text);
-  border-color: var(--text);
-  color: #120c09;
+  background: rgba(252, 204, 46, 0.12);
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 .chip .icon {
   width: 15px;
@@ -1072,37 +1252,9 @@ p,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (min-width: 641px) and (max-width: 1000px) {
-  .review-grid--carousel > .review:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
-}
 @media (max-width: 640px) {
   .review-grid {
     grid-template-columns: 1fr;
-  }
-  /* Carrossel horizontal no celular (Airbnb) */
-  .review-grid--carousel {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: 86%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
-    margin-inline: calc(var(--gutter) * -1);
-    padding: 4px var(--gutter) 12px;
-    scroll-padding-inline: var(--gutter);
-    scrollbar-width: none;
-  }
-  .review-grid--carousel::-webkit-scrollbar {
-    display: none;
-  }
-  .review-grid--carousel > .review {
-    scroll-snap-align: start;
-  }
-  .review-grid--carousel > .review.reveal {
-    opacity: 1;
-    transform: none;
   }
 }
 .review {
@@ -1111,6 +1263,7 @@ p,
   gap: 14px;
   padding: 26px;
   border-radius: var(--radius);
+  border: 1px solid var(--line);
   background: var(--tile);
 }
 .review__head {
@@ -1127,12 +1280,18 @@ p,
   flex-shrink: 0;
   background: linear-gradient(145deg, #7a4a30, var(--brown));
   color: var(--amber-2);
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
+  /* anel tracejado em volta da foto (Best Pizza) */
+  outline: 1.5px dashed var(--ember);
+  outline-offset: 4px;
 }
 .review__name {
+  font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--ember);
 }
 .review__occasion {
   font-size: 13px;
@@ -1183,7 +1342,8 @@ p,
   overflow: hidden;
   padding: 30px 28px;
   border-radius: var(--radius);
-  background: var(--tile);
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 244, 232, 0.02);
   min-height: 250px;
   display: flex;
   flex-direction: column;
@@ -1196,10 +1356,11 @@ p,
 }
 .bento-card h3 {
   margin-top: 32px;
-  font-size: clamp(22px, 2vw, 28px);
+  font-family: var(--font-display);
+  font-size: clamp(21px, 1.9vw, 26px);
   font-weight: 700;
-  letter-spacing: -0.022em;
-  line-height: 1.15;
+  letter-spacing: -0.005em;
+  line-height: 1.18;
 }
 .bento-card p {
   margin-top: 10px;
@@ -1209,8 +1370,8 @@ p,
   max-width: 46ch;
 }
 .bento-card--accent h3 {
-  font-size: clamp(28px, 3.4vw, 44px);
-  letter-spacing: -0.03em;
+  font-size: clamp(28px, 3.2vw, 42px);
+  letter-spacing: -0.01em;
 }
 .bento-card--accent p {
   font-size: clamp(16px, 1.4vw, 19px);
@@ -1220,7 +1381,8 @@ p,
   grid-column: span 2;
 }
 .bento-card--accent {
-  background: radial-gradient(120% 120% at 100% 0%, rgba(242, 181, 68, 0.16), transparent 50%),
+  border-color: rgba(238, 99, 38, 0.4);
+  background: radial-gradient(120% 120% at 100% 0%, rgba(252, 204, 46, 0.16), transparent 50%),
     linear-gradient(150deg, var(--red-deep), #2a0b08);
 }
 @media (max-width: 900px) {
@@ -1606,12 +1768,14 @@ p,
   gap: 12px;
   min-height: 56px;
   padding: 0 20px;
-  border-radius: 16px;
-  background: var(--red);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8);
+  border-radius: var(--pill);
+  background: var(--yellow);
+  color: var(--on-yellow);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8), 0 10px 30px -12px var(--glow-ember);
   transform: translateY(140%);
   transition: transform 0.45s var(--ease-out);
 }
@@ -1624,8 +1788,8 @@ p,
   min-width: 26px;
   height: 26px;
   padding: 0 7px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.22);
+  border-radius: var(--pill);
+  background: rgba(0, 0, 0, 0.16);
   font-size: 13px;
   margin-right: 10px;
 }
@@ -1729,38 +1893,407 @@ body.nav-open .fab {
   margin-left: 6px;
 }
 
-/* ---------- Rodapé (estilo Apple) ---------- */
+/* ==========================================================================
+   Componentes do sistema "Brasa"
+   ========================================================================== */
+
+/* ---------- Abas em pílula (Best Pizza: PIZZA · APPETIZER · DRINKS) ---------- */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 6px clamp(4px, 1.4vw, 14px);
+  flex-wrap: wrap;
+}
+.tab {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: var(--pill);
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+}
+.tab:hover {
+  color: var(--text);
+}
+.tab[aria-selected="true"] {
+  border-color: var(--yellow);
+  background: rgba(252, 204, 46, 0.08);
+  color: var(--yellow);
+}
+@media (max-width: 640px) {
+  /* No celular, as abas rolam na horizontal em vez de quebrar linha */
+  .tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter);
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tab {
+    flex-shrink: 0;
+  }
+}
+
+/* ---------- Cartão do cardápio com foto circular (Best Pizza) ----------
+   A foto redonda "vaza" para fora do cartão à esquerda e acima/abaixo. */
+.menu-card {
+  --img: clamp(118px, 12vw, 164px);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: var(--img) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(14px, 2vw, 26px);
+  min-height: calc(var(--img) + 8px);
+  cursor: pointer;
+}
+.menu-card::before {
+  content: "";
+  position: absolute;
+  inset: 12px 0 12px calc(var(--img) * 0.32);
+  z-index: -1;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--tile);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.menu-card:hover::before {
+  border-color: rgba(252, 204, 46, 0.3);
+  box-shadow: var(--shadow-card), 0 0 40px -18px var(--glow-ember);
+}
+.menu-card__img {
+  width: var(--img);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 0 4px rgba(12, 10, 9, 0.6);
+}
+.menu-card__img img {
+  transition: transform 1s var(--ease);
+}
+.menu-card:hover .menu-card__img img {
+  transform: scale(1.06) rotate(8deg);
+}
+.menu-card__body {
+  padding: 26px clamp(16px, 2vw, 26px) 26px 0;
+  text-align: center;
+}
+.menu-card__name {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(238, 99, 38, 0.7);
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.4vw, 19px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.menu-card__open {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.menu-card__open:focus-visible {
+  outline: none;
+}
+.menu-card:has(.menu-card__open:focus-visible) {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+.menu-card__desc {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.menu-card__price {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.menu-card .btn {
+  margin-top: 12px;
+}
+.menu-card .tag {
+  position: absolute;
+  top: 0;
+  left: calc(var(--img) * 0.62);
+  z-index: 2;
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+}
+
+/* ---------- Paginação "‹ 1/2 ›" (Best Pizza) ---------- */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+}
+.pager strong {
+  color: var(--yellow);
+}
+.pager button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--yellow);
+  transition: background-color 0.25s, opacity 0.25s;
+}
+.pager button:hover {
+  background: rgba(252, 204, 46, 0.1);
+}
+.pager button[disabled] {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ---------- Cartão só com contorno (Japan: "What's included") ---------- */
+.outline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 22px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 244, 232, 0.02);
+  transition: border-color 0.4s var(--ease), background-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.outline-card:hover {
+  border-color: rgba(252, 204, 46, 0.6);
+  background: rgba(252, 204, 46, 0.04);
+  transform: translateY(-3px);
+}
+.outline-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.outline-card__head .icon {
+  width: 26px;
+  height: 26px;
+  color: var(--yellow);
+}
+.outline-card h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.outline-card p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* ---------- Painel de vidro (Japan: formulário sobre a foto) ---------- */
+.glass-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- Faixa rolante (RedSun: logos com fade nas bordas) ---------- */
+.marquee {
+  position: relative;
+  border-block: 1px solid var(--line);
+}
+.marquee__viewport {
+  overflow: hidden;
+  padding-block: 22px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+.marquee:hover .marquee__track,
+.marquee.is-paused .marquee__track {
+  animation-play-state: paused;
+}
+/* Pausa acessível por teclado (conteúdo em movimento por mais de 5 s) */
+.marquee__toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  background: var(--bg);
+  color: var(--text-2);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.marquee:hover .marquee__toggle,
+.marquee__toggle:focus-visible,
+.marquee.is-paused .marquee__toggle {
+  opacity: 1;
+}
+.marquee__toggle .icon {
+  width: 14px;
+  height: 14px;
+}
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding-right: clamp(20px, 3vw, 40px);
+  font-family: var(--font-cond);
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-3);
+}
+.marquee__item::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+  background: var(--ember);
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Botão de seta em círculo (carrosséis) ---------- */
+.arrow-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--yellow);
+  transition: background-color 0.25s, transform 0.25s var(--ease);
+}
+.arrow-btn:hover {
+  background: rgba(252, 204, 46, 0.1);
+}
+.arrow-btn:active {
+  transform: scale(0.92);
+}
+.arrow-btn .icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* ---------- Rodapé (RedSun: marca + colunas + divisória; ícones da Best Pizza) ---------- */
 .footer {
-  background: var(--bg-2);
+  background: var(--bg);
   border-top: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 1.33;
+  font-size: 14px;
+  line-height: 1.45;
   color: var(--text-3);
 }
 .footer__inner {
-  padding-block: 20px 22px;
+  padding-block: clamp(56px, 7vw, 88px) 28px;
 }
-.footer__note {
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 40px clamp(32px, 5vw, 72px);
+  padding-bottom: 40px;
 }
-.footer__note p + p {
-  margin-top: 8px;
+.footer__brand .brand {
+  padding: 0;
+}
+.footer__heading {
+  margin-top: 18px;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+.footer__text {
+  margin-top: 10px;
+  max-width: 40ch;
+  color: var(--text-2);
+}
+.footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.social-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--yellow);
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+.social-btn:hover {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--on-yellow);
+}
+.social-btn .icon {
+  width: 19px;
+  height: 19px;
 }
 .footer__cols {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  padding-block: 22px;
+  gap: 28px;
 }
 .footer__cols h3 {
-  font-size: 12px;
+  margin-bottom: 14px;
+  font-family: var(--font-cond);
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--text);
-  margin-bottom: 10px;
+}
+.footer__cols h3 + ul + h3 {
+  margin-top: 26px;
 }
 .footer__cols li + li {
-  margin-top: 8px;
+  margin-top: 9px;
 }
 .footer__cols a,
 .footer__cols span {
@@ -1769,6 +2302,7 @@ body.nav-open .fab {
 .footer__cols a:hover {
   color: var(--text);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .footer__hours li {
   display: flex;
@@ -1777,19 +2311,33 @@ body.nav-open .fab {
   max-width: 220px;
 }
 .footer__hours li.is-today span {
-  color: var(--amber);
+  color: var(--yellow);
+}
+.footer__note {
+  padding-block: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.footer__note p + p {
+  margin-top: 6px;
 }
 .footer__bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 24px;
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid var(--line);
+  font-size: 12px;
 }
 .footer__bottom a:hover {
   color: var(--text);
   text-decoration: underline;
+}
+@media (max-width: 1000px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 833px) {
   .footer__cols {
@@ -1837,5 +2385,11 @@ body.nav-open .fab {
   }
   .scrub-text .w {
     opacity: 1;
+  }
+  .marquee__track {
+    animation: none;
+  }
+  .marquee__toggle {
+    display: none;
   }
 }

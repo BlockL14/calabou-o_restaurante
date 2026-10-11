@@ -24,7 +24,7 @@
   ];
 
   // tags: "vegetariano", "picante", "assinatura"
-  // featured: true => aparece na vitrine "Os mais pedidos" da home
+  // featured: true => aparece primeiro na sua aba do cardápio da home
   window.CALABOUCO_MENU = [
     // ---------------- Entradas ----------------
     {

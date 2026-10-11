@@ -127,7 +127,7 @@
 .rsv-step.is-done .rsv-step__num {
   background: var(--amber);
   border-color: var(--amber);
-  color: #1a1009;
+  color: var(--on-yellow);
 }
 .rsv-step__title {
   font-size: clamp(21px, 1.9vw, 24px);
@@ -292,13 +292,13 @@
   font-variant-numeric: tabular-nums;
 }
 .date-chip[aria-checked="true"] {
-  background: var(--text);
-  border-color: var(--text);
-  color: #120c09;
+  background: rgba(252, 204, 46, 0.12);
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 .date-chip[aria-checked="true"] .date-chip__dow,
 .date-chip[aria-checked="true"] .date-chip__mon {
-  color: rgba(18, 12, 9, 0.68);
+  color: rgba(252, 204, 46, 0.78);
 }
 .date-chip[disabled] {
   cursor: not-allowed;
@@ -356,9 +356,9 @@
   border-color: rgba(255, 139, 120, 0.45);
 }
 .time-chip[aria-checked="true"] {
-  background: var(--text);
-  border-color: var(--text);
-  color: #120c09;
+  background: rgba(252, 204, 46, 0.12);
+  border-color: var(--yellow);
+  color: var(--yellow);
 }
 .times.is-in .time-chip {
   animation: rsv-in 0.45s var(--ease-out) both;
