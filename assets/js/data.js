@@ -2,9 +2,9 @@
    CALABOUÇO — CARDÁPIO E DEPOIMENTOS
    - Pratos, descrições e preços são uma PROPOSTA (ticket médio R$ 80–180).
      Ajuste para o cardápio real da casa.
-   - Fotos: imagens temporárias do Unsplash. O ideal é trocar pelas fotos reais
-     dos pratos (as mesmas do Instagram), salvas em assets/img/ — ex.:
-     img: "assets/img/pizza-calaboucao.jpg"
+   - Fotos: imagens temporárias do Unsplash. Troque pelas fotos reais dos
+     pratos (as mesmas do Instagram), salvas em assets/img/ — ex.:
+     img: "assets/img/pizza-calabouco.jpg"
    ========================================================================== */
 
 (function () {
@@ -12,28 +12,19 @@
 
   window.CALABOUCO_IMG = u;
 
+  // fb = ícone exibido caso a foto não carregue (pizza, pasta, plate, dessert, wine, glass)
   window.CALABOUCO_CATEGORIES = [
-    { id: "entradas", label: "Entradas", icon: "utensils", img: u("1572695157366-5e585ab2b69f", 700) },
-    {
-      id: "pizzas-tradicionais",
-      label: "Pizzas Tradicionais",
-      icon: "flame",
-      img: u("1574071318508-1cdbab80d002", 700),
-    },
-    { id: "pizzas-da-casa", label: "Pizzas da Casa", icon: "crown", img: u("1513104890138-7c749659a591", 700) },
-    { id: "massas", label: "Massas", icon: "utensils", img: u("1473093295043-cdd812d0e601", 700) },
-    {
-      id: "pratos-principais",
-      label: "Pratos Principais",
-      icon: "utensils",
-      img: u("1600891964092-4316c288032e", 700),
-    },
-    { id: "sobremesas", label: "Sobremesas", icon: "star", img: u("1551024506-0bccd828d307", 700) },
-    { id: "bebidas", label: "Vinhos & Drinks", icon: "wine", img: u("1510812431401-41d2bd2722f3", 700) },
+    { id: "entradas", label: "Entradas", short: "Entradas", icon: "plate", fb: "plate", img: u("1540189549336-e6e99c3679fe", 1200) },
+    { id: "pizzas-tradicionais", label: "Pizzas Tradicionais", short: "Tradicionais", icon: "pizza", fb: "pizza", img: u("1574071318508-1cdbab80d002", 1200) },
+    { id: "pizzas-da-casa", label: "Pizzas da Casa", short: "Da Casa", icon: "crown", fb: "pizza", img: u("1513104890138-7c749659a591", 1200) },
+    { id: "massas", label: "Massas", short: "Massas", icon: "pasta", fb: "pasta", img: u("1473093295043-cdd812d0e601", 1200) },
+    { id: "pratos-principais", label: "Pratos Principais", short: "Principais", icon: "plate", fb: "plate", img: u("1600891964092-4316c288032e", 1200) },
+    { id: "sobremesas", label: "Sobremesas", short: "Sobremesas", icon: "dessert", fb: "dessert", img: u("1551024506-0bccd828d307", 1200) },
+    { id: "bebidas", label: "Vinhos & Drinks", short: "Bebidas", icon: "wine", fb: "wine", img: u("1510812431401-41d2bd2722f3", 1200) },
   ];
 
-  // tags disponíveis: "vegetariano", "picante", "assinatura"
-  // featured: true => aparece em "Destaques da casa" na home
+  // tags: "vegetariano", "picante", "assinatura"
+  // featured: true => aparece na vitrine "Os mais pedidos" da home
   window.CALABOUCO_MENU = [
     // ---------------- Entradas ----------------
     {
@@ -54,7 +45,8 @@
       desc: "Burrata cremosa, pesto de manjericão, tomate-cereja assado e focaccia quente da casa.",
       meta: "Serve 2",
       tags: ["vegetariano"],
-      img: u("1608897013039-887f21d8c804"),
+      featured: true,
+      img: u("1512621776951-a57141f2eefd"),
     },
     {
       id: "e3",
@@ -64,7 +56,7 @@
       desc: "Lâminas finas de filé-mignon, alcaparras, rúcula, lascas de parmesão e molho de mostarda Dijon.",
       meta: "Serve 2",
       tags: [],
-      img: u("1544025162-d76694265947"),
+      img: u("1504674900247-0877df9cc836"),
     },
     {
       id: "e4",
@@ -74,7 +66,7 @@
       desc: "Folhas nobres, figos, nozes caramelizadas, queijo de cabra e vinagrete de mel.",
       meta: "Individual",
       tags: ["vegetariano"],
-      img: u("1546069901-ba9599a7e63c"),
+      img: u("1540189549336-e6e99c3679fe"),
     },
 
     // ---------------- Pizzas tradicionais ----------------
@@ -86,6 +78,7 @@
       desc: "Molho de tomate italiano, muçarela de búfala, manjericão fresco e azeite extravirgem.",
       meta: "Grande · 8 pedaços",
       tags: ["vegetariano"],
+      featured: true,
       img: u("1574071318508-1cdbab80d002"),
     },
     {
@@ -106,7 +99,7 @@
       desc: "Muçarela, gorgonzola, provolone e parmesão gratinados no forno.",
       meta: "Grande · 8 pedaços",
       tags: ["vegetariano"],
-      img: u("1513104890138-7c749659a591"),
+      img: u("1604382354936-07c5d9983bd3"),
     },
     {
       id: "p4",
@@ -116,7 +109,7 @@
       desc: "Presunto, ovos, cebola, ervilha fresca, azeitonas e muçarela.",
       meta: "Grande · 8 pedaços",
       tags: [],
-      img: u("1604382354936-07c5d9983bd3"),
+      img: u("1593560708920-61dd98c46a4e"),
     },
 
     // ---------------- Pizzas da casa ----------------
@@ -125,10 +118,10 @@
       cat: "pizzas-da-casa",
       name: "Pizza Calabouço",
       price: 129,
-      featured: true,
       desc: "Molho rústico, muçarela, linguiça artesanal, cebola caramelizada, pimenta biquinho e fio de mel picante.",
       meta: "Grande · 8 pedaços",
       tags: ["assinatura", "picante"],
+      featured: true,
       img: u("1513104890138-7c749659a591"),
     },
     {
@@ -136,11 +129,11 @@
       cat: "pizzas-da-casa",
       name: "Parma & Rúcula",
       price: 136,
-      featured: true,
       desc: "Presunto de Parma, rúcula, tomate seco, lascas de parmesão e redução de balsâmico.",
       meta: "Grande · 8 pedaços",
       tags: ["assinatura"],
-      img: u("1593560708920-61dd98c46a4e"),
+      featured: true,
+      img: u("1590947132387-155cc02f3212"),
     },
     {
       id: "p7",
@@ -150,7 +143,7 @@
       desc: "Mix de cogumelos salteados, muçarela, creme de trufas negras e tomilho fresco.",
       meta: "Grande · 8 pedaços",
       tags: ["vegetariano"],
-      img: u("1590947132387-155cc02f3212"),
+      img: u("1571407970349-bc81e7e96d47"),
     },
     {
       id: "p8",
@@ -169,10 +162,10 @@
       cat: "massas",
       name: "Carbonara Tradicional",
       price: 78,
-      featured: true,
       desc: "Spaghetti, guanciale crocante, gema, pecorino romano e pimenta-do-reino moída na hora.",
       meta: "Individual",
       tags: [],
+      featured: true,
       img: u("1612874742237-6526221588e3"),
     },
     {
@@ -202,10 +195,10 @@
       cat: "pratos-principais",
       name: "Filé ao Molho de Vinho",
       price: 128,
-      featured: true,
       desc: "Medalhão de filé-mignon, redução de vinho tinto e risoto cremoso de parmesão.",
       meta: "Individual",
       tags: ["assinatura"],
+      featured: true,
       img: u("1600891964092-4316c288032e"),
     },
     {
@@ -216,7 +209,7 @@
       desc: "Costela cozida lentamente até desmanchar, purê rústico de batata e farofa de ervas.",
       meta: "Individual",
       tags: [],
-      img: u("1558030006-450675393462"),
+      img: u("1544025162-d76694265947"),
     },
     {
       id: "c3",
@@ -238,6 +231,7 @@
       desc: "Biscoito embebido em café, creme de mascarpone e cacau em pó.",
       meta: "Individual",
       tags: ["vegetariano"],
+      featured: true,
       img: u("1571877227200-a0d98ea607e9"),
     },
     {
@@ -300,6 +294,7 @@
       desc: "Gin, Campari e vermute rosso, com casca de laranja queimada.",
       meta: "Drink autoral",
       tags: ["assinatura"],
+      featured: true,
       img: u("1514362545857-3bc16c4c7d1b"),
     },
     {

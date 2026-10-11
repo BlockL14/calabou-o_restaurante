@@ -5,19 +5,34 @@ Instagram ([@calaboucorestaurante](https://www.instagram.com/calaboucorestaurant
 
 Site estático (HTML, CSS e JavaScript puros): não precisa de build, banco de dados nem servidor especial.
 
+## Referências de design
+
+A interface segue padrões consagrados de landing pages de marcas grandes:
+
+| Onde | Padrão de referência |
+| --- | --- |
+| Estrutura geral, navegação, tipografia, blocos de destaque, rodapé | **Apple** (apple.com) |
+| Vitrine "Os mais pedidos" (galeria horizontal com setas) | **Apple / Nike** |
+| Cardápio: barra lateral de categorias no desktop | **Starbucks** (menu) |
+| Cardápio no celular, ficha do produto, sacola com barra inferior | **iFood / Domino's** |
+| Reserva: pessoas, datas e horários em botões | **OpenTable / Resy** |
+| Cartão "Visite-nos" com status, horários e mapa | **Apple Store** (página da loja) |
+| Depoimentos | **Airbnb** |
+| Sobre nós: texto que acende com a rolagem e mídia fixa | **Apple** + editorial de restaurantes de luxo |
+
 ## Páginas
 
 | Página | Arquivo | Conteúdo |
 | --- | --- | --- |
-| Início | `index.html` | Banner principal, destaques da casa, categorias, experiência, depoimentos, Instagram e chamada para reserva |
-| Cardápio | `cardapio.html` | Catálogo com categorias, busca, faixa de preço, filtros (vegetariano, picante, assinatura) e ordenação |
-| Sobre nós | `sobre.html` | História da marca em capítulos, pilares, galeria e todos os depoimentos |
-| Contato | `contato.html` | Canais de contato, horários com status "aberto agora", formulário de reserva e mapa |
+| Início | `index.html` | Banner, pizza assinatura, categorias, mais pedidos, manifesto, diferenciais, depoimentos, Instagram e reserva |
+| Cardápio | `cardapio.html` | Categorias, busca, preferências, faixa de preço, ordenação, ficha do produto e sacola |
+| Sobre nós | `sobre.html` | História em capítulos, pilares, galeria do ambiente e depoimentos |
+| Reservas e contato | `contato.html` | Reserva (pessoas, data, horário), canais, horários, mapa e perguntas frequentes |
 
 ### Como o site gera reservas e pedidos
 
-- **Minha seleção**: o cliente adiciona pratos pelo cardápio, ajusta quantidades e envia o pedido pronto.
-- **Formulário de reserva**: valida data e horário (bloqueia os dias fechados) e monta a mensagem.
+- **Sacola**: o cliente adiciona pratos (pelo botão "+" ou pela ficha do produto), ajusta quantidades e envia o pedido pronto.
+- **Reserva**: escolhe pessoas, data e horário (dias fechados e horários passados ficam bloqueados) e envia a solicitação.
 - **Canal de envio**:
   - com o WhatsApp configurado, abre o WhatsApp com a mensagem já escrita;
   - sem WhatsApp, copia a mensagem e abre o Direct do Instagram para o cliente colar.
@@ -42,7 +57,7 @@ Os itens abaixo são **provisórios**. Revise-os antes de divulgar o site:
 
 ### Contatos, endereço e horários: `assets/js/config.js`
 
-Tudo é replicado automaticamente em todas as páginas: rodapé, página de contato, mapa, botões e dados para o Google.
+Tudo é replicado automaticamente em todas as páginas: rodapé, reservas, mapa, botões e dados para o Google.
 
 ```js
 whatsapp: "5541999998888", // DDI 55 + DDD + número, só dígitos
@@ -50,6 +65,7 @@ hours: [
   { day: 1, closed: true },                  // segunda fechado
   { day: 5, open: "18:00", close: "00:00" }, // sexta até meia-noite
 ],
+reservationSlots: { start: "18:00", end: "22:30", step: 30 }, // horários oferecidos na reserva
 ```
 
 ### Cardápio: `assets/js/data.js`
@@ -58,14 +74,14 @@ Cada prato é um objeto:
 
 ```js
 {
-  id: "p5",                       // único
-  cat: "pizzas-da-casa",          // id de uma categoria em CALABOUCO_CATEGORIES
+  id: "p5",                        // único
+  cat: "pizzas-da-casa",           // id de uma categoria em CALABOUCO_CATEGORIES
   name: "Pizza Calabouço",
   price: 129,
   desc: "Molho rústico, muçarela…",
   meta: "Grande · 8 pedaços",
   tags: ["assinatura", "picante"], // "vegetariano" | "picante" | "assinatura"
-  featured: true,                 // aparece em "Destaques da casa" (os 4 primeiros)
+  featured: true,                  // aparece na vitrine "Os mais pedidos" da home
   img: "assets/img/pizza-calabouco.jpg",
 }
 ```
@@ -74,9 +90,9 @@ Cada prato é um objeto:
 
 1. Salve as fotos em `assets/img/`, de preferência em `.jpg` ou `.webp`, com 1200–1600 px de largura e até ~300 KB cada.
 2. Nos pratos, troque o campo `img` em `data.js`.
-3. Nas fotos de ambiente (banner, história, galeria), troque o `src` das tags `<img>` nos arquivos `.html`.
+3. Nas fotos de ambiente (banner, blocos, história, galeria), troque o `src` das tags `<img>` nos arquivos `.html`.
 
-Se uma foto não carregar, o site exibe automaticamente um painel com o emblema da casa, sem deixar ícone quebrado.
+Se uma foto não carregar, o site exibe um painel escuro com o ícone da categoria, sem deixar ícone quebrado.
 
 ## Testar localmente
 
@@ -104,17 +120,18 @@ https://SEU-DOMINIO/?utm_source=instagram&utm_medium=bio
 ```
 ├── index.html, cardapio.html, sobre.html, contato.html
 └── assets/
-    ├── css/styles.css   # paleta, tipografia e componentes
-    ├── js/config.js     # dados do negócio (editar aqui)
-    ├── js/data.js       # cardápio, categorias e depoimentos
-    ├── js/main.js       # comportamento comum (menu, seleção, horários, ícones)
-    ├── js/cardapio.js   # filtros do catálogo
-    ├── js/contato.js    # formulário de reserva
-    ├── fonts/           # Cinzel, Cormorant Garamond e Manrope (licença SIL OFL)
+    ├── css/base.css       # design system: cores, tipografia, navegação, componentes
+    ├── css/pages/*.css    # estilos específicos de cada página
+    ├── js/config.js       # dados do negócio (editar aqui)
+    ├── js/data.js         # cardápio, categorias e depoimentos
+    ├── js/main.js         # comportamento comum (navegação, sacola, ficha do produto, horários, ícones)
+    ├── js/cardapio.js     # filtros e categorias do cardápio
+    ├── js/contato.js      # reserva
+    ├── js/sobre.js        # efeitos da página Sobre nós
+    ├── fonts/             # Inter (licença SIL OFL)
     └── img/favicon.svg
 ```
 
 **Identidade visual**:
-- Paleta: preto carvão `#0b0807`, marrom `#4a2e22`, vermelho vinho `#9e1f1f` / `#5c1015` e âmbar `#d9a441`.
-- Tipografia: Cinzel (marca), Cormorant Garamond (títulos) e Manrope (texto).
-- As fontes são hospedadas no próprio site, sem depender do Google Fonts.
+- Paleta: preto `#0a0807`, superfícies marrom-escuras `#171210`, vermelho `#c8261d` (ações) e âmbar `#f2b544` (links e destaques).
+- Tipografia: Inter, a alternativa aberta mais próxima da SF Pro da Apple, hospedada no próprio site.

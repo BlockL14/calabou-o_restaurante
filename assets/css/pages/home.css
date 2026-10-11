@@ -1,0 +1,143 @@
+/* ==========================================================================
+   CALABOUÇO — Home
+   ========================================================================== */
+
+/* Banner principal: texto no topo, foto ocupando o bloco (padrão Apple) */
+.hero {
+  min-height: calc(100svh - var(--nav-h) - 44px);
+  max-height: 980px;
+}
+.hero .tile__copy {
+  padding-top: clamp(56px, 9vh, 104px);
+}
+.hero .t-hero {
+  margin-top: 4px;
+}
+.hero .t-subhead {
+  margin-top: 14px;
+  color: rgba(245, 241, 236, 0.86);
+}
+.hero .btn-row {
+  margin-top: 30px;
+}
+.tile__bg img[data-parallax] {
+  transform: scale(1.08);
+  transform-origin: center 30%;
+  will-change: transform;
+}
+
+/* Bloco da pizza assinatura: separação sutil do banner */
+.tile--signature {
+  border-top: 1px solid var(--line);
+}
+.tile--signature .tile__bg::after {
+  background: linear-gradient(180deg, rgba(10, 8, 7, 0.92) 0%, rgba(10, 8, 7, 0.45) 36%, rgba(10, 8, 7, 0) 62%),
+    linear-gradient(0deg, rgba(10, 8, 7, 0.6) 0%, transparent 28%);
+}
+.tile--signature .link-row button.link {
+  font-size: inherit;
+}
+
+/* Grade de categorias */
+.tile-grid .tile {
+  transition: transform 0.6s var(--ease);
+}
+.tile-grid .tile .tile__bg img {
+  transition: transform 1.2s var(--ease);
+}
+.tile-grid .tile:hover .tile__bg img {
+  transform: scale(1.04);
+}
+.tile-grid .tile__copy {
+  padding-top: clamp(36px, 4.6vw, 52px);
+}
+.tile-grid .t-subhead {
+  font-size: clamp(17px, 1.6vw, 21px);
+  color: rgba(245, 241, 236, 0.86);
+}
+.tile-grid .link-row {
+  margin-top: 14px;
+}
+
+/* Manifesto */
+.statement .container {
+  max-width: calc(1040px + var(--gutter) * 2);
+}
+.statement {
+  padding-block: clamp(96px, 14vw, 200px);
+}
+
+/* Instagram */
+.insta {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+.insta__copy .t-headline {
+  font-size: clamp(26px, 3.3vw, 46px);
+  overflow-wrap: anywhere;
+}
+.insta__copy .t-headline a:hover {
+  color: var(--amber);
+}
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.insta-tile {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.insta-tile .media {
+  position: absolute;
+  inset: 0;
+}
+.insta-tile .media img {
+  transition: transform 1s var(--ease);
+}
+.insta-tile:hover .media img {
+  transform: scale(1.06);
+}
+.insta-tile__over {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 8, 7, 0.55);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+.insta-tile__over .icon {
+  width: 28px;
+  height: 28px;
+}
+.insta-tile:hover .insta-tile__over,
+.insta-tile:focus-visible .insta-tile__over {
+  opacity: 1;
+}
+@media (max-width: 833px) {
+  .insta {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chamada final */
+.tile--cta {
+  min-height: clamp(560px, 62vw, 760px);
+  justify-content: center;
+}
+.tile--cta .tile__copy {
+  padding-block: 64px;
+}
+.tile--cta .tile__bg::after {
+  background: radial-gradient(80% 70% at 50% 50%, rgba(10, 8, 7, 0.55), rgba(10, 8, 7, 0.88)),
+    linear-gradient(0deg, rgba(10, 8, 7, 0.6), transparent 40%);
+}
+.tile--cta .btn-row {
+  margin-top: 28px;
+}

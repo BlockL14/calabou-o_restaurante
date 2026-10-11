@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Calabouço Restaurante — Pizzaria & Restaurante à luz de velas</title>
-  <meta name="description" content="Pizzas artesanais, massas, carnes e uma carta de vinhos em um ambiente intimista à luz de velas. Reserve sua mesa no Calabouço Restaurante.">
-  <meta name="theme-color" content="#0b0807">
+  <title>Calabouço Restaurante — Pizza, vinho e noites à luz de velas</title>
+  <meta name="description" content="Pizzas de forno, massas, carnes e uma carta de vinhos em um ambiente intimista à luz de velas. Veja o cardápio e reserve sua mesa no Calabouço.">
+  <meta name="theme-color" content="#0a0807">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Calabouço Restaurante">
-  <meta property="og:title" content="Calabouço Restaurante — Pizzaria & Restaurante à luz de velas">
-  <meta property="og:description" content="Pizzas artesanais, massas, carnes e uma carta de vinhos em um ambiente intimista à luz de velas. Reserve sua mesa no Calabouço Restaurante.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=70">
+  <meta property="og:title" content="Calabouço Restaurante — Pizza, vinho e noites à luz de velas">
+  <meta property="og:description" content="Pizzas de forno, massas, carnes e uma carta de vinhos em um ambiente intimista à luz de velas. Veja o cardápio e reserve sua mesa no Calabouço.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=70">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preload" href="assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/pages/home.css">
 
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/data.js" defer></script>
@@ -28,169 +28,180 @@
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <header class="site-header" data-header>
-    <div class="container site-header__inner">
-      <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
-        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="flameH" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
-            </linearGradient>
-          </defs>
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
-            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
-            <path d="M4 45h40" stroke-width="2"/>
-          </g>
-          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameH)"/>
+  <header class="gnav">
+    <nav class="container container--wide gnav__inner" aria-label="Principal">
+      <a class="brand" href="index.html" aria-label="Calabouço Restaurante — início">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 29V14a10 10 0 0 1 20 0v15"/><path d="M3 29h26"/>
+          <path d="M16 13.5c2.2 2.4 3.6 4.1 3.6 6.4a3.6 3.6 0 0 1-7.2 0c0-1.5.7-2.6 1.6-3.5.1 1.1.6 1.8 1.4 2-.3-1.8 0-3.3.6-4.9z" fill="currentColor" stroke="none"/>
         </svg>
-        <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
+        <span class="brand__name">Calabouço</span>
       </a>
-      <nav class="site-nav" id="site-nav" aria-label="Principal">
-        <ul>
-          <li><a href="index.html" aria-current="page">Início</a></li>
-          <li><a href="cardapio.html">Cardápio</a></li>
-          <li><a href="sobre.html">Sobre nós</a></li>
-          <li><a href="contato.html">Contato</a></li>
-        </ul>
-        <a class="btn btn--primary btn--sm" href="contato.html#reserva">Reservar mesa</a>
-      </nav>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu"><span></span><span></span></button>
-    </div>
+      <div class="gnav__links" id="gnav-links">
+        <a href="index.html" aria-current="page">Início</a>
+        <a href="cardapio.html">Cardápio</a>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="contato.html">Reservas e contato</a>
+      </div>
+      <div class="gnav__actions">
+        <a class="btn btn--primary btn--sm gnav__reserve" href="contato.html#reserva">Reservar</a>
+        <button class="gnav__icon-btn" type="button" data-bag-open aria-label="Abrir sacola"><span data-icon="bag"></span><span class="gnav__badge" data-bag-count hidden>0</span></button>
+        <button class="gnav__icon-btn gnav__toggle" type="button" aria-expanded="false" aria-controls="gnav-links" aria-label="Abrir menu"><span class="bars"><span></span><span></span></span></button>
+      </div>
+    </nav>
   </header>
 
+  <div class="ribbon">Reservas abertas para esta semana. <a href="contato.html#reserva">Reservar mesa&nbsp;›</a></div>
   <main id="conteudo">
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-      <div class="hero__bg media">
-        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=2000&q=70" alt="Salão do restaurante à meia-luz" fetchpriority="high" decoding="async">
-      </div>
-      <div class="hero__glow" aria-hidden="true"></div>
 
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <span class="kicker reveal">Restaurante &amp; Pizzaria</span>
-          <h1 class="display hero__title reveal" style="--delay:.08s">
-            <span class="line">Pedra, fogo</span>
-            <span class="line">&amp; <em>vinho.</em></span>
-          </h1>
-          <p class="lead reveal" style="--delay:.16s">
-            No Calabouço, a noite desce alguns degraus. Pizzas de massa leve e borda crocante, massas artesanais
-            e uma carta de vinhos para brindar sem pressa — à luz de velas.
-          </p>
-          <div class="hero__actions reveal" style="--delay:.24s">
-            <a class="btn btn--primary" data-link="reserve" href="contato.html#reserva"><span data-channel-icon></span>Reservar mesa</a>
-            <a class="btn btn--ghost" href="cardapio.html">Ver cardápio <span data-icon="arrow-right"></span></a>
-          </div>
-          <ul class="hero__facts reveal" style="--delay:.32s">
-            <li><span data-icon="clock"></span><span data-config="hours-summary">Ter a Dom · a partir das 18h</span></li>
-            <li><span data-icon="map-pin"></span><a data-link="maps" href="contato.html" data-config="address-line">Ver localização</a></li>
-            <li><span data-icon="instagram"></span><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
-          </ul>
+    <!-- ============ HERO (referência: Apple) ============ -->
+    <section class="tile tile--full hero" aria-labelledby="hero-title">
+      <div class="tile__bg media media--hero">
+        <img data-parallax src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=2000&q=70" alt="Pizza artesanal com manjericão fresco" fetchpriority="high" decoding="async">
+      </div>
+      <div class="tile__copy">
+        <p class="eyebrow reveal">Restaurante &amp; Pizzaria</p>
+        <h1 class="t-hero reveal" style="--delay:.06s" id="hero-title">Calabouço</h1>
+        <p class="t-subhead reveal" style="--delay:.12s">Pizza de forno, vinho e noites à luz de velas.</p>
+        <div class="btn-row reveal" style="--delay:.18s">
+          <a class="btn btn--primary" data-link="reserve" href="contato.html#reserva">Reservar mesa</a>
+          <a class="btn btn--secondary" href="cardapio.html">Ver cardápio</a>
         </div>
-
-        <aside class="hero-card reveal" style="--delay:.4s" aria-label="Destaque da casa">
-          <div class="media"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=70" alt="Pizza Calabouço" decoding="async"></div>
-          <div class="hero-card__body">
-            <span class="hero-card__label">Assinatura da casa</span>
-            <div class="hero-card__row">
-              <h2 class="hero-card__name">Pizza Calabouço</h2>
-              <span class="hero-card__price">R$ 129</span>
-            </div>
-            <p>Linguiça artesanal, cebola caramelizada, pimenta biquinho e fio de mel picante.</p>
-            <button class="btn-add" type="button" data-add="p5" style="margin-top:16px" aria-label="Adicionar Pizza Calabouço à minha seleção"><span data-icon="plus"></span><span>Adicionar</span></button>
-          </div>
-        </aside>
       </div>
-      <span class="scroll-cue" aria-hidden="true">Role</span>
     </section>
 
-    <!-- ============ FAIXA ============ -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track"><span class="marquee__item">Pizzas artesanais</span><span class="marquee__item">Massas frescas</span><span class="marquee__item">Carta de vinhos</span><span class="marquee__item">Noites à luz de velas</span><span class="marquee__item">Drinks autorais</span><span class="marquee__item">Reservas para grupos</span><span class="marquee__item">Pizzas artesanais</span><span class="marquee__item">Massas frescas</span><span class="marquee__item">Carta de vinhos</span><span class="marquee__item">Noites à luz de velas</span><span class="marquee__item">Drinks autorais</span><span class="marquee__item">Reservas para grupos</span></div>
-    </div>
+    <!-- ============ ASSINATURA ============ -->
+    <section class="tile tile--full tile--signature" aria-labelledby="sig-title">
+      <div class="tile__bg media media--hero">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=70" alt="Pizza Calabouço vista de cima" loading="lazy" decoding="async">
+      </div>
+      <div class="tile__copy">
+        <p class="eyebrow reveal">Assinatura da casa</p>
+        <h2 class="t-headline reveal" style="--delay:.06s" id="sig-title">Pizza Calabouço</h2>
+        <p class="t-subhead reveal" style="--delay:.12s">Linguiça artesanal, cebola caramelizada e um fio de mel picante.</p>
+        <div class="link-row reveal" style="--delay:.18s">
+          <button class="link" type="button" data-product="p5">Ver detalhes <span data-icon="chevron-right"></span></button>
+          <button class="link" type="button" data-add="p5">Adicionar à sacola <span data-icon="chevron-right"></span></button>
+        </div>
+        <p class="t-small reveal" style="--delay:.22s;margin-top:14px">Grande, 8 pedaços · <span class="tabular">R$ 129</span></p>
+      </div>
+    </section>
 
-    <!-- ============ DESTAQUES ============ -->
-    <section class="section" id="destaques">
+    <!-- ============ CATEGORIAS (grade de tiles estilo Apple) ============ -->
+    <section class="tile-grid" aria-label="Explore o cardápio">
+      <a class="tile tile--half" href="cardapio.html?cat=massas">
+        <div class="tile__bg media media--hero"><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1300&q=70" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile__copy">
+          <h2 class="t-title">Massas</h2>
+          <p class="t-subhead">Feitas na casa, servidas no ponto.</p>
+          <span class="link-row"><span class="link">Ver massas <span data-icon="chevron-right"></span></span></span>
+        </div>
+      </a>
+      <a class="tile tile--half" href="cardapio.html?cat=bebidas">
+        <div class="tile__bg media media--hero"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1300&q=70" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile__copy">
+          <h2 class="t-title">Carta de vinhos</h2>
+          <p class="t-subhead">Da taça à garrafa, para cada sabor.</p>
+          <span class="link-row"><span class="link">Ver vinhos e drinks <span data-icon="chevron-right"></span></span></span>
+        </div>
+      </a>
+      <a class="tile tile--half" href="cardapio.html?cat=pratos-principais">
+        <div class="tile__bg media media--hero"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1300&q=70" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile__copy">
+          <h2 class="t-title">Pratos principais</h2>
+          <p class="t-subhead">Carnes nobres e risotos cremosos.</p>
+          <span class="link-row"><span class="link">Ver pratos <span data-icon="chevron-right"></span></span></span>
+        </div>
+      </a>
+      <a class="tile tile--half" href="cardapio.html?cat=sobremesas">
+        <div class="tile__bg media media--hero"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1300&q=70" alt="" loading="lazy" decoding="async"></div>
+        <div class="tile__copy">
+          <h2 class="t-title">Sobremesas</h2>
+          <p class="t-subhead">O final que a noite merece.</p>
+          <span class="link-row"><span class="link">Ver sobremesas <span data-icon="chevron-right"></span></span></span>
+        </div>
+      </a>
+    </section>
+
+    <!-- ============ MAIS PEDIDOS (galeria estilo Apple/Nike) ============ -->
+    <section class="section" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <h2 class="t-headline reveal" id="featured-title">Os mais pedidos.<br><span class="muted">Escolha e peça em segundos.</span></h2>
+          <a class="link reveal" href="cardapio.html" style="font-size:19px">Ver cardápio completo <span data-icon="chevron-right"></span></a>
+        </div>
+      </div>
+      <div class="scroller" data-scroller>
+        <div class="scroller__track" data-featured role="list" aria-label="Pratos mais pedidos"></div>
+        <div class="scroller__controls">
+          <button class="circle-btn" type="button" data-scroll-prev aria-label="Anteriores"><span data-icon="chevron-left"></span></button>
+          <button class="circle-btn" type="button" data-scroll-next aria-label="Próximos"><span data-icon="chevron-right"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MANIFESTO (texto que acende na rolagem) ============ -->
+    <section class="section statement" aria-label="Manifesto">
+      <div class="container">
+        <p class="scrub-text" data-scrub>Não servimos apenas pizza. Servimos <span class="accent">a noite inteira</span> — o forno aceso, a taça cheia e a conversa que ninguém quer encerrar.</p>
+      </div>
+    </section>
+
+    <!-- ============ POR QUE O CALABOUÇO (bento) ============ -->
+    <section class="section section--alt" aria-labelledby="why-title">
       <div class="container">
         <div class="section-head">
-          <div>
-            <span class="kicker reveal">Destaques da casa</span>
-            <h2 class="h2 reveal" style="--delay:.08s">Os favoritos de quem <em>desce ao Calabouço</em></h2>
-          </div>
-          <a class="link-arrow reveal" href="cardapio.html">Ver cardápio completo <span data-icon="arrow-right"></span></a>
+          <h2 class="t-headline reveal" id="why-title">Por que o Calabouço.</h2>
         </div>
-        <div class="dish-grid dish-grid--featured" data-featured-grid data-limit="4"></div>
+        <div class="bento">
+          <article class="bento-card bento-card--wide bento-card--accent reveal">
+            <span data-icon="flame"></span>
+            <h3>Forno sempre aceso.</h3>
+            <p>Pizzas assadas em alta temperatura, com borda aerada e fundo crocante, do jeito que tem que ser.</p>
+          </article>
+          <article class="bento-card reveal" style="--delay:.06s">
+            <span data-icon="wheat"></span>
+            <h3>Massa com tempo.</h3>
+            <p>Fermentação respeitada para uma massa leve e saborosa.</p>
+          </article>
+          <article class="bento-card reveal">
+            <span data-icon="wine"></span>
+            <h3>Uma carta para cada prato.</h3>
+            <p>Tintos, brancos e drinks autorais escolhidos para acompanhar o cardápio.</p>
+          </article>
+          <article class="bento-card reveal" style="--delay:.06s">
+            <span data-icon="users"></span>
+            <h3>Grupos e comemorações.</h3>
+            <p>Aniversários, confraternizações e jantares de negócios com atendimento dedicado.</p>
+          </article>
+          <article class="bento-card reveal" style="--delay:.12s">
+            <span data-icon="calendar"></span>
+            <h3>Reserva em segundos.</h3>
+            <p>Escolha data, horário e número de pessoas. Nossa equipe confirma pelo <span data-config="channel-name">WhatsApp</span>.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- ============ CATEGORIAS ============ -->
-    <section class="section section--alt">
+    <!-- ============ AVALIAÇÕES (referência: Airbnb) ============ -->
+    <section class="section" aria-labelledby="reviews-title">
       <div class="container">
-        <div class="section-head section-head--center">
-          <span class="kicker reveal">Cardápio</span>
-          <h2 class="h2 reveal" style="--delay:.08s">Escolha por onde <em>começar</em></h2>
-          <p class="lead reveal" style="--delay:.16s">Entradas para dividir, pizzas tradicionais e autorais, massas, carnes, sobremesas e vinhos.</p>
+        <div class="section-head section-head--split">
+          <h2 class="t-headline reveal" id="reviews-title">Quem desce,<br><span class="muted">volta.</span></h2>
+          <a class="link reveal" href="sobre.html#depoimentos" style="font-size:19px">Ler todos os depoimentos <span data-icon="chevron-right"></span></a>
         </div>
-        <div class="cat-grid" data-cat-grid></div>
-      </div>
-    </section>
-
-    <!-- ============ EXPERIÊNCIA ============ -->
-    <section class="section">
-      <div class="container split">
-        <div class="collage reveal">
-          <div class="collage__main media"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1100&q=70" alt="Mesa posta no salão do Calabouço" loading="lazy" decoding="async"></div>
-          <div class="collage__float media"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=70" alt="Taças de vinho tinto" loading="lazy" decoding="async"></div>
-          <div class="collage__seal"><span>Noites<strong>à luz</strong>de velas</span></div>
-        </div>
-        <div>
-          <span class="kicker reveal">A experiência</span>
-          <h2 class="h2 reveal" style="--delay:.08s">Uma noite que <em>pede tempo</em></h2>
-          <p class="lead reveal" style="--delay:.16s">
-            O Calabouço é para quem gosta de jantar devagar: boa comida, boa conversa e um ambiente que convida a ficar
-            mais uma taça.
-          </p>
-          <div class="feature-list">
-            <div class="feature reveal" style="--delay:.1s">
-              <span class="feature__icon"><span data-icon="flame"></span></span>
-              <div><h3>Forno sempre aceso</h3><p>Pizzas assadas em alta temperatura, com borda aerada e fundo crocante.</p></div>
-            </div>
-            <div class="feature reveal" style="--delay:.18s">
-              <span class="feature__icon"><span data-icon="wine"></span></span>
-              <div><h3>Carta de vinhos</h3><p>Rótulos escolhidos para acompanhar cada sabor — da taça à garrafa.</p></div>
-            </div>
-            <div class="feature reveal" style="--delay:.26s">
-              <span class="feature__icon"><span data-icon="candle"></span></span>
-              <div><h3>Atmosfera intimista</h3><p>Luz baixa, pedra e madeira: o cenário ideal para encontros e celebrações.</p></div>
-            </div>
-          </div>
-          <a class="btn btn--ghost reveal" style="margin-top:40px" href="sobre.html">Conheça nossa história <span data-icon="arrow-right"></span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ DEPOIMENTOS ============ -->
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section-head section-head--center">
-          <span class="kicker reveal">Depoimentos</span>
-          <h2 class="h2 reveal" style="--delay:.08s">O que dizem <em>nossos convidados</em></h2>
-        </div>
-        <div class="testimonial-grid testimonial-grid--scroll" data-testimonials data-limit="3"></div>
-        <p style="text-align:center;margin-top:40px"><a class="link-arrow" href="sobre.html#depoimentos">Ler mais depoimentos <span data-icon="arrow-right"></span></a></p>
+        <div class="review-grid" data-reviews data-limit="3"></div>
       </div>
     </section>
 
     <!-- ============ INSTAGRAM ============ -->
-    <section class="section">
+    <section class="section section--alt" aria-labelledby="insta-title">
       <div class="container insta">
-        <div>
-          <span class="kicker reveal">Instagram</span>
-          <h2 class="h2 reveal" style="--delay:.08s">Os bastidores estão no <em>nosso perfil</em></h2>
-          <p class="lead reveal" style="--delay:.16s">Pratos novos, noites especiais e datas comemorativas aparecem primeiro por lá. Siga e marque a gente nas suas fotos.</p>
-          <a class="insta__handle reveal" style="--delay:.2s" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/"><span data-icon="instagram"></span><span data-config="instagram-handle">@calaboucorestaurante</span></a>
-          <div class="reveal" style="--delay:.26s;margin-top:28px">
+        <div class="insta__copy">
+          <p class="eyebrow reveal">Instagram</p>
+          <h2 class="t-headline reveal" style="--delay:.06s" id="insta-title"><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></h2>
+          <p class="t-lead reveal" style="--delay:.12s;margin-top:16px">Pratos novos, noites especiais e datas comemorativas aparecem primeiro por lá. Siga e marque a gente nas suas fotos.</p>
+          <div class="btn-row reveal" style="--delay:.18s;margin-top:28px">
             <a class="btn btn--primary" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/"><span data-icon="instagram"></span>Seguir no Instagram</a>
           </div>
         </div>
@@ -198,75 +209,71 @@
       </div>
     </section>
 
-    <section class="section section--tight">
-      <div class="container">
-        <div class="cta-band reveal">
-          <div>
-            <span class="kicker">Reservas</span>
-            <h2 class="h2">Sua mesa está <em>à sua espera.</em></h2>
-            <p class="lead">Garanta seu lugar para hoje ou para aquela data especial. Recebemos casais, famílias e grupos.</p>
-          </div>
-          <div class="cta-band__actions">
-            <a class="btn btn--gold" data-link="reserve" href="contato.html#reserva"><span data-channel-icon></span>Reservar agora</a>
-            <a class="btn btn--ghost" href="contato.html#horarios"><span data-icon="clock"></span>Ver horários</a>
-          </div>
+    <!-- ============ CHAMADA FINAL ============ -->
+    <section class="tile tile--cta" aria-labelledby="cta-title">
+      <div class="tile__bg media media--hero">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="tile__copy">
+        <h2 class="t-headline reveal" id="cta-title">Sua mesa está pronta.</h2>
+        <p class="t-subhead reveal" style="--delay:.06s">Para hoje ou para aquela data especial.</p>
+        <div class="btn-row reveal" style="--delay:.12s">
+          <a class="btn btn--primary btn--lg" href="contato.html#reserva">Reservar mesa</a>
+          <a class="btn btn--ghost btn--lg" href="cardapio.html">Pedir pelo cardápio</a>
         </div>
+        <p class="t-small reveal" style="--delay:.18s;margin-top:18px"><span data-icon="clock" style="width:15px;height:15px;vertical-align:-2px;margin-right:6px"></span><span data-config="hours-summary">Ter a Dom, a partir das 18h</span></p>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-about">
-          <a class="brand" href="index.html" aria-label="Calabouço Restaurante — página inicial">
-            <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <defs>
-            <linearGradient id="flameF" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stop-color="#b8281f"/><stop offset=".6" stop-color="#e0702c"/><stop offset="1" stop-color="#ecc97f"/>
-            </linearGradient>
-          </defs>
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M7 45V21a17 17 0 0 1 34 0v24" stroke-width="2"/>
-            <path d="M18 45V14.5M24 45V11M30 45V14.5M12 30h24" stroke-width="1" opacity=".5"/>
-            <path d="M4 45h40" stroke-width="2"/>
-          </g>
-          <path d="M24 20c3.6 3.9 6 6.8 6 10.6a6 6 0 0 1-12 0c0-2.4 1.2-4.3 2.6-5.8.1 1.8.9 3 2.2 3.4-.4-3 .1-5.6 1.2-8.2z" fill="url(#flameF)"/>
-        </svg>
-            <span class="brand__text"><span class="brand__name">Calabouço</span><span class="brand__sub">Restaurante · Pizzaria</span></span>
-          </a>
-          <p>Pizzas artesanais, massas, carnes e vinhos em um refúgio de pedra, fogo e luz de velas.</p>
-          <div class="socials">
-            <a class="social-btn" data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" aria-label="Instagram do Calabouço"><span data-icon="instagram"></span></a>
-            <a class="social-btn" data-link="contact" data-whatsapp-only href="contato.html" aria-label="WhatsApp do Calabouço"><span data-channel-icon></span></a>
-            <a class="social-btn" data-link="maps" href="contato.html" aria-label="Como chegar"><span data-icon="map-pin"></span></a>
-          </div>
-        </div>
+  <footer class="footer">
+    <div class="container container--wide footer__inner">
+      <div class="footer__note">
+        <p>Preços em reais, sujeitos a alteração sem aviso prévio. Imagens meramente ilustrativas.</p>
+        <p>Pedidos e reservas enviados pelo site são confirmados pela nossa equipe. Pizzas grandes com 8 pedaços — consulte opções meia a meia.</p>
+      </div>
+      <div class="footer__cols">
         <div>
-          <h4>Navegação</h4>
+          <h3>Cardápio</h3>
           <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="cardapio.html">Cardápio</a></li>
-            <li><a href="sobre.html">Sobre nós</a></li>
-            <li><a href="contato.html">Contato e reservas</a></li>
+            <li><a href="cardapio.html?cat=pizzas-da-casa">Pizzas da Casa</a></li>
+            <li><a href="cardapio.html?cat=pizzas-tradicionais">Pizzas Tradicionais</a></li>
+            <li><a href="cardapio.html?cat=massas">Massas</a></li>
+            <li><a href="cardapio.html?cat=pratos-principais">Pratos Principais</a></li>
+            <li><a href="cardapio.html?cat=sobremesas">Sobremesas</a></li>
+            <li><a href="cardapio.html?cat=bebidas">Vinhos &amp; Drinks</a></li>
           </ul>
         </div>
         <div>
-          <h4>Horários</h4>
-          <ul class="footer-hours" data-hours-list></ul>
+          <h3>A casa</h3>
+          <ul>
+            <li><a href="sobre.html">Nossa história</a></li>
+            <li><a href="sobre.html#depoimentos">Depoimentos</a></li>
+            <li><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/">Instagram</a></li>
+          </ul>
+          <h3 style="margin-top:22px">Atendimento</h3>
+          <ul>
+            <li><a href="contato.html#reserva">Reservar mesa</a></li>
+            <li><a data-link="maps" href="contato.html">Como chegar</a></li>
+            <li><a data-link="tel" href="contato.html" data-config="phone">Telefone</a></li>
+          </ul>
         </div>
         <div>
-          <h4>Contato</h4>
-          <ul class="footer-contact">
-            <li><span data-icon="map-pin"></span><a data-link="maps" href="contato.html"><span data-config="address-line"></span><br><span data-config="address-city"></span></a></li>
-            <li><span data-icon="phone"></span><a data-link="tel" href="contato.html" data-config="phone"></a></li>
-            <li><span data-icon="instagram"></span><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
+          <h3>Endereço</h3>
+          <ul>
+            <li><span data-config="address-line">Endereço</span></li>
+            <li><span data-config="address-city"></span></li>
+            <li><a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></li>
           </ul>
+        </div>
+        <div>
+          <h3>Horários</h3>
+          <ul class="footer__hours" data-hours-list></ul>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="footer__bottom">
         <span>© <span data-config="year">2026</span> Calabouço Restaurante. Todos os direitos reservados.</span>
-        <span>Imagens meramente ilustrativas.</span>
+        <span>Restaurante &amp; Pizzaria · <a data-link="instagram" href="https://www.instagram.com/calaboucorestaurante/" data-config="instagram-handle">@calaboucorestaurante</a></span>
       </div>
     </div>
   </footer>
