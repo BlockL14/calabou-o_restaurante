@@ -15,10 +15,10 @@
   // fb = ícone exibido caso a foto não carregue (pizza, pasta, plate, dessert, wine, glass)
   window.CALABOUCO_CATEGORIES = [
     { id: "entradas", label: "Entradas", short: "Entradas", icon: "plate", fb: "plate", img: u("1540189549336-e6e99c3679fe", 1200) },
-    { id: "pizzas-tradicionais", label: "Pizzas Tradicionais", short: "Tradicionais", icon: "pizza", fb: "pizza", img: u("1574071318508-1cdbab80d002", 1200) },
-    { id: "pizzas-da-casa", label: "Pizzas da Casa", short: "Da Casa", icon: "crown", fb: "pizza", img: u("1513104890138-7c749659a591", 1200) },
+    { id: "pizzas-tradicionais", label: "Pizzas Tradicionais", short: "Pizza tradicional", icon: "pizza", fb: "pizza", img: u("1574071318508-1cdbab80d002", 1200) },
+    { id: "pizzas-da-casa", label: "Pizzas da Casa", short: "Pizza da casa", icon: "crown", fb: "pizza", img: u("1513104890138-7c749659a591", 1200) },
     { id: "massas", label: "Massas", short: "Massas", icon: "pasta", fb: "pasta", img: u("1473093295043-cdd812d0e601", 1200) },
-    { id: "pratos-principais", label: "Pratos Principais", short: "Principais", icon: "plate", fb: "plate", img: u("1600891964092-4316c288032e", 1200) },
+    { id: "pratos-principais", label: "Pratos Principais", short: "Prato principal", icon: "plate", fb: "plate", img: u("1600891964092-4316c288032e", 1200) },
     { id: "sobremesas", label: "Sobremesas", short: "Sobremesas", icon: "dessert", fb: "dessert", img: u("1551024506-0bccd828d307", 1200) },
     { id: "bebidas", label: "Vinhos & Drinks", short: "Bebidas", icon: "wine", fb: "wine", img: u("1510812431401-41d2bd2722f3", 1200) },
   ];
@@ -251,7 +251,7 @@
       price: 34,
       desc: "Creme italiano de baunilha com calda quente de frutas vermelhas.",
       meta: "Individual",
-      tags: ["vegetariano"],
+      tags: [],
       img: u("1488477181946-6428a0291777"),
     },
     {
@@ -292,7 +292,7 @@
       name: "Negroni Calabouço",
       price: 42,
       desc: "Gin, Campari e vermute rosso, com casca de laranja queimada.",
-      meta: "Drink autoral",
+      meta: "Drink da casa",
       tags: ["assinatura"],
       featured: true,
       img: u("1514362545857-3bc16c4c7d1b"),
@@ -304,7 +304,7 @@
       price: 22,
       desc: "Xarope artesanal (frutas vermelhas, maçã verde ou limão-siciliano) com água gaseificada.",
       meta: "Sem álcool · 400 ml",
-      tags: ["vegetariano"],
+      tags: [],
       img: u("1470337458703-46ad1756a187"),
     },
   ];

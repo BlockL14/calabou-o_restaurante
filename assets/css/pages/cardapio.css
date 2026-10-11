@@ -166,7 +166,7 @@
   color: var(--text-2);
 }
 .cat-btn.is-empty:not([aria-pressed="true"]) {
-  opacity: 0.42;
+  color: var(--text-3);
 }
 
 /* Grupos de filtros */
@@ -889,6 +889,9 @@
    CELULAR / TABLET (<1024px) — abas fixas + lista estilo iFood
    ========================================================================== */
 @media (max-width: 1023px) {
+  html {
+    scroll-padding-top: calc(var(--nav-h) + var(--chips-h, 60px) + 70px);
+  }
   .menu {
     --chips-h: 56px;
   }
@@ -997,7 +1000,8 @@
     color: #120c09;
   }
   .cat-btn.is-empty:not([aria-pressed="true"]) {
-    opacity: 0.5;
+    color: var(--text-3);
+    border-style: dashed;
   }
 
   /* Barra fixa 2: busca + filtros */
@@ -1323,5 +1327,12 @@
     right: auto;
     width: 560px;
     margin-left: -280px;
+  }
+}
+
+/* Dica de atalho só faz sentido com teclado físico (desktop) */
+@media (max-width: 1023px), (hover: none) {
+  .menu-search__key {
+    display: none;
   }
 }

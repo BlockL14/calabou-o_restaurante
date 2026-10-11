@@ -330,6 +330,8 @@
       telephone: CFG.phone && CFG.phone.tel,
       sameAs: [igUrl],
       acceptsReservations: true,
+      menu: new URL("cardapio.html", location.href).href,
+      image: IMG("1559339352-11d035aa65de", 1200),
       address: {
         "@type": "PostalAddress",
         streetAddress: addr.street,
@@ -382,19 +384,43 @@
     if (!toggle || !links) return;
     const setOpen = (open) => {
       toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+      toggle.setAttribute("aria-label", open ? "Fechar navegação" : "Abrir navegação");
       links.classList.toggle("is-open", open);
       document.body.classList.toggle("nav-open", open);
+      // Com o menu aberto, o conteúdo de trás fica inerte (sem foco nem clique)
+      $$("main, footer, .ribbon, .fab, .bag-bar").forEach((el) => (el.inert = open));
+      if (open) {
+        setTimeout(() => {
+          const a = $("a", links);
+          if (a) a.focus();
+        }, 60);
+      }
     };
     toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
     $$("a", links).forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && links.classList.contains("is-open")) {
+      if (!links.classList.contains("is-open")) return;
+      if (e.key === "Escape") {
         setOpen(false);
         toggle.focus();
+        return;
+      }
+      if (e.key === "Tab") {
+        const items = [...$$("a", links), ...$$(".gnav__actions button")].filter((el) => el.offsetParent !== null);
+        const i = items.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) {
+          e.preventDefault();
+          items[items.length - 1].focus();
+        } else if (!e.shiftKey && (i === -1 || i === items.length - 1)) {
+          e.preventDefault();
+          items[0].focus();
+        }
       }
     });
-    window.matchMedia("(min-width: 834px)").addEventListener("change", (mq) => mq.matches && setOpen(false));
+    const wideMQ = window.matchMedia("(min-width: 834px)");
+    const onWide = (mq) => mq.matches && setOpen(false);
+    if (wideMQ.addEventListener) wideMQ.addEventListener("change", onWide);
+    else if (wideMQ.addListener) wideMQ.addListener(onWide);
   }
 
   let revealObserver = null;
@@ -517,11 +543,17 @@
         return card ? card.getBoundingClientRect().width + 20 : 320;
       };
       const update = () => {
-        if (prev) prev.disabled = track.scrollLeft <= 4;
-        if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        const atStart = track.scrollLeft <= 4;
+        const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        // Move o foco antes de desabilitar, para ele não cair no <body>
+        if (atEnd && next && document.activeElement === next && prev && !atStart) prev.focus();
+        if (atStart && prev && document.activeElement === prev && next && !atEnd) next.focus();
+        if (prev) prev.disabled = atStart;
+        if (next) next.disabled = atEnd;
       };
-      prev && prev.addEventListener("click", () => track.scrollBy({ left: -step() * 2, behavior: "smooth" }));
-      next && next.addEventListener("click", () => track.scrollBy({ left: step() * 2, behavior: "smooth" }));
+      const behavior = reduceMotion ? "auto" : "smooth";
+      prev && prev.addEventListener("click", () => track.scrollBy({ left: -step() * 2, behavior }));
+      next && next.addEventListener("click", () => track.scrollBy({ left: step() * 2, behavior }));
       track.addEventListener("scroll", update, { passive: true });
       window.addEventListener("resize", update);
       update();
@@ -583,15 +615,15 @@
   }
 
   /** Cartão vertical (vitrines e grade do cardápio no desktop). */
-  function productCard(item, i = 0) {
+  function productCard(item, i = 0, eager = false) {
     const signature = item.tags.includes("assinatura");
     return `
-      <article class="product-card reveal" style="--delay:${Math.min(i, 6) * 0.05}s" data-product="${item.id}" tabindex="0" aria-label="${escapeHTML(item.name)}, ${formatPrice(item.price)}">
+      <article class="product-card reveal" style="--delay:${Math.min(i, 6) * 0.05}s" data-product="${item.id}">
         ${signature ? '<span class="badge-float">Assinatura</span>' : ""}
-        <div class="media ${fbClass(item)}"><img src="${sized(item.img, 700)}" alt="${escapeHTML(item.name)}" loading="lazy" decoding="async" width="700" height="700"></div>
+        <div class="media ${fbClass(item)}"><img src="${sized(item.img, 700)}" alt="" loading="${eager ? "eager" : "lazy"}" decoding="async" width="700" height="700"></div>
         <div class="product-card__body">
           <p class="product-card__eyebrow">${escapeHTML(catOf(item).short || "")}</p>
-          <h3 class="product-card__name">${escapeHTML(item.name)}</h3>
+          <h3 class="product-card__name"><button class="product-card__open" type="button" aria-label="${escapeHTML(item.name)}, ${formatPrice(item.price)} — ver detalhes">${escapeHTML(item.name)}</button></h3>
           <p class="product-card__desc">${escapeHTML(item.desc)}</p>
           <div class="product-card__foot">
             <span class="price">${formatPrice(item.price)}</span>
@@ -604,9 +636,9 @@
   /** Linha com miniatura à direita (cardápio no celular, estilo iFood). */
   function productRow(item) {
     return `
-      <article class="product-row" data-product="${item.id}" tabindex="0" aria-label="${escapeHTML(item.name)}, ${formatPrice(item.price)}">
+      <article class="product-row" data-product="${item.id}">
         <div>
-          <h3 class="product-row__name">${escapeHTML(item.name)}</h3>
+          <h3 class="product-row__name"><button class="product-row__open" type="button" aria-label="${escapeHTML(item.name)}, ${formatPrice(item.price)} — ver detalhes">${escapeHTML(item.name)}</button></h3>
           <p class="product-row__desc">${escapeHTML(item.desc)}</p>
           <div class="product-row__meta"><span class="price">${formatPrice(item.price)}</span>${tagsHTML(item)}</div>
         </div>
@@ -680,7 +712,16 @@
      ------------------------------------------------------------------------ */
   const BAG_KEY = "calabouco:sacola";
   const bag = {
-    items: store.get(BAG_KEY, {}),
+    items: (() => {
+      const v = store.get(BAG_KEY, {});
+      if (!v || typeof v !== "object" || Array.isArray(v)) return {};
+      const clean = {};
+      Object.keys(v).forEach((id) => {
+        const q = Math.floor(Number(v[id]));
+        if (q > 0 && MENU.some((m) => m.id === id)) clean[id] = Math.min(q, 50);
+      });
+      return clean;
+    })(),
     save() {
       store.set(BAG_KEY, this.items);
       updateBagUI();
@@ -712,13 +753,15 @@
   };
 
   function buildShell() {
-    const modes = (CFG.orderModes || []).map((m) => `<option>${escapeHTML(m)}</option>`).join("");
+    const modes =
+      '<option value="" selected>Escolha uma opção</option>' +
+      (CFG.orderModes || []).map((m) => `<option>${escapeHTML(m)}</option>`).join("");
     document.body.insertAdjacentHTML(
       "beforeend",
       `
       <a class="fab" data-link="contact" href="contato.html" aria-label="Falar com o Calabouço pelo ${channel.name}">${icon(channel.icon)}</a>
 
-      <button class="bag-bar" type="button" data-bag-open aria-label="Ver sacola">
+      <button class="bag-bar" type="button" data-bag-open>
         <span><span class="bag-bar__count" data-bag-count>0</span>Ver sacola</span>
         <span data-bag-total class="tabular">R$ 0</span>
       </button>
@@ -736,9 +779,9 @@
           <p class="sheet__price" data-sheet-price></p>
           <div class="sheet__actions">
             <div class="qty" role="group" aria-label="Quantidade">
-              <button type="button" data-sheet-qty="-1" aria-label="Diminuir">${icon("minus")}</button>
+              <button type="button" data-sheet-qty="-1" aria-label="Diminuir quantidade">${icon("minus")}</button>
               <output data-sheet-qty-value aria-live="polite">1</output>
-              <button type="button" data-sheet-qty="1" aria-label="Aumentar">${icon("plus")}</button>
+              <button type="button" data-sheet-qty="1" aria-label="Aumentar quantidade">${icon("plus")}</button>
             </div>
             <button class="btn btn--primary btn--block" type="button" data-sheet-add>Adicionar</button>
           </div>
@@ -755,7 +798,7 @@
         <div class="drawer__foot" data-bag-foot>
           <div class="drawer__total"><span>Total estimado</span><strong data-bag-total>R$ 0</strong></div>
           <div class="field">
-            <label class="label" for="bag-mode">Como prefere?</label>
+            <label class="label" for="bag-mode">Como prefere receber?</label>
             <select id="bag-mode" class="select">${modes}</select>
           </div>
           <div class="field">
@@ -778,7 +821,8 @@
   const dialogs = { lastFocus: null, open: null };
   function openDialog(el, backdrop) {
     if (dialogs.open) closeDialog();
-    dialogs.lastFocus = document.activeElement;
+    const af = document.activeElement;
+    dialogs.lastFocus = af && af.closest && af.closest(".toast") ? $(".gnav [data-bag-open]") : af;
     dialogs.open = { el, backdrop };
     el.classList.add("is-open");
     el.setAttribute("aria-hidden", "false");
@@ -825,7 +869,9 @@
   function updateSheet() {
     if (!sheetItem) return;
     $("[data-sheet-qty-value]").textContent = sheetQty;
-    $('[data-sheet-qty="-1"]').disabled = sheetQty <= 1;
+    const minus = $('[data-sheet-qty="-1"]');
+    if (sheetQty <= 1 && document.activeElement === minus) $('[data-sheet-qty="1"]').focus();
+    minus.disabled = sheetQty <= 1;
     $("[data-sheet-add]").textContent = `Adicionar · ${formatPrice(sheetItem.price * sheetQty)}`;
   }
 
@@ -840,10 +886,26 @@
     $$("[data-bag-total]").forEach((el) => (el.textContent = total));
     const barEl = $(".bag-bar");
     if (barEl) barEl.classList.toggle("is-visible", count > 0);
+    const info = count ? `, ${count} ${count === 1 ? "item" : "itens"}, ${total}` : "";
+    $$(".gnav [data-bag-open]").forEach((b) => b.setAttribute("aria-label", `Abrir sacola${info}`));
+    if (barEl) barEl.setAttribute("aria-label", `Ver sacola${info}`);
 
     const body = $("[data-bag-body]");
     const foot = $("[data-bag-foot]");
     if (!body) return;
+    // Preserva o foco ao recriar a lista (teclado e leitores de tela)
+    const drawer = body.closest(".drawer");
+    const af = document.activeElement;
+    const hadFocus = drawer && af && drawer.contains(af) && (body.contains(af) || foot.contains(af));
+    const key = af && af.dataset && af.dataset.qty ? [af.dataset.qty, af.dataset.delta] : null;
+    const refocus = () => {
+      if (!hadFocus) return;
+      const t =
+        (key && body.querySelector(`[data-qty="${key[0]}"][data-delta="${key[1]}"]`)) ||
+        (key && body.querySelector("[data-qty]")) ||
+        (!bag.count() && drawer.querySelector("[data-bag-close]"));
+      if (t) t.focus();
+    };
     const lines = bag.lines();
     if (!lines.length) {
       body.innerHTML = `
@@ -853,6 +915,7 @@
           <p style="margin-top:10px"><a class="link" href="cardapio.html">Ver o cardápio ${icon("chevron-right")}</a></p>
         </div>`;
       foot.hidden = true;
+      refocus();
       return;
     }
     foot.hidden = false;
@@ -866,14 +929,17 @@
             <p class="bag-item__price">${formatPrice(item.price * qty)}</p>
           </div>
           <div class="qty qty--sm" role="group" aria-label="Quantidade de ${escapeHTML(item.name)}">
-            <button type="button" data-qty="${item.id}" data-delta="-1" aria-label="Diminuir">${icon(qty === 1 ? "trash" : "minus")}</button>
-            <output aria-live="polite">${qty}</output>
-            <button type="button" data-qty="${item.id}" data-delta="1" aria-label="Aumentar">${icon("plus")}</button>
+            <button type="button" data-qty="${item.id}" data-delta="-1" aria-label="${
+              qty === 1 ? `Remover ${escapeHTML(item.name)} da sacola` : `Diminuir quantidade de ${escapeHTML(item.name)}`
+            }">${icon(qty === 1 ? "trash" : "minus")}</button>
+            <span class="qty__value" aria-hidden="true">${qty}</span>
+            <button type="button" data-qty="${item.id}" data-delta="1" aria-label="Aumentar quantidade de ${escapeHTML(item.name)}">${icon("plus")}</button>
           </div>
         </div>`
       )
       .join("");
     checkImages(body);
+    refocus();
   }
 
   function bagMessage() {
@@ -888,12 +954,19 @@
 
   function addToBag(item, qty = 1, button) {
     bag.add(item.id, qty);
-    if (button) {
+    if (button && button.classList.contains("add-btn")) {
       button.classList.add("is-added");
       button.innerHTML = icon("check");
       setTimeout(() => {
         button.classList.remove("is-added");
         button.innerHTML = icon("plus");
+      }, 1400);
+    } else if (button && !button.dataset.label) {
+      button.dataset.label = button.innerHTML;
+      button.innerHTML = `Adicionado ${icon("check")}`;
+      setTimeout(() => {
+        button.innerHTML = button.dataset.label;
+        delete button.dataset.label;
       }, 1400);
     }
     toast(`${qty > 1 ? qty + "x " : ""}${item.name} na sacola`, "check", 3200, {
@@ -908,6 +981,12 @@
   function initInteractions() {
     buildShell();
     updateBagUI();
+    window.addEventListener("storage", (e) => {
+      if (e.key !== BAG_KEY) return;
+      const v = store.get(BAG_KEY, {});
+      bag.items = v && typeof v === "object" && !Array.isArray(v) ? v : {};
+      updateBagUI();
+    });
 
     document.addEventListener("click", (e) => {
       const add = e.target.closest("[data-add]");
@@ -949,12 +1028,6 @@
     });
 
     document.addEventListener("keydown", (e) => {
-      const product = e.target.closest && e.target.closest("[data-product]");
-      if (product && (e.key === "Enter" || e.key === " ") && e.target === product) {
-        e.preventDefault();
-        openSheet(product.dataset.product);
-        return;
-      }
       if (!dialogs.open) return;
       if (e.key === "Escape") return closeDialog();
       if (e.key === "Tab") {
@@ -964,7 +1037,10 @@
         if (!focusables.length) return;
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
+        if (!focusables.includes(document.activeElement)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        } else if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
         } else if (!e.shiftKey && document.activeElement === last) {

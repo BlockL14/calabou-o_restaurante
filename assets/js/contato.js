@@ -126,7 +126,10 @@
     function renderPeople(bump) {
       el.value.textContent = state.more ? "12+" : String(state.people);
       el.unit.textContent = state.more ? "evento" : state.people === 1 ? "pessoa" : "pessoas";
-      el.minus.disabled = !state.more && state.people <= 1;
+      const lockMinus = !state.more && state.people <= 1;
+      if (lockMinus && document.activeElement === el.minus) el.plus.focus();
+      if (state.more && document.activeElement === el.plus) el.minus.focus();
+      el.minus.disabled = lockMinus;
       el.plus.disabled = state.more;
       el.plus.setAttribute("aria-label", state.people >= MAX_PEOPLE ? "Mais de 12 pessoas (evento)" : "Adicionar uma pessoa");
       el.more.setAttribute("aria-pressed", String(state.more));
@@ -317,7 +320,9 @@
 
     // Máscara de telefone: (41) 99999-8888 ou (41) 3254-6112
     function maskPhone(v) {
-      const dg = v.replace(/\D/g, "").slice(0, 11);
+      let dg = v.replace(/\D/g, "");
+      if (dg.length > 11 && dg.startsWith("55")) dg = dg.slice(2); // +55 do autopreenchimento
+      dg = dg.replace(/^0+/, "").slice(0, 11); // 0 de tronco (041…)
       if (!dg) return "";
       let out = `(${dg.slice(0, 2)}`;
       if (dg.length > 2) {
@@ -328,12 +333,25 @@
       return out;
     }
     el.tel.addEventListener("input", () => {
-      const atEnd = el.tel.selectionStart === el.tel.value.length;
-      const masked = maskPhone(el.tel.value);
-      if (masked !== el.tel.value) {
-        el.tel.value = masked;
-        if (atEnd) el.tel.setSelectionRange(masked.length, masked.length);
+      const v = el.tel.value;
+      const pos = el.tel.selectionStart == null ? v.length : el.tel.selectionStart;
+      const digitsBefore = v.slice(0, pos).replace(/\D/g, "").length;
+      const masked = maskPhone(v);
+      if (masked === v) return;
+      el.tel.value = masked;
+      // Mantém o cursor depois do mesmo número de dígitos
+      let caret = masked.length;
+      if (pos < v.length) {
+        let seen = 0;
+        for (let i = 0; i < masked.length; i++) {
+          if (/\d/.test(masked[i])) seen++;
+          if (seen >= digitsBefore) {
+            caret = i + 1;
+            break;
+          }
+        }
       }
+      el.tel.setSelectionRange(caret, caret);
     });
 
     el.nome.addEventListener("input", update);
@@ -439,8 +457,19 @@
       return lines.join("\n");
     }
 
+    // Aba retomada depois da virada do dia: recarrega para atualizar as datas
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && toISO(new Date()) !== todayISO && !el.nome.value.trim()) location.reload();
+    });
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const nowIso = toISO(new Date());
+      if (state.date && (state.date < nowIso || (state.date === nowIso && state.time && C.toMin(state.time) < nowMinutes()))) {
+        C.toast("O horário escolhido já passou. Atualizamos as opções.", "clock", 4200);
+        setTimeout(() => location.reload(), 1200);
+        return;
+      }
       state.tried = true;
       syncBar();
       const okDate = checkDate(true);

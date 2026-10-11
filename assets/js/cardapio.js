@@ -97,6 +97,7 @@
     /* ---------------------------------------------------------------------
        Estado (lido da URL)
        --------------------------------------------------------------------- */
+    const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
     function readURL() {
       const p = new URLSearchParams(location.search);
       const cat = p.get("cat");
@@ -105,13 +106,13 @@
       const tags = (p.get("tag") || "")
         .split(",")
         .map((t) => t.trim())
-        .filter((t, i, arr) => TAGS[t] && arr.indexOf(t) === i);
+        .filter((t, i, arr) => has(TAGS, t) && arr.indexOf(t) === i);
       return {
-        cat: cat && catById[cat] ? cat : DEFAULTS.cat,
+        cat: cat && has(catById, cat) ? cat : DEFAULTS.cat,
         q: (p.get("q") || "").slice(0, 80),
-        price: price && PRICES[price] ? price : DEFAULTS.price,
+        price: price && has(PRICES, price) ? price : DEFAULTS.price,
         tags,
-        sort: sort && SORTS[sort] ? sort : DEFAULTS.sort,
+        sort: sort && has(SORTS, sort) ? sort : DEFAULTS.sort,
       };
     }
     const state = readURL();
@@ -175,7 +176,7 @@
       .map(
         (c) => `
         <button type="button" class="cat-btn" data-cat="${escapeHTML(c.id)}" aria-pressed="false">
-          ${icon(CAT_ICON[c.id] || c.icon || "plate")}<span class="cat-btn__label">${escapeHTML(c.label)}</span><span class="cat-btn__count tabular" aria-hidden="true"></span>
+          ${icon(CAT_ICON[c.id] || c.icon || "plate")}<span class="cat-btn__label">${escapeHTML(c.label)}</span><span class="cat-btn__count tabular" aria-hidden="true"></span><span class="sr-only" data-cat-sr></span>
         </button>`
       )
       .join("");
@@ -205,9 +206,11 @@
         </div>`;
     }
 
+    // Os 3 primeiros cartões de cada renderização carregam já (LCP no desktop)
+    let eagerLeft = 0;
     function itemsHTML(list, desktop) {
       return desktop
-        ? `<div class="menu-grid">${list.map((e, i) => C.productCard(e.item, i)).join("")}</div>`
+        ? `<div class="menu-grid">${list.map((e, i) => C.productCard(e.item, i, eagerLeft-- > 0)).join("")}</div>`
         : `<div class="menu-list">${list.map((e) => C.productRow(e.item)).join("")}</div>`;
     }
 
@@ -222,16 +225,17 @@
 
     function emptyHTML() {
       const q = state.q.trim();
+      const other = state.cat !== DEFAULTS.cat || state.price !== DEFAULTS.price || state.tags.length > 0;
       return `
         <div class="menu-empty">
           ${icon("search")}
           <h2 class="menu-empty__title">Nada por aqui.</h2>
           <p class="menu-empty__text">${
             q
-              ? `Não encontramos “${escapeHTML(q)}” com os filtros escolhidos.`
+              ? `Não encontramos “${escapeHTML(q)}”${other ? " com os filtros escolhidos" : " no cardápio"}.`
               : "Nenhum item combina com os filtros escolhidos."
           } ${q ? "Tente outra busca ou veja o cardápio completo." : "Remova algum filtro ou veja o cardápio completo."}</p>
-          <button type="button" class="btn btn--light" data-clear-filters>Limpar filtros</button>
+          <button type="button" class="btn btn--light" data-clear-filters>${q && !other ? "Limpar busca" : "Limpar filtros"}</button>
         </div>`;
     }
 
@@ -300,6 +304,7 @@
     let booted = false;
     function render() {
       const desktop = desktopMQ.matches;
+      eagerLeft = 3;
       const pool = INDEX.filter((e) => matches(e, true));
       const list = pool.filter((e) => state.cat === "todos" || e.item.cat === state.cat).sort(SORTS[state.sort].fn);
 
@@ -309,6 +314,8 @@
         const n = id === "todos" ? pool.length : pool.filter((e) => e.item.cat === id).length;
         $(".cat-btn__count", btn).textContent = n;
         btn.classList.toggle("is-empty", n === 0);
+        const sr = $("[data-cat-sr]", btn);
+        if (sr) sr.textContent = n === 0 ? ", nenhum item com estes filtros" : "";
       });
 
       let html;
@@ -454,6 +461,8 @@
     function openSheet() {
       if (sheetOpen || desktopMQ.matches) return;
       sheetOpen = true;
+      const openToast = document.querySelector(".toast");
+      if (openToast) openToast.classList.remove("is-visible");
       sheetLastFocus = document.activeElement;
       sheet.classList.add("is-open");
       sheetBackdrop.classList.add("is-open");
@@ -606,7 +615,7 @@
     document.addEventListener("change", (e) => {
       const sel = e.target;
       if (sel instanceof Element && sel.matches(".menu-sort")) {
-        update({ sort: SORTS[sel.value] ? sel.value : "recomendados" }, { scroll: desktopMQ.matches });
+        update({ sort: has(SORTS, sel.value) ? sel.value : "recomendados" }, { scroll: desktopMQ.matches });
       }
     });
 
@@ -654,9 +663,8 @@
         }
         return;
       }
-      // Atalho "/" para buscar (desktop), como em grandes lojas on-line.
-      const typing = e.target instanceof Element && e.target.closest("input, textarea, select, [contenteditable]");
-      if (e.key === "/" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey && !document.querySelector(".sheet.is-open, .drawer.is-open")) {
+      // Atalho Ctrl/⌘ + K para buscar (combinação com modificador, WCAG 2.1.4)
+      if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey) && !e.altKey && !document.querySelector(".sheet.is-open, .drawer.is-open")) {
         e.preventDefault();
         search.focus();
       }

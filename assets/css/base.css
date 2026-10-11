@@ -129,6 +129,9 @@ figure,
 blockquote {
   margin: 0;
 }
+[hidden] {
+  display: none !important;
+}
 ::selection {
   background: var(--red);
   color: #fff;
@@ -275,6 +278,17 @@ blockquote {
 .tabular {
   font-variant-numeric: tabular-nums;
 }
+h1,
+h2,
+h3,
+.t-subhead {
+  text-wrap: balance;
+}
+p,
+.t-lead,
+.scrub-text {
+  text-wrap: pretty;
+}
 
 /* ---------- Botões e links (pílulas estilo Apple) ---------- */
 .btn {
@@ -413,6 +427,9 @@ blockquote {
 }
 .ribbon a {
   color: var(--amber);
+  text-decoration: underline;
+  text-decoration-color: rgba(242, 181, 68, 0.45);
+  text-underline-offset: 3px;
 }
 .ribbon a:hover {
   text-decoration: underline;
@@ -424,10 +441,18 @@ blockquote {
   inset: 0 0 auto;
   z-index: 100;
   height: var(--nav-h);
+  border-bottom: 1px solid var(--line);
+}
+/* O desfoque fica num pseudo-elemento: backdrop-filter no próprio .gnav
+   faria dele o bloco de contenção do menu fixo do celular. */
+.gnav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(10, 8, 7, 0.86);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--line);
 }
 .gnav__inner {
   height: 100%;
@@ -524,7 +549,7 @@ blockquote {
   :root {
     --nav-h: 48px;
   }
-  .gnav {
+  .gnav::before {
     background: rgba(10, 8, 7, 0.94);
   }
   .gnav__inner {
@@ -532,7 +557,13 @@ blockquote {
   }
   .gnav__links {
     position: fixed;
-    inset: var(--nav-h) 0 0;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     z-index: 99;
     flex-direction: column;
     align-items: stretch;
@@ -817,6 +848,27 @@ blockquote {
   text-transform: uppercase;
   margin-bottom: 6px;
 }
+.product-card__open,
+.product-row__open {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.product-card__open:focus-visible,
+.product-row__open:focus-visible {
+  outline: none;
+}
+.product-card:has(.product-card__open:focus-visible),
+.product-row:has(.product-row__open:focus-visible) {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
 .product-card__name {
   font-size: 19px;
   font-weight: 600;
@@ -1018,6 +1070,11 @@ blockquote {
 @media (max-width: 1000px) {
   .review-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 641px) and (max-width: 1000px) {
+  .review-grid--carousel > .review:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 @media (max-width: 640px) {
@@ -1401,7 +1458,8 @@ blockquote {
   width: 16px;
   height: 16px;
 }
-.qty output {
+.qty output,
+.qty .qty__value {
   min-width: 26px;
   text-align: center;
   font-weight: 600;
@@ -1578,6 +1636,19 @@ blockquote {
   body.has-bag {
     padding-bottom: 84px;
   }
+  html:has(> body.has-bag) {
+    scroll-padding-bottom: 96px;
+  }
+  .gnav__icon-btn,
+  .icon-btn,
+  .qty button {
+    width: 44px;
+    height: 44px;
+  }
+  .qty--sm button {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* Botão flutuante de contato (só desktop, quando a sacola está vazia) */
@@ -1742,7 +1813,9 @@ body.nav-open .fab {
   opacity: 1;
   transform: none;
 }
-.no-js .reveal {
+.no-js .reveal,
+.reveal:focus-visible,
+.reveal:focus-within {
   opacity: 1;
   transform: none;
 }

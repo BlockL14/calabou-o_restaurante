@@ -636,6 +636,32 @@
 }
 
 /* ---------- Canais ---------- */
+/* Rolagem por teclado não para atrás da barra de resumo fixa / sacola */
+html,
+html:has(> body.has-bag) {
+  scroll-padding-bottom: 120px;
+}
+@media (max-width: 833px) {
+  html,
+  html:has(> body.has-bag) {
+    scroll-padding-bottom: 150px;
+  }
+}
+@media (max-width: 1119px) {
+  .channels {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px;
+  }
+}
+@media (max-width: 360px) {
+  .channel {
+    padding-inline: 18px;
+    gap: 12px;
+  }
+  .channel__value {
+    font-size: 16px;
+  }
+}
 .channels-sec .section-head {
   margin-bottom: clamp(28px, 3.6vw, 44px);
 }
@@ -834,10 +860,6 @@
     border-radius: 0 0 var(--r) 0;
     border-left: 1px solid var(--line);
   }
-  .channels {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
   .faq {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -969,4 +991,11 @@
 [data-summary-dock] {
   display: block;
   height: 1px;
+}
+
+/* O status já aparece no cartão "Visite-nos", ao lado do formulário, a partir de 1024px */
+@media (min-width: 1024px) {
+  .rsv-hero .status-pill {
+    display: none;
+  }
 }

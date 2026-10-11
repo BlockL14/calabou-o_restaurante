@@ -7,6 +7,7 @@
   <meta name="description" content="Pizzas de forno, massas, carnes e uma carta de vinhos em um ambiente intimista à luz de velas. Veja o cardápio e reserve sua mesa no Calabouço.">
   <meta name="theme-color" content="#0a0807">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -64,7 +65,7 @@
         <h1 class="t-hero reveal" style="--delay:.06s" id="hero-title">Calabouço</h1>
         <p class="t-subhead reveal" style="--delay:.12s">Pizza de forno, vinho e noites à luz de velas.</p>
         <div class="btn-row reveal" style="--delay:.18s">
-          <a class="btn btn--primary" data-link="reserve" href="contato.html#reserva">Reservar mesa</a>
+          <a class="btn btn--primary" href="contato.html#reserva">Reservar mesa</a>
           <a class="btn btn--secondary" href="cardapio.html">Ver cardápio</a>
         </div>
       </div>
@@ -73,7 +74,7 @@
     <!-- ============ ASSINATURA ============ -->
     <section class="tile tile--full tile--signature" aria-labelledby="sig-title">
       <div class="tile__bg media media--hero">
-        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=70" alt="Pizza Calabouço vista de cima" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=70" alt="Pizza recém-saída do forno, vista de cima" loading="lazy" decoding="async">
       </div>
       <div class="tile__copy">
         <p class="eyebrow reveal">Assinatura da casa</p>
@@ -100,7 +101,7 @@
       <a class="tile tile--half" href="cardapio.html?cat=bebidas">
         <div class="tile__bg media media--hero"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1300&q=70" alt="" loading="lazy" decoding="async"></div>
         <div class="tile__copy">
-          <h2 class="t-title">Carta de vinhos</h2>
+          <h2 class="t-title">Vinhos e drinks</h2>
           <p class="t-subhead">Da taça à garrafa, para cada sabor.</p>
           <span class="link-row"><span class="link">Ver vinhos e drinks <span data-icon="chevron-right"></span></span></span>
         </div>
@@ -132,10 +133,10 @@
         </div>
       </div>
       <div class="scroller" data-scroller>
-        <div class="scroller__track" data-featured role="list" aria-label="Pratos mais pedidos"></div>
+        <div class="scroller__track" data-featured role="group" aria-label="Pratos mais pedidos"></div>
         <div class="scroller__controls">
-          <button class="circle-btn" type="button" data-scroll-prev aria-label="Anteriores"><span data-icon="chevron-left"></span></button>
-          <button class="circle-btn" type="button" data-scroll-next aria-label="Próximos"><span data-icon="chevron-right"></span></button>
+          <button class="circle-btn" type="button" data-scroll-prev aria-label="Pratos anteriores"><span data-icon="chevron-left"></span></button>
+          <button class="circle-btn" type="button" data-scroll-next aria-label="Próximos pratos"><span data-icon="chevron-right"></span></button>
         </div>
       </div>
     </section>
@@ -167,7 +168,7 @@
           <article class="bento-card reveal">
             <span data-icon="wine"></span>
             <h3>Uma carta para cada prato.</h3>
-            <p>Tintos, brancos e drinks autorais escolhidos para acompanhar o cardápio.</p>
+            <p>Tintos selecionados e drinks da casa, escolhidos para acompanhar o cardápio.</p>
           </article>
           <article class="bento-card reveal" style="--delay:.06s">
             <span data-icon="users"></span>
@@ -190,7 +191,7 @@
           <h2 class="t-headline reveal" id="reviews-title">Quem desce,<br><span class="muted">volta.</span></h2>
           <a class="link reveal" href="sobre.html#depoimentos" style="font-size:19px">Ler todos os depoimentos <span data-icon="chevron-right"></span></a>
         </div>
-        <div class="review-grid review-grid--carousel" data-reviews data-limit="3"></div>
+        <div class="review-grid review-grid--carousel" data-reviews data-limit="3" role="region" aria-label="Depoimentos" tabindex="0"></div>
       </div>
     </section>
 

@@ -32,6 +32,7 @@ A interface segue padrões consagrados de landing pages de marcas grandes:
 ### Como o site gera reservas e pedidos
 
 - **Sacola**: o cliente adiciona pratos (pelo botão "+" ou pela ficha do produto), ajusta quantidades e envia o pedido pronto.
+  A sacola fica salva no navegador e sincroniza entre abas.
 - **Reserva**: escolhe pessoas, data e horário (dias fechados e horários passados ficam bloqueados) e envia a solicitação.
 - **Canal de envio**:
   - com o WhatsApp configurado, abre o WhatsApp com a mensagem já escrita;
@@ -52,6 +53,9 @@ Os itens abaixo são **provisórios**. Revise-os antes de divulgar o site:
 6. **História da marca** (`sobre.html`): é um texto institucional proposto. Inclua os fatos reais da casa
    (ano de fundação, fundadores, marcos).
 7. **Fotos**: são imagens temporárias do Unsplash. Troque pelas fotos reais (veja abaixo).
+8. **Formas de pedido** (`config.js`, `orderModes`): "Retirada no local" e "Delivery" só devem ficar se a casa
+   oferecer esses serviços.
+9. **Selos "Vegetariano"** (`data.js`): confirme com a cozinha (queijos com coalho animal, por exemplo).
 
 ## Como editar
 
@@ -129,7 +133,7 @@ https://SEU-DOMINIO/?utm_source=instagram&utm_medium=bio
     ├── js/contato.js      # reserva
     ├── js/sobre.js        # efeitos da página Sobre nós
     ├── fonts/             # Inter (licença SIL OFL)
-    └── img/favicon.svg
+    └── img/                # favicon.svg e apple-touch-icon.png
 ```
 
 **Identidade visual**:

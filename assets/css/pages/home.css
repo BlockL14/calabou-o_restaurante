@@ -26,8 +26,11 @@
   border-top: 1px solid var(--line);
 }
 .tile--signature .tile__bg::after {
-  background: linear-gradient(180deg, rgba(10, 8, 7, 0.92) 0%, rgba(10, 8, 7, 0.45) 36%, rgba(10, 8, 7, 0) 62%),
+  background: linear-gradient(180deg, rgba(10, 8, 7, 0.92) 0%, rgba(10, 8, 7, 0.7) 42%, rgba(10, 8, 7, 0) 68%),
     linear-gradient(0deg, rgba(10, 8, 7, 0.6) 0%, transparent 28%);
+}
+.tile--signature .t-small {
+  color: var(--text);
 }
 .tile--signature .link-row button.link {
   font-size: inherit;
@@ -42,6 +45,10 @@
 }
 .tile-grid .tile:hover .tile__bg img {
   transform: scale(1.04);
+}
+.tile-grid .tile__bg::after {
+  background: linear-gradient(180deg, rgba(10, 8, 7, 0.88) 0%, rgba(10, 8, 7, 0.6) 42%, rgba(10, 8, 7, 0) 66%),
+    linear-gradient(0deg, rgba(10, 8, 7, 0.55) 0%, transparent 30%);
 }
 .tile-grid .tile__copy {
   padding-top: clamp(36px, 4.6vw, 52px);
@@ -135,4 +142,12 @@
 }
 .tile--cta .btn-row {
   margin-top: 28px;
+}
+@media (max-width: 480px) {
+  .tile--cta .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(100%, 320px);
+    margin-inline: auto;
+  }
 }

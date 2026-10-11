@@ -50,6 +50,7 @@ window.CALABOUCO_CONFIG = {
   // Horários oferecidos no formulário de reserva.
   reservationSlots: { start: "18:00", end: "22:30", step: 30 },
 
-  // Opções exibidas no envio da "Minha seleção" (pedido).
-  orderModes: ["Pedido para a mesa reservada", "Retirada no local", "Delivery (consultar área)"],
+  // Opções exibidas ao enviar a sacola (pedido). CONFIRMAR quais serviços a casa
+  // realmente oferece (retirada, delivery) antes de publicar.
+  orderModes: ["Pedido para a mesa reservada", "Retirada no local", "Delivery (consulte a área)"],
 };
